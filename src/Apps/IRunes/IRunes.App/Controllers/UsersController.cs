@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using IRunes.Data;
+using IRunes.Models;
+using SIS.HTTP.Requests.Contracts;
+using SIS.HTTP.Responses.Contracts;
+using SIS.MvcFramework;
+using SIS.MvcFramework.Attributes.Http;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using IRunes.Data;
-using IRunes.Models;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using SIS.HTTP.Requests.Contracts;
-using SIS.HTTP.Responses.Contracts;
 
 namespace IRunes.App.Controllers
 {
-    public class UsersController : BaseController
+    public class UsersController : Controller
     {
         private string HashPassword(string password)
         {
@@ -25,12 +26,13 @@ namespace IRunes.App.Controllers
             return this.View();
         }
 
+        [HttpPost(ActionName = "Login")]
         public IHttpResponse LoginConfirm(IHttpRequest httpRequest)
         {
             using (var context = new RunesDbContext())
             {
-                string username = ((ISet<string>) httpRequest.FormData["username"]).FirstOrDefault();
-                string password = ((ISet<string>) httpRequest.FormData["password"]).FirstOrDefault();
+                string username = ((ISet<string>)httpRequest.FormData["username"]).FirstOrDefault();
+                string password = ((ISet<string>)httpRequest.FormData["password"]).FirstOrDefault();
 
                 User userFromDb = context.Users.FirstOrDefault(user => (user.Username == username
                                                                         || user.Email == username)
@@ -41,7 +43,7 @@ namespace IRunes.App.Controllers
                     return this.Redirect("/Users/Login");
                 }
 
-                this.SignIn(httpRequest, userFromDb);
+                this.SignIn(httpRequest, userFromDb.Id, userFromDb.Username, userFromDb.Email);
             }
 
             return this.Redirect("/");
@@ -52,6 +54,7 @@ namespace IRunes.App.Controllers
             return this.View();
         }
 
+        [HttpPost(ActionName = "Register")]
         public IHttpResponse RegisterConfirm(IHttpRequest httpRequest)
         {
             using (var context = new RunesDbContext())

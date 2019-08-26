@@ -1,12 +1,15 @@
-﻿using System.Text;
-using SIS.HTTP.Enums;
-using SIS.HTTP.Headers;
-using SIS.HTTP.Responses;
+﻿
 
-namespace SIS.WebServer.Result
+namespace SIS.MvcFramework.Result
 {
-    public class TextResult : HttpResponse
+    using System.Text;
+    using SIS.HTTP.Enums;
+    using SIS.HTTP.Headers;
+    using SIS.HTTP.Responses;
+
+    public class TextResult : ActionResult
     {
+        //for texts or sth. else
         public TextResult(string content, HttpResponseStatusCode responseStatusCode, 
             string contentType = "text/plain; charset=utf-8") : base(responseStatusCode)
         {
@@ -14,6 +17,7 @@ namespace SIS.WebServer.Result
             this.Content = Encoding.UTF8.GetBytes(content);
         }
 
+        //for files or picutres
         public TextResult(byte[] content, HttpResponseStatusCode responseStatusCode,
             string contentType = "text/plain; charset=utf-8") : base(responseStatusCode)
         {

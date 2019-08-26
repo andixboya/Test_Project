@@ -3,9 +3,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using SIS.HTTP.Common;
+using SIS.WebServer;
 using SIS.WebServer.Routing.Contracts;
 
-namespace SIS.WebServer
+namespace SIS.MvcFramework
 {
     public class Server
     {
@@ -15,7 +16,7 @@ namespace SIS.WebServer
 
         private readonly TcpListener tcpListener;
 
-        private IServerRoutingTable serverRoutingTable;
+        private readonly IServerRoutingTable serverRoutingTable;
 
         private bool isRunning;
 
@@ -44,7 +45,7 @@ namespace SIS.WebServer
 
             while (this.isRunning)
             {
-                Console.WriteLine("Waiting for client...");
+                //Console.WriteLine("Waiting for client...");
 
                 var client = this.tcpListener.AcceptSocketAsync().GetAwaiter().GetResult();
 

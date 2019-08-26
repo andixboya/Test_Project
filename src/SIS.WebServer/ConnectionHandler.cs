@@ -12,7 +12,7 @@ using SIS.HTTP.Requests;
 using SIS.HTTP.Requests.Contracts;
 using SIS.HTTP.Responses.Contracts;
 using SIS.HTTP.Sessions.Contracts;
-using SIS.WebServer.Result;
+using SIS.MvcFramework.Result;
 using SIS.WebServer.Routing.Contracts;
 using SIS.WebServer.Sessions;
 

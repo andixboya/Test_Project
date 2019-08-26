@@ -45,10 +45,13 @@ namespace SIS.HTTP.Responses
 
         public byte[] GetBytes()
         {
+            //here are the headers and cookies
             byte[] httpResponseBytesWithoutBody = Encoding.UTF8.GetBytes(this.ToString());
 
+            //here is the content
             byte[] httpResponseBytesWithBody = new byte[httpResponseBytesWithoutBody.Length + this.Content.Length];
 
+            //here we connect the content + headers+cookies all together.
             for (int i = 0; i < httpResponseBytesWithoutBody.Length; i++)
             {
                 httpResponseBytesWithBody[i] = httpResponseBytesWithoutBody[i];
