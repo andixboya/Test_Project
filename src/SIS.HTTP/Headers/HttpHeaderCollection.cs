@@ -8,33 +8,33 @@ namespace SIS.HTTP.Headers
 {
     public class HttpHeaderCollection : IHttpHeaderCollection
     {
-        private Dictionary<string, HttpHeader> httpHeaders;
-
         public HttpHeaderCollection()
         {
-            this.httpHeaders = new Dictionary<string, HttpHeader>();
+            this.HttpHeaders = new Dictionary<string, HttpHeader>();
         }
+
+        public Dictionary<string, HttpHeader> HttpHeaders { get; set; }
 
         public void AddHeader(HttpHeader header)
         {
             CoreValidator.ThrowIfNull(header, nameof(header));
-            this.httpHeaders.Add(header.Key, header);
+            this.HttpHeaders.Add(header.Key, header);
         }
 
         public bool ContainsHeader(string key)
         {
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            return this.httpHeaders.ContainsKey(key);
+            return this.HttpHeaders.ContainsKey(key);
         }
 
         public HttpHeader GetHeader(string key)
         {
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            return this.httpHeaders[key];
+            return this.HttpHeaders[key];
         }
 
         public override string ToString() => string.Join("\r\n",
-            this.httpHeaders.Values.Select(header => header.ToString()));
+            this.HttpHeaders.Values.Select(header => header.ToString()));
 
     }
 }

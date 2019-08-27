@@ -24,6 +24,7 @@ namespace SIS.HTTP.Sessions
 
             // TODO: Validation for existing parameter (maybe throw exception)
 
+
             return this.sessionParameters[parameterName];
         }
 

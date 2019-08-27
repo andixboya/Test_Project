@@ -8,33 +8,40 @@ using SIS.HTTP.Responses;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Attributes;
 using SIS.MvcFramework.Attributes.Http;
+using SIS.MvcFramework.Attributes.Security;
+using SIS.MvcFramework.Result;
 
 namespace IRunes.App.Controllers
 {
     public class TracksController : Controller
     {
-        public IHttpResponse Create(IHttpRequest httpRequest)
-        {
-            if (!this.IsLoggedIn(httpRequest))
-            {
-                return this.Redirect("/Users/Login");
-            }
 
-            string albumId = httpRequest.QueryData["albumId"].ToString();
+        [Authorize]
+        public ActionResult Create()
+        {
+            //this was replaced by authorized!
+            //if (!this.IsLoggedIn())
+            //{
+            //    return this.Redirect("/Users/Login");
+            //}
+
+            string albumId = this.Request.QueryData["albumId"].ToString();
 
             this.ViewData["AlbumId"] = albumId;
             return this.View();
         }
 
+
         [HttpPost(ActionName ="Create")]
-        public IHttpResponse CreateConfirm(IHttpRequest httpRequest)
+        [Authorize]
+        public ActionResult CreateConfirm()
         {
-            if (!this.IsLoggedIn(httpRequest))
+            if (!this.IsLoggedIn())
             {
                 return this.Redirect("/Users/Login");
             }
 
-            string albumId = httpRequest.QueryData["albumId"].ToString();
+            string albumId = this.Request.QueryData["albumId"].ToString();
 
             using (var context = new RunesDbContext())
             {
@@ -45,9 +52,9 @@ namespace IRunes.App.Controllers
                     return this.Redirect("/Albums/All");
                 }
 
-                string name = ((ISet<string>)httpRequest.FormData["name"]).FirstOrDefault();
-                string link = ((ISet<string>)httpRequest.FormData["link"]).FirstOrDefault();
-                string price = ((ISet<string>)httpRequest.FormData["price"]).FirstOrDefault();
+                string name = ((ISet<string>)this.Request.FormData["name"]).FirstOrDefault();
+                string link = ((ISet<string>)this.Request.FormData["link"]).FirstOrDefault();
+                string price = ((ISet<string>)this.Request.FormData["price"]).FirstOrDefault();
 
                 Track trackForDb = new Track
                 {
@@ -67,15 +74,18 @@ namespace IRunes.App.Controllers
             return this.Redirect($"/Albums/Details?id={albumId}");
         }
 
-        public IHttpResponse Details(IHttpRequest httpRequest)
-        {
-            if (!this.IsLoggedIn(httpRequest))
-            {
-                return this.Redirect("/Users/Login");
-            }
 
-            string albumId = httpRequest.QueryData["albumId"].ToString();
-            string trackId = httpRequest.QueryData["trackId"].ToString();
+        [Authorize]
+        public ActionResult Details()
+        {
+            //this was replaced by authorized!
+            //if (!this.IsLoggedIn())
+            //{
+            //    return this.Redirect("/Users/Login");
+            //}
+
+            string albumId = this.Request.QueryData["albumId"].ToString();
+            string trackId = this.Request.QueryData["trackId"].ToString();
 
             using (var context = new RunesDbContext())
             {

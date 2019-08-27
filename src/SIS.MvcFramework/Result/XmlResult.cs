@@ -12,7 +12,7 @@ namespace SIS.MvcFramework.Result
     public class XmlResult :ActionResult
     {
         //we`ll receive it as text still. (not byte array)
-        public XmlResult(string content, HttpResponseStatusCode httpResponseStatus) 
+        public XmlResult(string content, HttpResponseStatusCode httpResponseStatus=HttpResponseStatusCode.Ok) 
             : base(httpResponseStatus)
         {
             this.AddHeader(new HttpHeader(HttpHeader.ContentType,HttpHeaderConstants.XmlMime));

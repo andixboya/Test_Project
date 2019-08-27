@@ -16,6 +16,7 @@ namespace SIS.MvcFramework.Result
         {
             this.AddHeader(new HttpHeader(HttpHeader.ContentLength, fileContent.Length.ToString()));
             this.AddHeader(new HttpHeader(HttpHeader.ContentDisposition, HttpHeaderConstants.AttachmentMime));
+            
             this.Content = fileContent;
         }
 

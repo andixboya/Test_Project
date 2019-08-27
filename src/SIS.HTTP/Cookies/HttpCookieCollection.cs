@@ -8,25 +8,25 @@ namespace SIS.HTTP.Cookies
 {
     public class HttpCookieCollection : IHttpCookieCollection
     {
-        private Dictionary<string, HttpCookie> httpCookies;
+        public Dictionary<string, HttpCookie> HttpCookies { get; set; }
 
         public HttpCookieCollection()
         {
-            this.httpCookies = new Dictionary<string, HttpCookie>();
+            this.HttpCookies = new Dictionary<string, HttpCookie>();
         }
 
         public void AddCookie(HttpCookie httpCookie)
         {
             CoreValidator.ThrowIfNull(httpCookie, nameof(httpCookie));
 
-            this.httpCookies.Add(httpCookie.Key, httpCookie);
+            this.HttpCookies.Add(httpCookie.Key, httpCookie);
         }
 
         public bool ContainsCookie(string key)
         {
             CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
 
-            return this.httpCookies.ContainsKey(key);
+            return this.HttpCookies.ContainsKey(key);
         }
 
         public HttpCookie GetCookie(string key)
@@ -35,17 +35,17 @@ namespace SIS.HTTP.Cookies
 
             // TODO: Validation for existing parameter (maybe throw exception)
 
-            return this.httpCookies[key];
+            return this.HttpCookies[key];
         }
 
         public bool HasCookies()
         {
-            return this.httpCookies.Count != 0;
+            return this.HttpCookies.Count != 0;
         }
 
         public IEnumerator<HttpCookie> GetEnumerator()
         {
-            return this.httpCookies.Values.GetEnumerator();
+            return this.HttpCookies.Values.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -57,7 +57,7 @@ namespace SIS.HTTP.Cookies
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach (var cookie in this.httpCookies.Values)
+            foreach (var cookie in this.HttpCookies.Values)
             {                
                 sb.Append($"Set-Cookie: {cookie}").Append(GlobalConstants.HttpNewLine);
             }

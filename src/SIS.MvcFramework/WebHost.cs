@@ -3,6 +3,8 @@
 using SIS.HTTP.Responses;
 using SIS.MvcFramework.Attributes.Action;
 using SIS.MvcFramework.Attributes.Http;
+using SIS.MvcFramework.Attributes.Security;
+using SIS.MvcFramework.Result;
 using SIS.MvcFramework.Routing;
 
 namespace SIS.MvcFramework
@@ -17,7 +19,6 @@ namespace SIS.MvcFramework
 
     public static class WebHost
     {
-
         public static void Start(IMvcApplication application)
         {
 
@@ -92,9 +93,35 @@ namespace SIS.MvcFramework
                     serverRoutingTable.Add(httpMethod, path, request =>
                     {
                         // request => new UsersController().Login(request)
-                        var controllerInstance = Activator.CreateInstance(controller);
+                        var controllerInstance = (Controller)Activator.CreateInstance(controller);
+                        
+
+                        //note:** on each new request, we receive a new controller instance, to which we add the request (and the session storage within the request))
+                        controllerInstance.Request = request;
+
+                        //we get the principal , which is like a session object
+                        var controllerPrincipal = controllerInstance.User;
+                        //Security Authorization -> TODO: Refactor this.
+
+
+                        //note: here we take the author. attribute from the ACTION , not controller
+                        var authorizeAttribute = action.GetCustomAttributes()
+                            .LastOrDefault(a => a.GetType() == typeof(AuthorizeAttribute)) as AuthorizeAttribute;
+
+                        if (authorizeAttribute != null && !authorizeAttribute.IsInAuthority(controllerPrincipal))
+                        {
+                            //note: ****so for the method/action to go through the validation, he needs both Authorization attribute (default is good) and 
+                            //present principal (singed in)
+
+                            // TODO: Redirect to configured URL
+                            return new HttpResponse(HttpResponseStatusCode.Forbidden);
+                        }
+
+                        //TODO: Redirect to configured URL!
+
+
                         //8th because of the conversion below, it knows what the action is i think?
-                        var response = action.Invoke(controllerInstance, new[] { request }) as IHttpResponse;
+                        var response = action.Invoke(controllerInstance, new object[0]) as ActionResult;
                         return response;
 
                     });

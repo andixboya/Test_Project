@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using SIS.HTTP.Common;
 using SIS.HTTP.Cookies;
 using SIS.HTTP.Cookies.Contracts;
@@ -11,10 +12,14 @@ namespace SIS.HTTP.Responses
 {
     public class HttpResponse : IHttpResponse
     {
+
+        private IHttpHeaderCollection headers;
+        private IHttpCookieCollection cookies;
+
         public HttpResponse()
         {
-            this.Headers = new HttpHeaderCollection();
-            this.Cookies = new HttpCookieCollection();
+            this.headers = new HttpHeaderCollection();
+            this.cookies = new HttpCookieCollection();
             this.Content = new byte[0];
         }
 
@@ -26,20 +31,21 @@ namespace SIS.HTTP.Responses
 
         public HttpResponseStatusCode StatusCode { get; set; }
 
-        public IHttpHeaderCollection Headers { get; }
+        public IReadOnlyDictionary<string, HttpHeader> Headers => this.headers.HttpHeaders;
 
-        public IHttpCookieCollection Cookies { get; }
+        public IReadOnlyDictionary<string, HttpCookie> Cookies => this.cookies.HttpCookies;
 
         public byte[] Content { get; set; }
 
         public void AddHeader(HttpHeader header)
         {
-            this.Headers.AddHeader(header);
+            this.headers.AddHeader(header);
         }
 
         public void AddCookie(HttpCookie cookie)
         {
-            this.Cookies.AddCookie(cookie);
+            //here some modifications , because it was on recursive ... streak
+            this.cookies.AddCookie(cookie);
         }
 
         public byte[] GetBytes()
@@ -68,14 +74,16 @@ namespace SIS.HTTP.Responses
         {
             StringBuilder result = new StringBuilder();
 
+            //THIS... fucking thing.... cost me 1.5 h... :( 
             result
                 .Append($"{GlobalConstants.HttpOneProtocolFragment} {this.StatusCode.GetStatusLine()}")
                 .Append(GlobalConstants.HttpNewLine)
-                .Append($"{this.Headers}").Append(GlobalConstants.HttpNewLine);
+                .Append($"{this.headers}").Append(GlobalConstants.HttpNewLine);
 
-            if (this.Cookies.HasCookies())
+            if (this.cookies.HasCookies())
             {
-                result.Append($"{this.Cookies}").Append(GlobalConstants.HttpNewLine);
+                //THIS... fucking thing.... cost me 1.5 h... :( 
+                result.Append($"{this.cookies}").Append(GlobalConstants.HttpNewLine);
             }
 
             result.Append(GlobalConstants.HttpNewLine);

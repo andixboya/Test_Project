@@ -86,6 +86,8 @@ namespace SIS.MvcFramework
 
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
+            
+
             // EXECUTE FUNCTION FOR CURRENT REQUEST -> RETURNS RESPONSE
             if (!this.serverRoutingTable.Contains(httpRequest.RequestMethod, httpRequest.Path))
             {
