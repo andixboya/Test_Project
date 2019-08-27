@@ -3,6 +3,7 @@ using System.Linq;
 using SIS.HTTP.Common;
 using SIS.HTTP.Headers.Contracts;
 
+
 namespace SIS.HTTP.Headers
 {
     public class HttpHeaderCollection : IHttpHeaderCollection

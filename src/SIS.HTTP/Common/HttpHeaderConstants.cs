@@ -9,7 +9,12 @@ namespace SIS.HTTP.Common
     public static class HttpHeaderConstants
     {
         public static readonly string JsonMime = "application-json";
+
         public static readonly string XmlMime = "application-xml";
+
+        public static readonly string AttachmentMime = "attachment";
+
+        public static readonly string InlineMime = "inline";
 
     }
 }

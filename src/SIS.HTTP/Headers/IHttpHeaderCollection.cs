@@ -1,4 +1,5 @@
-﻿namespace SIS.HTTP.Headers.Contracts
+﻿//TODO: play with the renaming of the namespaces (dont rely on resharper!)
+namespace SIS.HTTP.Headers.Contracts
 {
     public interface IHttpHeaderCollection
     {

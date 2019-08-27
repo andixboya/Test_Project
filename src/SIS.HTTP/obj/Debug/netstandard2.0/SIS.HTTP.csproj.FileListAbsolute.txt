@@ -1,0 +1,8 @@
+D:\Repository\Test_Project\src\SIS.HTTP\bin\Debug\netstandard2.0\SIS.HTTP.deps.json
+D:\Repository\Test_Project\src\SIS.HTTP\bin\Debug\netstandard2.0\SIS.HTTP.dll
+D:\Repository\Test_Project\src\SIS.HTTP\bin\Debug\netstandard2.0\SIS.HTTP.pdb
+D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.csproj.CoreCompileInputs.cache
+D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.AssemblyInfoInputs.cache
+D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.AssemblyInfo.cs
+D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.dll
+D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.pdb
