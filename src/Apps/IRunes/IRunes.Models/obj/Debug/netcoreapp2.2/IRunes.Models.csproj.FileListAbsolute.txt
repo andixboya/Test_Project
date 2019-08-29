@@ -6,3 +6,4 @@ D:\Repository\Test_Project\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2
 D:\Repository\Test_Project\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.AssemblyInfo.cs
 D:\Repository\Test_Project\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.dll
 D:\Repository\Test_Project\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.pdb
+D:\Repository\Test_Project\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.csprojAssemblyReference.cache

@@ -31,3 +31,5 @@ D:\Repository\Test_Project\src\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IR
 D:\Repository\Test_Project\src\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.csproj.CopyComplete
 D:\Repository\Test_Project\src\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.dll
 D:\Repository\Test_Project\src\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.pdb
+D:\Repository\Test_Project\src\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Services.dll
+D:\Repository\Test_Project\src\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Services.pdb

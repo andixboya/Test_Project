@@ -33,8 +33,8 @@ namespace IRunes.App.Controllers
                 //if it exists, then it is taken as bytes and given to the Result (which gives proper headers, so the 
                 //server knows what it is and etc...
                 // TODO: Students, Do this!!!
-                string mimeType = null;
-                string fileName = null;
+                //string mimeType = null;
+                //string fileName = null;
 
                 byte[] content = System.IO.File.ReadAllBytes(fullPathToResource);
                 return File(content);

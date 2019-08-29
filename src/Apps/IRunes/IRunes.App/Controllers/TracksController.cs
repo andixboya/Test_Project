@@ -3,6 +3,7 @@ using System.Linq;
 using IRunes.App.Extensions;
 using IRunes.Data;
 using IRunes.Models;
+using IRunes.Services;
 using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
 using SIS.MvcFramework;
@@ -16,15 +17,18 @@ namespace IRunes.App.Controllers
     public class TracksController : Controller
     {
 
+        private readonly TrackService trackService;
+        private readonly AlbumService albumService;
+
+        public TracksController()
+        {
+            this.trackService = new TrackService();
+            this.albumService = new AlbumService();
+        }
+
         [Authorize]
         public ActionResult Create()
         {
-            //this was replaced by authorized!
-            //if (!this.IsLoggedIn())
-            //{
-            //    return this.Redirect("/Users/Login");
-            //}
-
             string albumId = this.Request.QueryData["albumId"].ToString();
 
             this.ViewData["AlbumId"] = albumId;
@@ -32,43 +36,34 @@ namespace IRunes.App.Controllers
         }
 
 
-        [HttpPost(ActionName ="Create")]
+        [HttpPost(ActionName = "Create")]
         [Authorize]
         public ActionResult CreateConfirm()
         {
-            if (!this.IsLoggedIn())
+            string albumId = this.Request.QueryData["albumId"].ToString();
+            Album albumFromDb = albumService.GetAlbumById(albumId);
+
+            if (albumFromDb == null)
             {
-                return this.Redirect("/Users/Login");
+                return this.Redirect("/Albums/All");
             }
 
-            string albumId = this.Request.QueryData["albumId"].ToString();
+            string name = ((ISet<string>)this.Request.FormData["name"]).FirstOrDefault();
+            string link = ((ISet<string>)this.Request.FormData["link"]).FirstOrDefault();
+            string price = ((ISet<string>)this.Request.FormData["price"]).FirstOrDefault();
 
-            using (var context = new RunesDbContext())
+            Track trackForDb = new Track
             {
-                Album albumFromDb = context.Albums.SingleOrDefault(album => album.Id == albumId);
+                Name = name,
+                Link = link,
+                Price = decimal.Parse(price)
+            };
 
-                if (albumFromDb == null)
-                {
-                    return this.Redirect("/Albums/All");
-                }
-
-                string name = ((ISet<string>)this.Request.FormData["name"]).FirstOrDefault();
-                string link = ((ISet<string>)this.Request.FormData["link"]).FirstOrDefault();
-                string price = ((ISet<string>)this.Request.FormData["price"]).FirstOrDefault();
-
-                Track trackForDb = new Track
-                {
-                    Name = name,
-                    Link = link,
-                    Price = decimal.Parse(price)
-                };
-
-                albumFromDb.Tracks.Add(trackForDb);
-                albumFromDb.Price = (albumFromDb.Tracks
-                                         .Select(track => track.Price)
-                                         .Sum() * 87) / 100;
-                context.Update(albumFromDb);
-                context.SaveChanges();
+            //the bool is redundant , because we `ve already checked above if the album is there or not.
+            //but.. we`ll have unit tests so... i guess
+            if (albumService.AddTrackToAlbum(albumId, trackForDb))
+            {
+                return this.Redirect("/Albums/All");
             }
 
             return this.Redirect($"/Albums/Details?id={albumId}");
@@ -78,28 +73,23 @@ namespace IRunes.App.Controllers
         [Authorize]
         public ActionResult Details()
         {
-            //this was replaced by authorized!
-            //if (!this.IsLoggedIn())
-            //{
-            //    return this.Redirect("/Users/Login");
-            //}
 
             string albumId = this.Request.QueryData["albumId"].ToString();
             string trackId = this.Request.QueryData["trackId"].ToString();
 
-            using (var context = new RunesDbContext())
+
+            Track trackFromDb = trackService.GetTrackById(trackId);
+
+            if (trackFromDb == null)
             {
-                Track trackFromDb = context.Tracks.SingleOrDefault(track => track.Id == trackId);
-
-                if (trackFromDb == null)
-                {
-                    return this.Redirect($"/Albums/Details?id={albumId}");
-                }
-
-                this.ViewData["AlbumId"] = albumId;
-                this.ViewData["Track"] = trackFromDb.ToHtmlDetails(albumId);
-                return this.View();
+                return this.Redirect($"/Albums/Details?id={albumId}");
             }
+
+            this.ViewData["AlbumId"] = albumId;
+            this.ViewData["Track"] = trackFromDb.ToHtmlDetails(albumId);
+
+            return this.View();
+
         }
     }
 }

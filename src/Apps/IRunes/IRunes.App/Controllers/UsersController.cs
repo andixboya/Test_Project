@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using IRunes.Services;
 //Note: after the refactoring requests and responses should fall completely! (because request is in the controller, and response is transforrmed 
 //into action result
 //using SIS.HTTP.Requests;
@@ -17,6 +18,12 @@ namespace IRunes.App.Controllers
 {
     public class UsersController : Controller
     {
+
+        private readonly UserService userService;
+        public UsersController()
+        {
+            this.userService = new UserService();
+        }
         //note: here add non-action, because it does not have to be a route!
         [NonAction]
         private string HashPassword(string password)
@@ -35,22 +42,19 @@ namespace IRunes.App.Controllers
         [HttpPost(ActionName = "Login")]
         public ActionResult LoginConfirm()
         {
-            using (var context = new RunesDbContext())
+
+            string username = ((ISet<string>)this.Request.FormData["username"]).FirstOrDefault();
+            string password = this.HashPassword(((ISet<string>)this.Request.FormData["password"]).FirstOrDefault());
+
+            User userFromDb = userService.GetUserByUsernameAndPassword(username, password);
+
+            if (userFromDb == null)
             {
-                string username = ((ISet<string>)this.Request.FormData["username"]).FirstOrDefault();
-                string password = ((ISet<string>)this.Request.FormData["password"]).FirstOrDefault();
-
-                User userFromDb = context.Users.FirstOrDefault(user => (user.Username == username
-                                                                        || user.Email == username)
-                                                                       && user.Password == this.HashPassword(password));
-                if (userFromDb == null)
-                {
-                    return this.Redirect("/Users/Login");
-                }
-
-                //this is refactored!
-                this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email);
+                return this.Redirect("/Users/Login");
             }
+
+            //this is refactored!
+            this.SignIn(userFromDb.Id, userFromDb.Username, userFromDb.Email);
 
             return this.Redirect("/");
         }
@@ -63,9 +67,7 @@ namespace IRunes.App.Controllers
         [HttpPost(ActionName = "Register")]
         public ActionResult RegisterConfirm()
         {
-            using (var context = new RunesDbContext())
-            {
-                //all of the requests!
+               //all of the requests!
                 string username = ((ISet<string>)this.Request.FormData["username"]).FirstOrDefault();
                 string password = ((ISet<string>)this.Request.FormData["password"]).FirstOrDefault();
                 string confirmPassword = ((ISet<string>)this.Request.FormData["confirmPassword"]).FirstOrDefault();
@@ -83,10 +85,8 @@ namespace IRunes.App.Controllers
                     Email = email
                 };
 
-                context.Users.Add(user);
-                context.SaveChanges();
-            }
-
+                userService.CreateUser(user);
+                
             return this.Redirect("/Users/Login");
         }
 

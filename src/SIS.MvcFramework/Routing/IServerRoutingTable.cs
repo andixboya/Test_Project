@@ -4,7 +4,7 @@ using SIS.HTTP.Requests;
 using SIS.HTTP.Responses;
 
 //TODO : rename namespaces
-namespace SIS.WebServer.Routing.Contracts
+namespace SIS.MvcFramework.Routing
 {
     public interface IServerRoutingTable
     {
