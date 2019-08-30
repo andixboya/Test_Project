@@ -647,7 +647,15 @@
           "IRunes.Services.dll": {}
         }
       },
+      "SIS.Common/1.0.0": {
+        "runtime": {
+          "SIS.Common.dll": {}
+        }
+      },
       "SIS.HTTP/1.0.0": {
+        "dependencies": {
+          "SIS.Common": "1.0.0"
+        },
         "runtime": {
           "SIS.HTTP.dll": {}
         }
@@ -1094,6 +1102,11 @@
       "sha512": ""
     },
     "IRunes.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SIS.Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

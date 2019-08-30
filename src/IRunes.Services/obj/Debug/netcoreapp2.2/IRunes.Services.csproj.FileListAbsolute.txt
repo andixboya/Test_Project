@@ -16,3 +16,5 @@ D:\Repository\Test_Project\src\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Se
 D:\Repository\Test_Project\src\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.csproj.CopyComplete
 D:\Repository\Test_Project\src\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.dll
 D:\Repository\Test_Project\src\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.pdb
+D:\Repository\Test_Project\src\IRunes.Services\bin\Debug\netcoreapp2.2\SIS.Common.dll
+D:\Repository\Test_Project\src\IRunes.Services\bin\Debug\netcoreapp2.2\SIS.Common.pdb

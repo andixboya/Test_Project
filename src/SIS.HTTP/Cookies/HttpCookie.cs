@@ -1,9 +1,11 @@
-﻿using System;
-using System.Text;
-using SIS.HTTP.Common;
+﻿
 
 namespace SIS.HTTP.Cookies
 {
+    using SIS.Common;
+    using System;
+    using System.Text;
+
     public class HttpCookie
     {
         private const int HttpCookieDefaultExpirationDays = 3;
@@ -19,13 +21,14 @@ namespace SIS.HTTP.Cookies
             string path = HttpCookieDefaultPath)
 
         {
-            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
-            CoreValidator.ThrowIfNullOrEmpty(value, nameof(value));
+
+            key.ThrowIfNullOrEmpty(nameof(key));
+            key.ThrowIfNullOrEmpty(nameof(value));
 
             this.Key = key;
             this.Value = value;
             this.Expires = DateTime.UtcNow.AddDays(expires);
-			this.Path = path;
+            this.Path = path;
         }
 
 

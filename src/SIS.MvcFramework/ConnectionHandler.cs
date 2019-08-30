@@ -14,6 +14,7 @@ using SIS.HTTP.Sessions;
 using SIS.MvcFramework.Result;
 using SIS.MvcFramework.Sessions;
 using SIS.MvcFramework.Routing;
+using SIS.Common;
 
 namespace SIS.MvcFramework
 {
@@ -22,14 +23,16 @@ namespace SIS.MvcFramework
         private readonly Socket client;
 
         private readonly IServerRoutingTable serverRoutingTable;
+        private readonly IHttpSessionStorage sessionStorage;
 
-        public ConnectionHandler(Socket client, IServerRoutingTable serverRoutingTable)
+        public ConnectionHandler(Socket client, IServerRoutingTable serverRoutingTable, IHttpSessionStorage sessionStorage)
         {
-            CoreValidator.ThrowIfNull(client, nameof(client));
-            CoreValidator.ThrowIfNull(serverRoutingTable, nameof(serverRoutingTable));
+            client.ThrowIfNull( nameof(client));
+            serverRoutingTable.ThrowIfNull( nameof(serverRoutingTable));
 
             this.client = client;
             this.serverRoutingTable = serverRoutingTable;
+            this.sessionStorage= sessionStorage;
         }
 
         private async Task<IHttpRequest> ReadRequestAsync()
@@ -107,9 +110,9 @@ namespace SIS.MvcFramework
 
                 string sessionId = cookie.Value;
 
-                if (HttpSessionStorage.ContainsSession(sessionId))
+                if (this.sessionStorage.ContainsSession(sessionId))
                 {
-                    httpRequest.Session = HttpSessionStorage.GetSession(sessionId);
+                    httpRequest.Session = this.sessionStorage.GetSession(sessionId);
                 }
             }
 
@@ -117,7 +120,7 @@ namespace SIS.MvcFramework
             {
                 string sessionId = Guid.NewGuid().ToString();
 
-                httpRequest.Session = HttpSessionStorage.GetSession(sessionId);
+                httpRequest.Session = this.sessionStorage.GetSession(sessionId);
             }
 
             return httpRequest.Session?.Id;
@@ -125,7 +128,7 @@ namespace SIS.MvcFramework
 
         private void SetResponseSession(IHttpResponse httpResponse, string sessionId)
         {
-            IHttpSession responseSession = HttpSessionStorage.GetSession(sessionId);
+            IHttpSession responseSession = this.sessionStorage.GetSession(sessionId);
 
             if (responseSession.IsNew)
             {

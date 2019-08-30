@@ -6,6 +6,7 @@ using SIS.MvcFramework.Attributes.Http;
 using SIS.MvcFramework.Attributes.Security;
 using SIS.MvcFramework.Result;
 using SIS.MvcFramework.Routing;
+using SIS.MvcFramework.Sessions;
 
 namespace SIS.MvcFramework
 {
@@ -25,6 +26,7 @@ namespace SIS.MvcFramework
 
             //1. mapping table
             var serverRoutingTable = new ServerRoutingTable();
+            var sessionStorage = new HttpSessionStorage();
             AutoRegisterMappingRoutes(application, serverRoutingTable);
 
             //2. Config of services (DI)
@@ -34,7 +36,7 @@ namespace SIS.MvcFramework
             application.Configure(serverRoutingTable);
 
             //4. Server Initialization (was at the app. before)
-            Server server = new Server(8000, serverRoutingTable);
+            Server server = new Server(8000, serverRoutingTable, sessionStorage);
             server.Run();
 
         }

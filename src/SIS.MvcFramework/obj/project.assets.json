@@ -245,9 +245,22 @@
           "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         }
       },
+      "SIS.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/SIS.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SIS.Common.dll": {}
+        }
+      },
       "SIS.HTTP/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "SIS.Common": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/SIS.HTTP.dll": {}
         },
@@ -754,6 +767,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "SIS.Common/1.0.0": {
+      "type": "project",
+      "path": "../SIS.Common/SIS.Common.csproj",
+      "msbuildProject": "../SIS.Common/SIS.Common.csproj"
     },
     "SIS.HTTP/1.0.0": {
       "type": "project",

@@ -1009,7 +1009,15 @@
           "Microsoft.NET.Test.Sdk": "16.2.0"
         }
       },
+      "SIS.Common/1.0.0": {
+        "runtime": {
+          "SIS.Common.dll": {}
+        }
+      },
       "SIS.HTTP/1.0.0": {
+        "dependencies": {
+          "SIS.Common": "1.0.0"
+        },
         "runtime": {
           "SIS.HTTP.dll": {}
         }
@@ -1542,6 +1550,11 @@
       "sha512": "sha512-mBXd1lp1TQr4to2nFv+c4Tf+RnPoQPKglzwLdbdirOUxRaJsCUNDUx2y7E6j9ajgISlTTp1CydFBZCRCUIrwDg==",
       "path": "xunit.runner.visualstudio/2.4.1",
       "hashPath": "xunit.runner.visualstudio.2.4.1.nupkg.sha512"
+    },
+    "SIS.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "SIS.HTTP/1.0.0": {
       "type": "project",

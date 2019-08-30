@@ -23,3 +23,5 @@ D:\Repository\Test_Project\src\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\Vi
 D:\Repository\Test_Project\src\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\UseForForeachAndIf.Result.html
 D:\Repository\Test_Project\src\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\UseModelData.html
 D:\Repository\Test_Project\src\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\UseModelData.Result.html
+D:\Repository\Test_Project\src\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.Common.dll
+D:\Repository\Test_Project\src\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.Common.pdb

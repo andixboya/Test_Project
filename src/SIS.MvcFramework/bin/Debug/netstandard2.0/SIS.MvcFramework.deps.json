@@ -221,7 +221,15 @@
           }
         }
       },
+      "SIS.Common/1.0.0": {
+        "runtime": {
+          "SIS.Common.dll": {}
+        }
+      },
       "SIS.HTTP/1.0.0": {
+        "dependencies": {
+          "SIS.Common": "1.0.0"
+        },
         "runtime": {
           "SIS.HTTP.dll": {}
         }
@@ -331,6 +339,11 @@
       "sha512": "sha512-BG/TNxDFv0svAzx8OiMXDlsHfGw623BZ8tCXw4YLhDFDvDhNUEV58jKYMGRnkbJNm7c3JNNJDiN7JBMzxRBR2w==",
       "path": "system.threading.tasks.extensions/4.5.2",
       "hashPath": "system.threading.tasks.extensions.4.5.2.nupkg.sha512"
+    },
+    "SIS.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "SIS.HTTP/1.0.0": {
       "type": "project",

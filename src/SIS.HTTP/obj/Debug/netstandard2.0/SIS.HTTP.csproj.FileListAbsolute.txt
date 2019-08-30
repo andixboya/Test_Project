@@ -7,3 +7,6 @@ D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.Assemb
 D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.dll
 D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.pdb
 D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.csprojAssemblyReference.cache
+D:\Repository\Test_Project\src\SIS.HTTP\bin\Debug\netstandard2.0\SIS.Common.dll
+D:\Repository\Test_Project\src\SIS.HTTP\bin\Debug\netstandard2.0\SIS.Common.pdb
+D:\Repository\Test_Project\src\SIS.HTTP\obj\Debug\netstandard2.0\SIS.HTTP.csproj.CopyComplete

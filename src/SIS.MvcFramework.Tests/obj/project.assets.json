@@ -1601,9 +1601,22 @@
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
       },
+      "SIS.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/SIS.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SIS.Common.dll": {}
+        }
+      },
       "SIS.HTTP/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "SIS.Common": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/SIS.HTTP.dll": {}
         },
@@ -5510,6 +5523,11 @@
         "xunit.runner.visualstudio.2.4.1.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "SIS.Common/1.0.0": {
+      "type": "project",
+      "path": "../SIS.Common/SIS.Common.csproj",
+      "msbuildProject": "../SIS.Common/SIS.Common.csproj"
     },
     "SIS.HTTP/1.0.0": {
       "type": "project",

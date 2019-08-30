@@ -10,3 +10,5 @@ D:\Repository\Test_Project\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.Mvc
 D:\Repository\Test_Project\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csproj.CopyComplete
 D:\Repository\Test_Project\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.dll
 D:\Repository\Test_Project\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.pdb
+D:\Repository\Test_Project\src\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.Common.dll
+D:\Repository\Test_Project\src\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.Common.pdb

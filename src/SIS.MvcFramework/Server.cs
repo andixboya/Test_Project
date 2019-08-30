@@ -2,9 +2,11 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using SIS.Common;
 using SIS.HTTP.Common;
 using SIS.MvcFramework;
 using SIS.MvcFramework.Routing;
+using SIS.MvcFramework.Sessions;
 
 namespace SIS.MvcFramework
 {
@@ -19,20 +21,22 @@ namespace SIS.MvcFramework
         private readonly IServerRoutingTable serverRoutingTable;
 
         private bool isRunning;
+        private readonly IHttpSessionStorage sessionStorage;
 
-        public Server(int port, IServerRoutingTable serverRoutingTable)
+        public Server(int port, IServerRoutingTable serverRoutingTable, IHttpSessionStorage sessionStorage)
         {
-            CoreValidator.ThrowIfNull(serverRoutingTable, nameof(serverRoutingTable));
+            serverRoutingTable.ThrowIfNull(nameof(serverRoutingTable));
 
             this.port = port;
             this.serverRoutingTable = serverRoutingTable;
-
+            
             this.tcpListener = new TcpListener(IPAddress.Parse(LocalHostIpAddress), port);
+            this.sessionStorage = sessionStorage;
         }
 
         private async Task ListenAsync(Socket client)
         {
-            var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable);
+            var connectionHandler = new ConnectionHandler(client, this.serverRoutingTable,this.sessionStorage);
             await connectionHandler.ProcessRequestAsync();
         }
 
