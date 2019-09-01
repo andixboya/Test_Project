@@ -40,66 +40,66 @@ namespace AppViewCodeNamespace
             return htmlResult;
         }
 
+
+
         private string GetCSharpCode(string viewContent)
         {
             // TODO: { var a = "Niki"; }
             var lines = viewContent.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-            var cSharpCode = new StringBuilder();
-            var supportedOpperators = new[] { "for", "if", "else" };
+            var csharpCode = new StringBuilder();
+            var supportedOperators = new[] { "for", "if", "else" };
+            var csharpCodeRegex = new Regex(@"[^\s<""]+", RegexOptions.Compiled);
             foreach (var line in lines)
             {
                 if (line.TrimStart().StartsWith("{") || line.TrimStart().StartsWith("}"))
                 {
                     // { / }
-                    cSharpCode.AppendLine(line);
+                    csharpCode.AppendLine(line);
                 }
-                //step: in case of @ AND! operator
-                else if (supportedOpperators.Any(x => line.TrimStart().StartsWith("@" + x)))
+                else if (supportedOperators.Any(x => line.TrimStart().StartsWith("@" + x)))
                 {
-                    //step: 
                     // @C#
-                    //get the location of the "@";
                     var atSignLocation = line.IndexOf("@");
-                    //remove it 
                     var csharpLine = line.Remove(atSignLocation, 1);
-                    //append the rest 
-                    cSharpCode.AppendLine(csharpLine);
+                    csharpCode.AppendLine(csharpLine);
                 }
                 else
                 {
                     // HTML
-                    //step: 
-                    //if there is JUST "@" and no operator, it SHOULD count as param!
                     if (!line.Contains("@"))
                     {
-                        //step: 
-                        //if there are no params, you just have to add htmlAppendLine + escape all of the inv. commas
                         var csharpLine = $"html.AppendLine(@\"{line.Replace("\"", "\"\"")}\");";
-                        cSharpCode.AppendLine(csharpLine);
+                        csharpCode.AppendLine(csharpLine);
+                    }
+                    else if (line.Contains("@RenderBody()"))
+                    {
+                        var csharpLine = $"html.AppendLine(@\"{line}\");";
+                        csharpCode.AppendLine(csharpLine);
                     }
                     else
                     {
-                        //step: In case there is one "@" (we won`t be covering for now cases with more than one)
-
                         var csharpStringToAppend = "html.AppendLine(@\"";
                         var restOfLine = line;
                         while (restOfLine.Contains("@"))
                         {
-                            //first we get the @ location and separate the FIRST PART until we reach it. (BEFORE @ part)
                             var atSignLocation = restOfLine.IndexOf("@");
-                            var plainText = restOfLine.Substring(0, atSignLocation);
-
-
-                            //add regex, which will take everything AFTER @ (if there is more than one we are a bit screwed (only for now)
-                            var csharpCodeRegex = new Regex(@"[^\s<""]+", RegexOptions.Compiled);
-
-                            //second => here we take everything that comes after @  (AFTER @ part)
+                            var plainText = restOfLine.Substring(0, atSignLocation).Replace("\"", "\"\"");
                             var csharpExpression = csharpCodeRegex.Match(restOfLine.Substring(atSignLocation + 1))?.Value;
 
-                            // we add "\" , because we have to escape the @? 
-                            csharpStringToAppend += plainText + "\" + " + csharpExpression + " + @\"";
+                            if (csharpExpression.Contains("{") && csharpExpression.Contains("}"))
+                            {
+                                var csharpInlineExpression =
+                                    csharpExpression.Substring(1, csharpExpression.IndexOf("}") - 1);
 
-                            //here i should debug, to check what is going on, because i`m  not sure...
+                                csharpStringToAppend += plainText + "\" + " + csharpInlineExpression + " + @\"";
+
+                                csharpExpression = csharpExpression.Substring(0, csharpExpression.IndexOf("}") + 1);
+                            }
+                            else
+                            {
+                                csharpStringToAppend += plainText + "\" + " + csharpExpression + " + @\"";
+                            }
+
                             if (restOfLine.Length <= atSignLocation + csharpExpression.Length + 1)
                             {
                                 restOfLine = string.Empty;
@@ -110,13 +110,13 @@ namespace AppViewCodeNamespace
                             }
                         }
 
-                        csharpStringToAppend += $"{restOfLine}\");";
-                        cSharpCode.AppendLine(csharpStringToAppend);
+                        csharpStringToAppend += $"{restOfLine.Replace("\"", "\"\"")}\");";
+                        csharpCode.AppendLine(csharpStringToAppend);
                     }
                 }
             }
 
-            return cSharpCode.ToString();
+            return csharpCode.ToString();
         }
 
         private IView CompileAndInstance(string code, Assembly modelAssembly)
@@ -184,5 +184,118 @@ namespace AppViewCodeNamespace
                 return instance as IView;
             }
         }
+
+
+        //old implementation.
+        //private string GetCSharpCode(string viewContent)
+        //{
+        //    // TODO: { var a = "Niki"; }
+        //    var lines = viewContent.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+        //    var cSharpCode = new StringBuilder();
+        //    var supportedOpperators = new[] { "for", "if", "else" };
+        //    foreach (var line in lines)
+        //    {
+        //        if (line.TrimStart().StartsWith("{") || line.TrimStart().StartsWith("}"))
+        //        {
+        //            // { / }
+        //            cSharpCode.AppendLine(line);
+        //        }
+        //        //step: in case of @ AND! operator
+        //        else if (supportedOpperators.Any(x => line.TrimStart().StartsWith("@" + x)))
+        //        {
+        //            //step: 
+        //            // @C#
+        //            //get the location of the "@";
+        //            var atSignLocation = line.IndexOf("@");
+        //            //remove it 
+        //            var csharpLine = line.Remove(atSignLocation, 1);
+        //            //append the rest 
+        //            cSharpCode.AppendLine(csharpLine);
+        //        }
+        //        else
+        //        {
+        //            // HTML
+        //            //step: 
+        //            //if there is JUST "@" and no operator, it SHOULD count as param!
+        //            if (!line.Contains("@"))
+        //            {
+        //                //step: 
+        //                //if there are no params, you just have to add htmlAppendLine + escape all of the inv. commas
+        //                var csharpLine = $"html.AppendLine(@\"{line.Replace("\"", "\"\"")}\");";
+        //                cSharpCode.AppendLine(csharpLine);
+        //            }
+        //            else
+        //            {
+        //                //step: In case there is one "@" (we won`t be covering for now cases with more than one)
+
+        //                var csharpStringToAppend = "html.AppendLine(@\"";
+        //                var restOfLine = line;
+        //                while (restOfLine.Contains("@"))
+        //                {
+        //                    //first we get the @ location and separate the FIRST PART until we reach it. (BEFORE @ part)
+        //                    var atSignLocation = restOfLine.IndexOf("@");
+        //                    var plainText = restOfLine.Substring(0, atSignLocation);
+
+
+        //                    //add regex, which will take everything AFTER @ (if there is more than one we are a bit screwed (only for now)
+        //                    var csharpCodeRegex = new Regex(@"[^\s<""]+", RegexOptions.Compiled);
+
+        //                    //second => here we take everything that comes after @  (AFTER @ part)
+        //                    var csharpExpression = csharpCodeRegex.Match(restOfLine.Substring(atSignLocation + 1))?.Value;
+
+        //                    // we add "\" , because we have to escape the @? 
+        //                    csharpStringToAppend += plainText + "\" + " + csharpExpression + " + @\"";
+
+        //                    //here i should debug, to check what is going on, because i`m  not sure...
+        //                    if (restOfLine.Length <= atSignLocation + csharpExpression.Length + 1)
+        //                    {
+        //                        restOfLine = string.Empty;
+        //                    }
+        //                    else
+        //                    {
+        //                        restOfLine = restOfLine.Substring(atSignLocation + csharpExpression.Length + 1);
+        //                    }
+        //                }
+
+        //                csharpStringToAppend += $"{restOfLine}\");";
+        //                cSharpCode.AppendLine(csharpStringToAppend);
+        //            }
+        //        }
+        //    }
+
+        //    return cSharpCode.ToString();
+        //}
+
+
+        //        public string GetHtml<T>(string viewContent, T model)
+        //        {
+        //            string csharpHtmlCode = GetCSharpCode(viewContent);
+        //            string code = $@"
+        //using System;
+        //using System.Linq;
+        //using System.Text;
+        //using System.Collections.Generic;
+        //using SIS.MvcFramework.ViewEngine;
+        //namespace AppViewCodeNamespace
+        //{{
+        //    public class AppViewCode : IView
+        //    {{
+        //        public string GetHtml(object model)
+        //        {{
+        //            var Model = model as {model.GetType().FullName};
+        //	        var html = new StringBuilder();
+
+        //            {csharpHtmlCode}
+
+        //	        return html.ToString();
+        //        }}
+        //    }}
+        //}}";
+        //            var view = CompileAndInstance(code, model.GetType().Assembly);
+        //            var htmlResult = view?.GetHtml(model);
+        //            return htmlResult;
+        //        }
+
+
     }
 }
