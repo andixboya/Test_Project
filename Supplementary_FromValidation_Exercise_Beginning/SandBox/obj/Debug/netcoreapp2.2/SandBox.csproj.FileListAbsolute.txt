@@ -8,14 +8,3 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SandBox\obj\Debug\netcoreapp2.2\SandBox.AssemblyInfo.cs
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SandBox\obj\Debug\netcoreapp2.2\SandBox.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SandBox\obj\Debug\netcoreapp2.2\SandBox.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\bin\Debug\netcoreapp2.2\SandBox.deps.json
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\bin\Debug\netcoreapp2.2\SandBox.runtimeconfig.json
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\bin\Debug\netcoreapp2.2\SandBox.runtimeconfig.dev.json
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\bin\Debug\netcoreapp2.2\SandBox.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\bin\Debug\netcoreapp2.2\SandBox.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\obj\Debug\netcoreapp2.2\SandBox.csprojAssemblyReference.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\obj\Debug\netcoreapp2.2\SandBox.csproj.CoreCompileInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\obj\Debug\netcoreapp2.2\SandBox.AssemblyInfoInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\obj\Debug\netcoreapp2.2\SandBox.AssemblyInfo.cs
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\obj\Debug\netcoreapp2.2\SandBox.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SandBox\obj\Debug\netcoreapp2.2\SandBox.pdb

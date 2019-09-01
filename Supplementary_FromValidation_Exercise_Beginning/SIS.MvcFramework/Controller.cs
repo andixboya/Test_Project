@@ -17,7 +17,7 @@ namespace SIS.MvcFramework
         protected Controller()
         {
             this.viewEngine = new SisViewEngine();
-            this.modelState = new ModelStateDictionary();
+            this.ModelState = new ModelStateDictionary();
         }
 
         protected bool IsLoggedIn()
@@ -53,10 +53,11 @@ namespace SIS.MvcFramework
             string viewName = view;
 
             string viewContent = System.IO.File.ReadAllText("Views/" + controllerName + "/" + viewName + ".html");
-            viewContent = this.viewEngine.GetHtml(viewContent, model, this.User);
+            viewContent = this.viewEngine.GetHtml(viewContent, model, this.ModelState, this.User);
+
 
             string layoutContent = System.IO.File.ReadAllText("Views/_Layout.html");
-            layoutContent = this.viewEngine.GetHtml(layoutContent, model, this.User);
+            layoutContent = this.viewEngine.GetHtml(layoutContent, model, this.ModelState, this.User);
             layoutContent = layoutContent.Replace("@RenderBody()", viewContent);
 
             var htmlResult = new HtmlResult(layoutContent);
@@ -98,6 +99,6 @@ namespace SIS.MvcFramework
 
         public IHttpRequest Request { get; set; }
 
-        public ModelStateDictionary modelState;
+        public ModelStateDictionary ModelState { get; set; }
     }
 }

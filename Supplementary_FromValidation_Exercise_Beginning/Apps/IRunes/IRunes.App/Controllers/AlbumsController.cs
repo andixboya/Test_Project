@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IRunes.App.ViewModels;
+using IRunes.App.ViewModels.Albums;
 using IRunes.Models;
 using IRunes.Services;
 using SIS.MvcFramework;
@@ -42,12 +42,19 @@ namespace IRunes.App.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(string name, string cover)
+        public ActionResult Create(AlbumCreateInputModel inputModel)
         {
+            //this is the modelValidation in THE CONTROLLER, not the one in the csHtml!
+            if (!ModelState.IsValid)
+            {
+                return this.Redirect("/Albums/Create");
+            }
+
+
             Album album = new Album
             {
-                Name = name,
-                Cover = cover,
+                Name = inputModel.Name,
+                Cover = inputModel.Cover,
                 Price = 0M
             };
 

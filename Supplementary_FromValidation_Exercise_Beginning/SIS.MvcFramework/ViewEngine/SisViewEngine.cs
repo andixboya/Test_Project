@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using SIS.MvcFramework.Identity;
 using System.Net;
+using SIS.MvcFramework.Validation;
 
 namespace SIS.MvcFramework.ViewEngine
 {
@@ -26,8 +27,10 @@ namespace SIS.MvcFramework.ViewEngine
             return model.GetType().FullName;
         }
 
-        public string GetHtml<T>(string viewContent, T model, Principal user = null)
+        //here we have to add modelStateDic. too.
+        public string GetHtml<T>(string viewContent, T model,  ModelStateDictionary modelState ,Principal user = null)
         {
+            //1. first the symbols get replaced
             string csharpHtmlCode = this.GetCSharpCode(viewContent);
             string code = $@"
 using System;
@@ -37,25 +40,29 @@ using System.Text;
 using System.Collections.Generic;
 using SIS.MvcFramework.ViewEngine;
 using SIS.MvcFramework.Identity;
+using SIS.MvcFramework.Validation;
 namespace AppViewCodeNamespace
 {{
     public class AppViewCode : IView
     {{
-        public string GetHtml(object model, Principal user)
+        public string GetHtml(object model, ModelStateDictionary modelState, Principal user)
         {{
             var Model = {(model == null ? "new {}" : "model as " + GetModelType(model))};
             var User = user;            
-
+            var ModelState= modelState;
 	        var html = new StringBuilder();
 
+            
             {csharpHtmlCode}
             
 	        return html.ToString();
         }}
     }}
 }}";
+            //2.1.in the cshartpHtmlCode the symbols with "@" are replaced with each corresponding operator/ opreand
+            //2.2. then they get compiled! 
             var view = this.CompileAndInstance(code, model?.GetType().Assembly);
-            var htmlResult = view?.GetHtml(model, user);
+            var htmlResult = view?.GetHtml(model, modelState,user);
             return htmlResult;
         }
 

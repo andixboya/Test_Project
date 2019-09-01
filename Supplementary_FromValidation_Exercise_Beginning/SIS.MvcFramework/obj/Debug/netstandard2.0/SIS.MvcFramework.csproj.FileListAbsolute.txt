@@ -12,17 +12,3 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csproj.CopyComplete
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.MvcFramework.deps.json
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.MvcFramework.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.MvcFramework.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.Common.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.HTTP.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.Common.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.HTTP.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csprojAssemblyReference.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csproj.CoreCompileInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.AssemblyInfoInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.AssemblyInfo.cs
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csproj.CopyComplete
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.pdb

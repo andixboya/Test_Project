@@ -22,6 +22,8 @@ namespace SIS.MvcFramework
 {
     public static class WebHost
     {
+
+        private static readonly ControllerState controllerState = new ControllerState();
         public static void Start(IMvcApplication application)
         {
             IServerRoutingTable serverRoutingTable = new ServerRoutingTable();
@@ -90,6 +92,11 @@ namespace SIS.MvcFramework
             IHttpRequest request)
         {
             var controllerInstance = serviceProvider.CreateInstance(controllerType) as Controller;
+
+            //note: from controllerState setting: important
+            //he collects the info about the state, and sets the MODELSTATE to invalid, when necessary!
+            controllerState.SetState(controllerInstance);
+
             controllerInstance.Request = request;
 
             // Security Authorization - TODO: Refactor this
@@ -159,8 +166,18 @@ namespace SIS.MvcFramework
                         }
                     }
 
+                    //note: about controllerState here 
 
-                    controllerInstance.modelState = ValidateObject(parameterValue);
+
+                    if (request.RequestMethod == HttpRequestMethod.Post)
+                    {
+                        controllerState.Reset();
+                        //does this not set the state already????  
+                        controllerInstance.ModelState = ValidateObject(parameterValue);
+                        // i don`t get why this is necessary? 
+                        controllerState.Initialize(controllerInstance);
+                    }
+
                     parameterValues.Add(parameterValue);
                 }
             }

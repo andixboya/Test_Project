@@ -6,12 +6,3 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.AssemblyInfo.cs
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\bin\Debug\netcoreapp2.2\IRunes.Models.deps.json
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\bin\Debug\netcoreapp2.2\IRunes.Models.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\bin\Debug\netcoreapp2.2\IRunes.Models.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.csprojAssemblyReference.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.csproj.CoreCompileInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.AssemblyInfoInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.AssemblyInfo.cs
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.pdb

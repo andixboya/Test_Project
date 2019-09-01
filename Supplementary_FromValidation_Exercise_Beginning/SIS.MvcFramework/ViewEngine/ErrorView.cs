@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SIS.MvcFramework.Identity;
+using SIS.MvcFramework.Validation;
 
 namespace SIS.MvcFramework.ViewEngine
 {
@@ -14,7 +15,7 @@ namespace SIS.MvcFramework.ViewEngine
             this.errors = errors;
         }
 
-        public string GetHtml(object model, Principal user)
+        public string GetHtml(object model, ModelStateDictionary modelState,Principal user)
         {
             return errors;
         }

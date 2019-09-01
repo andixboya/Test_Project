@@ -9,7 +9,7 @@ namespace Sis.MvcFramework.Validation
     public abstract class ValidationSisAttribute : Attribute
     {
         
-        public ValidationSisAttribute(string message = "Error in the attribute.")
+        public ValidationSisAttribute(string message = "Error Message.")
         {
             this.ErrorMessage = message;
         }

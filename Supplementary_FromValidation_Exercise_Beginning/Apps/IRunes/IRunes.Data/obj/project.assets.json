@@ -3488,11 +3488,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\Repo_WIth_Validation_Atttributes_only\\Apps\\IRunes\\IRunes.Data\\IRunes.Data.csproj",
+      "projectUniqueName": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Data\\IRunes.Data.csproj",
       "projectName": "IRunes.Data",
-      "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\Repo_WIth_Validation_Atttributes_only\\Apps\\IRunes\\IRunes.Data\\IRunes.Data.csproj",
+      "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Data\\IRunes.Data.csproj",
       "packagesPath": "C:\\Users\\Andreyan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\Repo_WIth_Validation_Atttributes_only\\Apps\\IRunes\\IRunes.Data\\obj\\",
+      "outputPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3511,8 +3511,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\Repo_WIth_Validation_Atttributes_only\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj": {
-              "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\Repo_WIth_Validation_Atttributes_only\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj"
+            "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj": {
+              "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj"
             }
           }
         }

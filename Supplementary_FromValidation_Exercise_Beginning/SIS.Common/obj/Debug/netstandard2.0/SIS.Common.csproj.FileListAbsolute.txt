@@ -6,12 +6,3 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.AssemblyInfo.cs
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\bin\Debug\netstandard2.0\SIS.Common.deps.json
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\bin\Debug\netstandard2.0\SIS.Common.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\bin\Debug\netstandard2.0\SIS.Common.pdb
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.csprojAssemblyReference.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.csproj.CoreCompileInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.AssemblyInfoInputs.cache
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.AssemblyInfo.cs
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.dll
-C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\Repo_WIth_Validation_Atttributes_only\SIS.Common\obj\Debug\netstandard2.0\SIS.Common.pdb
