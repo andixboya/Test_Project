@@ -30,8 +30,16 @@ namespace SIS.MvcFramework.ViewEngine
         //here we have to add modelStateDic. too.
         public string GetHtml<T>(string viewContent, T model,  ModelStateDictionary modelState ,Principal user = null)
         {
-            //1. first the symbols get replaced
-            string csharpHtmlCode = this.GetCSharpCode(viewContent);
+            
+            //string csharpHtmlCode = this.GetCSharpCode(viewContent);
+
+            string csharpHtmlCode = string.Empty;
+            //this will replace all the @widgetValidationView texts with their code in the vwhtml i think...? 
+            csharpHtmlCode = this.CheckForWidgets(viewContent);
+            //1.  first the symbols get replaced (after the widget-replacement)
+
+            csharpHtmlCode = this.GetCSharpCode(csharpHtmlCode);
+
             string code = $@"
 using System;
 using System.Net;
@@ -64,6 +72,36 @@ namespace AppViewCodeNamespace
             var view = this.CompileAndInstance(code, model?.GetType().Assembly);
             var htmlResult = view?.GetHtml(model, modelState,user);
             return htmlResult;
+        }
+
+        private string CheckForWidgets(string viewContent)
+        {
+
+            //here we load the classes, which have render(), which will return string, from each view,
+            //which they are pointing to
+            var widgets = Assembly
+                .GetEntryAssembly()?
+                .GetTypes()
+                .Where(type => typeof(IViewWidget).IsAssignableFrom(type))
+                .Select(x => (IViewWidget)Activator.CreateInstance(x))
+                .ToList();
+
+            if (widgets == null || widgets.Count == 0)
+            {
+                return viewContent;
+            }
+
+            string widgetPrefix = "@Widgets.";
+            
+
+            //and here we replace each view , with its coresponding ViewWidget.Render()?
+            foreach (var viewWidget in widgets)
+            {
+                string fullReplacement = widgetPrefix + viewWidget.GetType().Name;
+                viewContent = viewContent.Replace($"{widgetPrefix}{viewWidget.GetType().Name}", viewWidget.Render());
+            }
+
+            return viewContent;
         }
 
         private string GetCSharpCode(string viewContent)

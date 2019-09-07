@@ -12,3 +12,17 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.csproj.CopyComplete
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\bin\Debug\netcoreapp2.2\IRunes.Services.deps.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\bin\Debug\netcoreapp2.2\IRunes.Services.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\bin\Debug\netcoreapp2.2\IRunes.Services.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\bin\Debug\netcoreapp2.2\IRunes.Data.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\bin\Debug\netcoreapp2.2\IRunes.Models.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\bin\Debug\netcoreapp2.2\IRunes.Data.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\bin\Debug\netcoreapp2.2\IRunes.Models.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.csprojAssemblyReference.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.csproj.CoreCompileInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.AssemblyInfoInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.AssemblyInfo.cs
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.csproj.CopyComplete
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Services\obj\Debug\netcoreapp2.2\IRunes.Services.pdb

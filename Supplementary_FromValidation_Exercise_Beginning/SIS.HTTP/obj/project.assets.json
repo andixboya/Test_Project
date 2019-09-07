@@ -201,11 +201,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.HTTP\\SIS.HTTP.csproj",
+      "projectUniqueName": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.HTTP\\SIS.HTTP.csproj",
       "projectName": "SIS.HTTP",
-      "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.HTTP\\SIS.HTTP.csproj",
+      "projectPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.HTTP\\SIS.HTTP.csproj",
       "packagesPath": "C:\\Users\\Andreyan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.HTTP\\obj\\",
+      "outputPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.HTTP\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -224,8 +224,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.Common\\SIS.Common.csproj": {
-              "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.Common\\SIS.Common.csproj"
+            "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.Common\\SIS.Common.csproj": {
+              "projectPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.Common\\SIS.Common.csproj"
             }
           }
         }

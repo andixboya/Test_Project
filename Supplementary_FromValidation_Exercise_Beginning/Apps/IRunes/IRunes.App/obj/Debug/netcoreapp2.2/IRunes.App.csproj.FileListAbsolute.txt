@@ -36,3 +36,42 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.csproj.CopyComplete
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Resources\css\bootstrap.min.css
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Resources\js\bootstrap.min.js
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Resources\js\jquery-3.4.1.min.js
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Resources\js\popper.min.js
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Albums\All.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Albums\Create.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Albums\Details.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Home\Index.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Home\Test.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Tracks\Create.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Tracks\Details.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Users\Login.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Users\Register.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\_Layout.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.App.deps.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.App.runtimeconfig.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.App.runtimeconfig.dev.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.App.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.App.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Data.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Models.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Services.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\SIS.Common.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\SIS.HTTP.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\SIS.MvcFramework.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\SIS.MvcFramework.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Models.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Services.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\IRunes.Data.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\SIS.Common.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\SIS.HTTP.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.csprojAssemblyReference.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.csproj.CoreCompileInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.AssemblyInfoInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.AssemblyInfo.cs
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.csproj.CopyComplete
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\obj\Debug\netcoreapp2.2\IRunes.App.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.App\bin\Debug\netcoreapp2.2\Views\Shared\Validation\ValidationWidget.vwhtml

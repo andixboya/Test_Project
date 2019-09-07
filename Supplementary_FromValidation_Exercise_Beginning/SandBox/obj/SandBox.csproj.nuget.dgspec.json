@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SandBox\\SandBox.csproj": {}
+    "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SandBox\\SandBox.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SandBox\\SandBox.csproj": {
+    "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SandBox\\SandBox.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SandBox\\SandBox.csproj",
+        "projectUniqueName": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SandBox\\SandBox.csproj",
         "projectName": "SandBox",
-        "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SandBox\\SandBox.csproj",
+        "projectPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SandBox\\SandBox.csproj",
         "packagesPath": "C:\\Users\\Andreyan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SandBox\\obj\\",
+        "outputPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SandBox\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

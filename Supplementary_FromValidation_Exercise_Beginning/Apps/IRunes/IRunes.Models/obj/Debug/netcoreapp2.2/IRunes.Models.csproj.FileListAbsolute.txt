@@ -6,3 +6,11 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.AssemblyInfo.cs
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\bin\Debug\netcoreapp2.2\IRunes.Models.deps.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\bin\Debug\netcoreapp2.2\IRunes.Models.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\bin\Debug\netcoreapp2.2\IRunes.Models.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.csproj.CoreCompileInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.AssemblyInfoInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.AssemblyInfo.cs
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\Apps\IRunes\IRunes.Models\obj\Debug\netcoreapp2.2\IRunes.Models.pdb

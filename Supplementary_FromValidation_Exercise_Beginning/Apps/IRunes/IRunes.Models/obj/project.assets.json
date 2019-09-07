@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj",
+      "projectUniqueName": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj",
       "projectName": "IRunes.Models",
-      "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj",
+      "projectPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\Apps\\IRunes\\IRunes.Models\\IRunes.Models.csproj",
       "packagesPath": "C:\\Users\\Andreyan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\Apps\\IRunes\\IRunes.Models\\obj\\",
+      "outputPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\Apps\\IRunes\\IRunes.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

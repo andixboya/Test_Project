@@ -25,3 +25,30 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.csproj.CopyComplete
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\TestWithoutCSharpCode.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\TestWithoutCSharpCode.Result.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\UseForForeachAndIf.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\UseForForeachAndIf.Result.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\UseModelData.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\ViewTests\UseModelData.Result.html
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.deps.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.runtimeconfig.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.runtimeconfig.dev.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.Common.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.HTTP.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.MvcFramework.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.MvcFramework.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.Common.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\bin\Debug\netcoreapp2.2\SIS.HTTP.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.csprojAssemblyReference.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.csproj.CoreCompileInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.AssemblyInfoInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.AssemblyInfo.cs
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.csproj.CopyComplete
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework.Tests\obj\Debug\netcoreapp2.2\SIS.MvcFramework.Tests.pdb

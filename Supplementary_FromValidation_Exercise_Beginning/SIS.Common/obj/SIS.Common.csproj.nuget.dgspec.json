@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.Common\\SIS.Common.csproj": {}
+    "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.Common\\SIS.Common.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.Common\\SIS.Common.csproj": {
+    "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.Common\\SIS.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.Common\\SIS.Common.csproj",
+        "projectUniqueName": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.Common\\SIS.Common.csproj",
         "projectName": "SIS.Common",
-        "projectPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.Common\\SIS.Common.csproj",
+        "projectPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.Common\\SIS.Common.csproj",
         "packagesPath": "C:\\Users\\Andreyan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Andreyan\\Desktop\\check\\8. Validaiton Workshop\\beginning_of_exercise\\1\\2019-May-Season\\SoftUni-Information-Services\\src\\SIS.Common\\obj\\",
+        "outputPath": "D:\\Repository\\Test_Project\\Supplementary_FromValidation_Exercise_Beginning\\SIS.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

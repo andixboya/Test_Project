@@ -12,3 +12,17 @@ C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csproj.CopyComplete
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.dll
 C:\Users\Andreyan\Desktop\check\8. Validaiton Workshop\beginning_of_exercise\1\2019-May-Season\SoftUni-Information-Services\src\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.MvcFramework.deps.json
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.MvcFramework.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.MvcFramework.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.Common.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.HTTP.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.Common.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\bin\Debug\netstandard2.0\SIS.HTTP.pdb
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csprojAssemblyReference.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csproj.CoreCompileInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.AssemblyInfoInputs.cache
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.AssemblyInfo.cs
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.csproj.CopyComplete
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.dll
+D:\Repository\Test_Project\Supplementary_FromValidation_Exercise_Beginning\SIS.MvcFramework\obj\Debug\netstandard2.0\SIS.MvcFramework.pdb
