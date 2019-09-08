@@ -10,9 +10,9 @@ namespace PANDA.App.Controllers
     using System.Linq;
     using System.Threading.Tasks;
     using PANDA.Data;
+    using PANDA.App.Filters;
 
-
-
+    [ValidateModelState]
     public class PackagesController : Controller
     {
 
