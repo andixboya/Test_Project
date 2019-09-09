@@ -1,0 +1,52 @@
+﻿@model TestEventCreateBindingModel
+
+@{
+    ViewData["title"] = "TestCreate";
+}
+
+
+    <form asp-action="TestCreate" method="post" asp-controller="Events">
+
+        @*//this tag is for the Iobject verification and it also can summarize the mistakes from the props in one place
+        or the other case is to put them in spans + validation for!
+        ALSO if ANY of the below are false, it does not go into the loop and it shows the rest of the mistakes instead!
+            
+            *@
+
+        <div asp-validation-summary="All" class="text-danger font-weight-bold"></div>
+        
+        <div>
+            <label asp-for="@Model.Name"></label>
+            <input asp-for="@Model.Name" />
+            <span asp-validation-for="@Model.Name" class="text-danger"> </span>
+        </div>
+
+        <hr class="mt-3 bg-eventures hr-2" />
+        <div>
+            <label asp-for="@Model.Place"></label>
+            <input asp-for="@Model.Place" />
+            <span asp-validation-for="@Model.Place" class="text-danger"> </span>
+        </div>
+        <hr class="mt-3 bg-eventures hr-2" />
+
+        <div>
+            <label asp-for="@Model.Start"></label>
+            <input asp-for="@Model.Start" class="form-control" />
+            <span asp-validation-for="@Model.Start" class="text-danger"> </span>
+        </div>
+        <hr class="mt-3 bg-eventures hr-2" />
+        <div>
+            <label asp-for="@Model.End"></label>
+            <input asp-for="@Model.End" class="form-control" />
+            <span asp-validation-for="@Model.End" class="text-danger"> </span>
+        </div>
+        <hr class="mt-3 bg-eventures hr-2" />
+        <div>
+            <button type="submit" class="btn bg-eventures">Create Event</button>
+        </div>
+    </form>
+@*with the help of the below syntax, you use the js validation (you can`t include it in the ViewImport , because it does not support 
+sections, read it in the documentation.)*@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
