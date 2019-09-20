@@ -84,7 +84,40 @@ namespace Stopify.Web
             //}
             #endregion
 
+            #region seeding of initial Roles (Admin and User)
 
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+
+                using (var context= scope.ServiceProvider.GetRequiredService<StopifyDbContext>())
+                {
+
+                    
+                    context.Database.EnsureCreated();
+
+                    var users = context.Users.ToList();
+
+                    if (users.Count==0)
+                    {
+                        context.Roles.AddRangeAsync(new IdentityRole()
+                        {
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        } , 
+                        new IdentityRole()  
+                        {
+                            Name="User",
+                            NormalizedName="USER"
+                        });
+
+                        context.SaveChangesAsync();
+                    } 
+
+                }
+
+            }
+
+            #endregion
 
             app.UseDeveloperExceptionPage();
 

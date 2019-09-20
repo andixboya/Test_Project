@@ -19,13 +19,15 @@ namespace Stopify.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<StopifyUser> _signInManager;
         private readonly UserManager<StopifyUser> _userManager;
-        private readonly RoleManager<StopifyUser> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         
 
         public RegisterModel(
             UserManager<StopifyUser> userManager,
             SignInManager<StopifyUser> signInManager,
-            RoleManager<StopifyUser> roleManager)
+            
+            //note: mistake here, by the generic type of role manager!
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -61,14 +63,14 @@ namespace Stopify.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGet(string returnUrl = null)
+        public void OnGet(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = "/Home/Login";
+            returnUrl = "/Identity/Account/Login";
             if (ModelState.IsValid)
             {
                 var isAdmin = !this._userManager.Users.Any();
@@ -80,11 +82,12 @@ namespace Stopify.Web.Areas.Identity.Pages.Account
 
                     if (isAdmin)
                     {
-                        await _userManager.CreateAsync(user, "Admin");
+                        //note: we add the roles to our users!
+                        await _userManager.AddToRoleAsync(user, "Admin");
                     }
                     else
                     {
-                        await _userManager.CreateAsync(user, "User");
+                        await _userManager.AddToRoleAsync(user, "User");
                     }
 
                     #region Email Functionality

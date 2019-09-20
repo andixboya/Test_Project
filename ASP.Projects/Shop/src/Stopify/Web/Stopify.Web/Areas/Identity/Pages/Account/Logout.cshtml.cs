@@ -27,15 +27,20 @@ namespace Stopify.Web.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
 
-            if (returnUrl != null)
-            {
+            //note: here a mistake, just redirect the user! 
 
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return Page();
-            }
+            return Redirect("/Home/Index");
+            
+            //below is unnecessary 
+            //if (returnUrl != null)
+            //{
+
+            //    return LocalRedirect(returnUrl);
+            //}
+            //else
+            //{
+            //    return Page();
+            //}
 
         }
 
