@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stopify.Data;
 using Stopify.Data.Models;
+using Stopify.Services;
 
 namespace Stopify.Web
 {
@@ -57,6 +58,7 @@ namespace Stopify.Web
 
                 options.User.RequireUniqueEmail = true;
             });
+            services.AddTransient<IProductService, ProductService>();
 
             //4) there is a special option for jwt!
 
@@ -129,11 +131,19 @@ namespace Stopify.Web
 
             app.UseAuthentication();
 
+         
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                
+                //sample: administration/product/create (примерно!) -> как работи
+
+                routes.MapRoute(
+                    name: "areas" ,
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

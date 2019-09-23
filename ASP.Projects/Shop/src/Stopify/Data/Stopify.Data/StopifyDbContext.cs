@@ -9,12 +9,12 @@ namespace Stopify.Data
     using System;
     using System.Collections.Generic;
     using System.Text;
-    public class StopifyDbContext : IdentityDbContext<StopifyUser,IdentityRole,string>
+    public class StopifyDbContext : IdentityDbContext<StopifyUser, IdentityRole, string>
     {
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet< ProductType> ProductTypes { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
 
 
         public StopifyDbContext()
@@ -24,7 +24,7 @@ namespace Stopify.Data
 
         public StopifyDbContext(DbContextOptions options) : base(options)
         {
-           
+
         }
     }
 }
