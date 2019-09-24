@@ -60,6 +60,33 @@ namespace Stopify.Web
             });
             services.AddTransient<IProductService, ProductService>();
 
+
+            #region note: cache
+            //with the in-memory dictionary object in the controller!
+            services.AddMemoryCache(opt=>
+            {
+                //you can add additional options here! They are not too many!
+                //opt. 
+                
+            });
+            //response caching (with attributes) 
+            services.AddResponseCaching(opt=> 
+            {
+                //you can add options here as well, ofcourse
+            });
+
+            //note: cache- distributed-SQL-server-caching
+            //requires 1 power-sehell command for initialization of the table within the db+
+           //+  some options below for db-specification
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CacheEntries";
+            });
+
+            #endregion
+
             //4) there is a special option for jwt!
 
             //5) for services here!
@@ -121,16 +148,19 @@ namespace Stopify.Web
 
             #endregion
 
+
+
+            
             app.UseDeveloperExceptionPage();
 
             app.UseHsts();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
-
             app.UseAuthentication();
 
+            //note: cache-related
+            app.UseResponseCaching();
          
 
             app.UseMvc(routes =>

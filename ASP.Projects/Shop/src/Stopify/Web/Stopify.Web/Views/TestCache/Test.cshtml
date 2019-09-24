@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Test</h1>
+@*note:  according to the user!*@
+@*here it expires after new identity is given!*@
+<cache vary-by-user="true">
+    <vc:latest-user></vc:latest-user> @*// what is this!?*@
+    <h1>@User.Identity.Name</h1> @*в зависимост от това какво е името, ще направи нов cache!*@
+
+    <h1>@DateTime.UtcNow</h1>
+</cache>
+
+@* accoridng to the query given after the path!*@
+@*in this case it expires either after 5 seconds or AFTER new identity is added!*@
+<cache vary-by-query="id" expires-sliding="@new TimeSpan(0,0,5)">
+    @DateTime.UtcNow;
+</cache>
+
+@*according to the different header if it is there or not? check in the net, how it is used! *@ 
+<cache vary-by-header="true">
+    
+
+</cache>
+
+
+

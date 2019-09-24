@@ -19,6 +19,16 @@ namespace Stopify.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            //note: logger options for log -setting
+            .ConfigureLogging(opt=>
+            {
+                opt.SetMinimumLevel(LogLevel.Critical);
+                //you can add also additional loggers!
+                //opt.AddDebug
+                //note: logger you can add here filters!
+                //opt.AddFilter("System", LogLevel.None);
+                //opt.AddFilter("Microsoft", LogLevel.None);
+            })
                 .UseStartup<Startup>();
     }
 }
