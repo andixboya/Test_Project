@@ -8,29 +8,35 @@ namespace Stopify.Web.Areas.Administration.Controllers
     using Stopify.Services.Models;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    //using System.Linq;
     using System.Threading.Tasks;
     using Stopify.Web.ViewModels;
+    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductController : AdminController
     {
 
         private readonly IProductService productService;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService,ICloudinaryService cloudinaryService)
         {
             this.productService = productService;
+            this.cloudinaryService = cloudinaryService;
         }
 
         [HttpGet("/Administration/Product/Create")]
         public async Task<IActionResult> Create()
         {
-            var allProductTypes = await this.productService.GetAllProductTypes();
+            var allProductTypes = await this.productService.GetAllProductTypes().ToListAsync();
 
             //note: this is important too, check it! 
             this.ViewData["types"] = allProductTypes.Select(productType => new ProductCreateProductTypeViewModel
             {
                 Name = productType.Name
+
+                 
             }).ToList();
 
 
@@ -40,6 +46,24 @@ namespace Stopify.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateInputModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                List<ProductTypeServiceModel> allProductTypes = await this.productService.GetAllProductTypes().ToListAsync();
+
+                this.ViewData["types"] = allProductTypes.Select(productType => new ProductCreateProductTypeViewModel
+                {
+                    Name = productType.Name
+                })
+                    .ToList();
+
+                return this.View(inputModel);
+            }
+
+
+
+            var imageUrl = await cloudinaryService.UploadPictureAsync(inputModel.Picture, inputModel.Name);
+            //var secondImage = await cloudinaryService.UploadPictureAsync(inputModel.Picture);
+
             //note: will be fixed with automapper!
             ProductServiceModel serviceModel = new ProductServiceModel()
             {
@@ -50,11 +74,14 @@ namespace Stopify.Web.Areas.Administration.Controllers
                 ProductType = new ProductTypeServiceModel()
                 {
                     Name = inputModel.ProductType
-                }
+                },
+                Picture = imageUrl
+                
             };
 
+            
+            
             var isCreated = await productService.Create(serviceModel);
-
 
 
             return this.Redirect("/Home/Index");
@@ -70,6 +97,11 @@ namespace Stopify.Web.Areas.Administration.Controllers
         [HttpPost("/Administration/Product/Type/Create")]
         public async Task<IActionResult> CreateType(ProductTypeCreateInputModel productTypeCreateInputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(productTypeCreateInputModel);
+            }
+
             ProductTypeServiceModel productTypeServiceModel = new ProductTypeServiceModel
             {
                 Name = productTypeCreateInputModel.Name
@@ -79,12 +111,6 @@ namespace Stopify.Web.Areas.Administration.Controllers
 
             return this.Redirect("/");
         }
-
-
-
-
-       
-
 
     }
 }

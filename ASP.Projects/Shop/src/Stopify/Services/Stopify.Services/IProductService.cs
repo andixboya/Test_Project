@@ -16,6 +16,8 @@ namespace Stopify.Services
         Task<bool> Create(ProductServiceModel inputmodel);
 
         Task<bool> CreateProductType(ProductTypeServiceModel productTypeServiceModel);
-        Task<IQueryable<ProductTypeServiceModel>> GetAllProductTypes();
+        IQueryable<ProductTypeServiceModel> GetAllProductTypes();
+
+        IQueryable<ProductServiceModel> GetAllProducts();
     }
 }

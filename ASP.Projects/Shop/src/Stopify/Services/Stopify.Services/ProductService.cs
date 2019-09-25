@@ -12,23 +12,26 @@ namespace Stopify.Services
     public class ProductService : IProductService
     {
         private readonly StopifyDbContext context;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public ProductService(StopifyDbContext context)
+        public ProductService(StopifyDbContext context, ICloudinaryService cloudinaryService)
         {
             this.context = context;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<bool> Create(ProductServiceModel productServiceModel)
         {
+            var productType = this.context.ProductTypes.FirstOrDefault(p => p.Name == productServiceModel.ProductType.Name);
+
             Product product = new Product
             {
                 Name = productServiceModel.Name,
                 Price = productServiceModel.Price,
                 ManufacturedOn = productServiceModel.ManufacturedOn,
-                ProductType=new ProductType()
-                {
-                    Name= productServiceModel.ProductType.Name
-                }
+                ProductType=productType,
+                Picture=productServiceModel.Picture
+                
             };
 
             context.Products.Add(product);
@@ -50,7 +53,25 @@ namespace Stopify.Services
             return result > 0;
         }
 
-        public async Task<IQueryable<ProductTypeServiceModel>> GetAllProductTypes()
+        public IQueryable<ProductServiceModel> GetAllProducts()
+        {
+            return this.context.Products.Select(p => new ProductServiceModel()
+            {
+                Name = p.Name,
+                Id = p.Id,
+                ManufacturedOn = p.ManufacturedOn,
+                Picture = p.Picture,
+                Price = p.Price,
+                ProductType = new ProductTypeServiceModel()
+                {
+                    Id = p.ProductType.Id,
+                    Name = p.ProductType.Name
+                },
+                ProductTypeId = p.ProductType.Id
+            });
+        }
+
+        public  IQueryable<ProductTypeServiceModel> GetAllProductTypes()
         {
             return this.context.ProductTypes
                 .Select(productType => new ProductTypeServiceModel

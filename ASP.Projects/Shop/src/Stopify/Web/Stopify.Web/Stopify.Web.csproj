@@ -21,4 +21,11 @@
     <ProjectReference Include="..\Stopify.Web.ViewModels\Stopify.Web.ViewModels.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Update="12.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
