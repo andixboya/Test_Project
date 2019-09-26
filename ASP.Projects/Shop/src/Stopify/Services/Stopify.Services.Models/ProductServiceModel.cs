@@ -1,11 +1,14 @@
-﻿
-namespace Stopify.Services.Models
+﻿namespace Stopify.Services.Models
 {
+    using AutoMapper;
+    using Stopify.Data.Models;
+    using Stopify.Services.Mapping;
+    using Stopify.Web.InputModels;
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
-    public class ProductServiceModel
+    public class ProductServiceModel : IMapFrom<Product>,IMapTo<Product> 
+        ,IMapFrom<ProductCreateInputModel>
+        , IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -20,5 +23,18 @@ namespace Stopify.Services.Models
         public string Picture { get; set; }
 
         public DateTime ManufacturedOn { get; set; }
+
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Product, ProductServiceModel>()
+                .ForMember(destination => destination.ProductType,
+                            opts => opts.MapFrom(origin => new ProductTypeServiceModel { Name = origin.ProductType.Name }));
+
+            configuration.CreateMap<ProductCreateInputModel, ProductServiceModel>()
+                .ForMember(destination => destination.ProductType,
+                opts => opts.MapFrom(origin => new ProductTypeServiceModel { Name = origin.ProductType}));
+            
+        }
     }
 }

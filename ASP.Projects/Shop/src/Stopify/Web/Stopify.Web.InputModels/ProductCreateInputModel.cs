@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Stopify.Web.InputModels
 {
-    public class ProductCreateInputModel
+    public class ProductCreateInputModel 
     {
         [Required(ErrorMessage = "Name is required!")]
         public string Name { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace Stopify.Web.ViewModels.Home.Index
 {
-    public class ProductHomeViewModel
+    public class ProductHomeViewModel 
     {
         public string Name { get; set; }
 

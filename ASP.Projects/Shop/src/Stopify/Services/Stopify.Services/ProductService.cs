@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Stopify.Data;
 using Stopify.Data.Models;
+using Stopify.Services.Mapping;
 using Stopify.Services.Models;
 
 namespace Stopify.Services
@@ -22,17 +24,22 @@ namespace Stopify.Services
 
         public async Task<bool> Create(ProductServiceModel productServiceModel)
         {
+            //works
             var productType = this.context.ProductTypes.FirstOrDefault(p => p.Name == productServiceModel.ProductType.Name);
 
-            Product product = new Product
-            {
-                Name = productServiceModel.Name,
-                Price = productServiceModel.Price,
-                ManufacturedOn = productServiceModel.ManufacturedOn,
-                ProductType=productType,
-                Picture=productServiceModel.Picture
-                
-            };
+            Product product = Mapper.Map<Product>(productServiceModel);
+            product.ProductType = productType;
+            #region old mapping    
+            //    new Product
+            //{
+            //    Name = productServiceModel.Name,
+            //    Price = productServiceModel.Price,
+            //    ManufacturedOn = productServiceModel.ManufacturedOn,
+            //    ProductType=productType,
+            //    Picture=productServiceModel.Picture
+
+            //};
+            #endregion
 
             context.Products.Add(product);
             int result = await context.SaveChangesAsync();
@@ -42,10 +49,13 @@ namespace Stopify.Services
 
         public async Task<bool> CreateProductType(ProductTypeServiceModel productTypeServiceModel)
         {
-            ProductType productType = new ProductType
-            {
-                Name = productTypeServiceModel.Name
-            };
+            ProductType productType = Mapper.Map<ProductType>(productTypeServiceModel);
+            #region old mapping
+            //    new ProductType
+            //{
+            //    Name = productTypeServiceModel.Name
+            //};
+            #endregion
 
             context.ProductTypes.Add(productType);
             int result = await context.SaveChangesAsync();
@@ -55,30 +65,43 @@ namespace Stopify.Services
 
         public IQueryable<ProductServiceModel> GetAllProducts()
         {
-            return this.context.Products.Select(p => new ProductServiceModel()
-            {
-                Name = p.Name,
-                Id = p.Id,
-                ManufacturedOn = p.ManufacturedOn,
-                Picture = p.Picture,
-                Price = p.Price,
-                ProductType = new ProductTypeServiceModel()
-                {
-                    Id = p.ProductType.Id,
-                    Name = p.ProductType.Name
-                },
-                ProductTypeId = p.ProductType.Id
-            });
+
+            var result= this.context.Products.To<ProductServiceModel>();
+            
+            return result;
+            #region old mapping
+            //    .Select(p => new ProductServiceModel()
+            //{
+            //    Name = p.Name,
+            //    Id = p.Id,
+            //    ManufacturedOn = p.ManufacturedOn,
+            //    Picture = p.Picture,
+            //    Price = p.Price,
+            //    ProductType = new ProductTypeServiceModel()
+            //    {
+            //        Id = p.ProductType.Id,
+            //        Name = p.ProductType.Name
+            //    },
+            //    ProductTypeId = p.ProductType.Id
+            //});
+            #endregion
         }
 
         public  IQueryable<ProductTypeServiceModel> GetAllProductTypes()
         {
-            return this.context.ProductTypes
-                .Select(productType => new ProductTypeServiceModel
-                {
-                    Id = productType.Id,
-                    Name = productType.Name
-                });
+            
+            var result= this.context.ProductTypes.To<ProductTypeServiceModel>();
+            
+            return result;
+            #region old mapping
+            //.Select(productType => new ProductTypeServiceModel
+            //{
+            //    Id = productType.Id,
+            //    Name = productType.Name
+            //});
+            #endregion
+            //from product
+
         }
 
     }

@@ -13,6 +13,7 @@ namespace Stopify.Web.Areas.Administration.Controllers
     using Stopify.Web.ViewModels;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
+    using AutoMapper;
 
     public class ProductController : AdminController
     {
@@ -32,13 +33,9 @@ namespace Stopify.Web.Areas.Administration.Controllers
             var allProductTypes = await this.productService.GetAllProductTypes().ToListAsync();
 
             //note: this is important too, check it! 
-            this.ViewData["types"] = allProductTypes.Select(productType => new ProductCreateProductTypeViewModel
-            {
-                Name = productType.Name
-
-                 
-            }).ToList();
-
+            this.ViewData["types"] = allProductTypes
+                .Select(productType => Mapper.Map<ProductCreateProductTypeViewModel>(productType))
+                .ToList();
 
             return this.View();
         }
@@ -64,25 +61,26 @@ namespace Stopify.Web.Areas.Administration.Controllers
             var imageUrl = await cloudinaryService.UploadPictureAsync(inputModel.Picture, inputModel.Name);
             //var secondImage = await cloudinaryService.UploadPictureAsync(inputModel.Picture);
 
-            //note: will be fixed with automapper!
-            ProductServiceModel serviceModel = new ProductServiceModel()
-            {
-                ManufacturedOn = inputModel.ManufacturedOn,
-                Name = inputModel.Name,
-                //Picture=inputModel.Picture,
-                Price = inputModel.Price,
-                ProductType = new ProductTypeServiceModel()
-                {
-                    Name = inputModel.ProductType
-                },
-                Picture = imageUrl
-                
-            };
+            ProductServiceModel serviceModel = Mapper.Map<ProductServiceModel>(inputModel);
+            serviceModel.Picture = imageUrl;
 
-            
-            
+            #region old mapping
+            //    new ProductServiceModel()
+            //{
+            //    ManufacturedOn = inputModel.ManufacturedOn,
+            //    Name = inputModel.Name,
+            //    //Picture=inputModel.Picture,
+            //    Price = inputModel.Price,
+            //    ProductType = new ProductTypeServiceModel()
+            //    {
+            //        Name = inputModel.ProductType
+            //    },
+            //    Picture = imageUrl
+            //};
+            #endregion
+
+
             var isCreated = await productService.Create(serviceModel);
-
 
             return this.Redirect("/Home/Index");
         }
@@ -102,6 +100,7 @@ namespace Stopify.Web.Areas.Administration.Controllers
                 return this.View(productTypeCreateInputModel);
             }
 
+            //for one it is not worth it? 
             ProductTypeServiceModel productTypeServiceModel = new ProductTypeServiceModel
             {
                 Name = productTypeCreateInputModel.Name
