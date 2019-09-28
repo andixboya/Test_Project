@@ -1,0 +1,47 @@
+﻿@using  Stopify.Web.ViewModels;
+@model ProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class=" d-flex justify-content-around">
+    <div id="product-image-and-navigation-holder" class="w-45 ">
+        <hr class="bg-primary hr-2 ">
+        <div id="image-holder">
+            <img src="@Model.Picture" alt="picture" class="img-thumbnail">
+            <hr class="bg-primary hr-2 mt-4">
+            <div id="navigation-holder" class="d-flex justify-content-around ">
+                @if (this.User.IsInRole("Admin") && this.User.Identity.IsAuthenticated)
+                {
+                    <a href="" class="btn btn-primary text-white font-weight-bold  w-30 ">Edit</a>
+                    <a href="" class="btn btn-primary text-white font-weight-bold  w-30 ">Delete</a>
+                }
+
+                <a href="" class="btn btn-primary text-white font-weight-bold  w-30 ">Order</a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="product-data-holder" class="w-45 ">
+        <hr class="bg-primary hr-2 font-weight-bold ">
+        <h3 class="font-weight-bold text-center">Name: @Model.Name </h3>
+        <hr class="bg-primary hr-2 font-weight-bold mt-4">
+        <h3 class="font-weight-bold text-center">Price: @($"{Model.Price:f2}") </h3>
+        <hr class="bg-primary hr-2 font-weight-bold mt-4">
+        <h3 class="font-weight-bold text-center">Type: @Model.ProductType" </h3>
+        <hr class="bg-primary hr-2 font-weight-bold mt-4">
+        <h3 class="font-weight-bold text-center">Manufactured On: @Model.ManufacturedOn.ToString("dd-MM-yyyy") </h3>
+        <hr class="bg-primary hr-2 font-weight-bold mt-4">
+        <p class="  font-weight-bold text-center ">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi blanditiis consequuntur culpa cumque dolores doloribus dolorum error et iusto nam nemo officia, omnis porro recusandae reiciendis velit veniam vero.</p>
+    </div>
+</div>
+<hr class="bg-primary hr-2 font-weight-bold">
+
+
+@*<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>*@

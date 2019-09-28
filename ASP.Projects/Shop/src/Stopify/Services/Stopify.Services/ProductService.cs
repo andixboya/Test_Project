@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Stopify.Data;
 using Stopify.Data.Models;
 using Stopify.Services.Mapping;
@@ -104,5 +105,10 @@ namespace Stopify.Services
 
         }
 
+        public  ProductServiceModel GetProductById(string id)
+        {
+            return   this.context.Products.To<ProductServiceModel>()
+                .FirstOrDefault(i => i.Id == id);
+        }
     }
 }

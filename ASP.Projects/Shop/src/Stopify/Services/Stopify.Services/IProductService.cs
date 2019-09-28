@@ -19,5 +19,7 @@ namespace Stopify.Services
         IQueryable<ProductTypeServiceModel> GetAllProductTypes();
 
         IQueryable<ProductServiceModel> GetAllProducts();
+
+        ProductServiceModel GetProductById(string id);
     }
 }

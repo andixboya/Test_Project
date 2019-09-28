@@ -4,10 +4,11 @@
     using Stopify.Data.Models;
     using Stopify.Services.Mapping;
     using Stopify.Web.InputModels;
+    using Stopify.Web.ViewModels;
     using System;
 
     public class ProductServiceModel : IMapFrom<Product>,IMapTo<Product> 
-        ,IMapFrom<ProductCreateInputModel>
+        ,IMapFrom<ProductCreateInputModel> , IMapTo<ProductDetailsViewModel>
         , IHaveCustomMappings
     {
         public string Id { get; set; }
@@ -34,7 +35,10 @@
             configuration.CreateMap<ProductCreateInputModel, ProductServiceModel>()
                 .ForMember(destination => destination.ProductType,
                 opts => opts.MapFrom(origin => new ProductTypeServiceModel { Name = origin.ProductType}));
-            
+
+            configuration.CreateMap<ProductServiceModel, ProductDetailsViewModel>()
+                .ForMember(destination => destination.ProductType,
+                opts => opts.MapFrom(origin => origin.ProductType.Name ));
         }
     }
 }
