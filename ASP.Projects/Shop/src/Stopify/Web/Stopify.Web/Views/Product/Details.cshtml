@@ -12,14 +12,17 @@
             <img src="@Model.Picture" alt="picture" class="img-thumbnail">
             <hr class="bg-primary hr-2 mt-4">
             <div id="navigation-holder" class="d-flex justify-content-around ">
+
+
+
+                @*<a href="" class="btn btn-primary text-white font-weight-bold  w-30 ">Order</a> <- before modal and below is after*@
+                @*only the data toggle + target are important i think*@
+                <button class="btn btn-primary text-white font-weight-bold" data-toggle="modal" data-target="#orderModal">Order</button>
                 @if (this.User.IsInRole("Admin") && this.User.Identity.IsAuthenticated)
                 {
                     <a href="" class="btn btn-primary text-white font-weight-bold  w-30 ">Edit</a>
                     <a href="" class="btn btn-primary text-white font-weight-bold  w-30 ">Delete</a>
                 }
-
-                <a href="" class="btn btn-primary text-white font-weight-bold  w-30 ">Order</a>
-
             </div>
         </div>
 
@@ -40,8 +43,57 @@
 </div>
 <hr class="bg-primary hr-2 font-weight-bold">
 
+@*реално div-a ти е целия модал, което е форма, която спира всички други възможни действия*@
+
+@*this is the modal (in it you have to mention which is the form, which fields are binded and add a js for submitting it to the server!)*@
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderModalLabel">Order Name - @Model.Name</h5>
+                @*the below is the modal close button*@
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                @*NOTE: modal here we need to mention where the form is going to!*@
+
+                <form id="order-form" action="/Product/Order" method="post">
+                    <div class="form-group">
+                        @*how does this know that i t should have drop-down i don`t know*@
+                        <label for="quantity" class="col-form-label">Quantity:</label>
+                        <input type="number"
+                               class="form-control"
+                               id="quantity"
+                               name="quantity">
+
+                        @*note: this is the hidden field, whch will contain the id of the order*@
+                        <input type="hidden" value="@Model.Id" name="productId" />
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                @*here below, are the two buttons which will appear, change them to your own customizations*@
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="complete-order-button">Complete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*note: modal here we need to add a script, which will add an event listener, which will submit our form (not only to bind the indexes/id-s and etc.)*@
+<script>
+    $('#complete-order-button').click(function () {
+        debugger;
+        $('#order-form').submit();
+    });
+</script>
 
 @*<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

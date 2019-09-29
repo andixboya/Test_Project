@@ -13,8 +13,11 @@ namespace Stopify.Data
     {
 
         public DbSet<Product> Products { get; set; }
-
         public DbSet<ProductType> ProductTypes { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
 
 
         public StopifyDbContext()

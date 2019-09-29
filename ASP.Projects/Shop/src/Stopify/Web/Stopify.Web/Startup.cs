@@ -60,6 +60,7 @@ namespace Stopify.Web
                 options.User.RequireUniqueEmail = true;
             });
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
 
 
             #region note: cache
@@ -101,6 +102,7 @@ namespace Stopify.Web
                 this.Configuration["Cloudinary:ApiKey"],
                 this.Configuration["Cloudinary:ApiSecret"]
                 );
+
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryAccount);
             services.AddSingleton(cloudinaryUtility);
             services.AddTransient<ICloudinaryService, CloudinaryService>();
@@ -151,7 +153,6 @@ namespace Stopify.Web
 
 
                     context.Database.EnsureCreated();
-
                     var users = context.Users.ToList();
 
                     if (users.Count == 0)
@@ -167,15 +168,27 @@ namespace Stopify.Web
                             NormalizedName = "USER"
                         });
 
-                        context.SaveChangesAsync();
+                        
                     }
 
+                    if (!context.OrderStatuses.Any())
+                    {
+                        context.OrderStatuses.AddRangeAsync(new OrderStatus()
+                        {
+                            Name = "Active"
+                        }, new OrderStatus()
+                        {
+                            Name = "Completed"
+                        });
+
+                    }
+
+                    context.SaveChangesAsync();
                 }
 
             }
 
             #endregion
-
 
 
 
