@@ -10,6 +10,7 @@ using Stopify.Data.Models;
 using Stopify.Services.Mapping;
 using Stopify.Services.Models;
 
+
 namespace Stopify.Services
 {
     public class ProductService : IProductService
@@ -28,8 +29,8 @@ namespace Stopify.Services
             //works
             var productType = this.context.ProductTypes.FirstOrDefault(p => p.Name == productServiceModel.ProductType.Name);
 
-            Product product = Mapper.Map<Product>(productServiceModel);
-            product.ProductType = productType;
+            var product = productServiceModel.To<Product>();
+            
             #region old mapping    
             //    new Product
             //{
@@ -50,7 +51,7 @@ namespace Stopify.Services
 
         public async Task<bool> CreateProductType(ProductTypeServiceModel productTypeServiceModel)
         {
-            ProductType productType = Mapper.Map<ProductType>(productTypeServiceModel);
+            ProductType productType = productTypeServiceModel.To<ProductType>();
             #region old mapping
             //    new ProductType
             //{
@@ -110,5 +111,6 @@ namespace Stopify.Services
             return   this.context.Products.To<ProductServiceModel>()
                 .FirstOrDefault(i => i.Id == id);
         }
+        
     }
 }

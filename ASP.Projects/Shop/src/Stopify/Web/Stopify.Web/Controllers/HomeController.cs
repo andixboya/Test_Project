@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Stopify.Services;
+using Stopify.Services.Mapping;
 using Stopify.Web.Models;
 using Stopify.Web.ViewModels.Home.Index;
 
@@ -29,14 +30,18 @@ namespace Stopify.Web.Controllers
             if (this.User.Identity.IsAuthenticated)
             {
                 List<ProductHomeViewModel> products = await this.productService.GetAllProducts()
-                    .Select(product => new ProductHomeViewModel
-                    {
-                        Id=product.Id,
-                        Name = product.Name,
-                        Price = product.Price,
-                        Picture = product.Picture
-                    })
+                    .Select(product => product.To<ProductHomeViewModel>())
                     .ToListAsync();
+                
+                #region manual mapping
+                //new ProductHomeViewModel
+                //{
+                //    Id=product.Id,
+                //    Name = product.Name,
+                //    Price = product.Price,
+                //    Picture = product.Picture
+                //}
+                #endregion
 
                 return this.View(products);
             }

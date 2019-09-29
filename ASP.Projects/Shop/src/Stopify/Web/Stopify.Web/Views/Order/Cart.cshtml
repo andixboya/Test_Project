@@ -1,0 +1,70 @@
+﻿@using Stopify.Web.ViewModels.Order
+@model List<OrderCartViewModel>
+
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="justify-content-center ">
+        <hr class="bg-primary hr-2 ">
+        <h1 class="text-primary text-center ">Cart</h1>
+        <hr class="bg-primary hr-2 ">
+        @if (Model.Any())
+        {
+            <table class="table table-hover " id="order-table-info">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-primary h5 font-weight-bold">#</th>
+                        <th scope="col" class="text-primary h5 font-weight-bold ">Picture</th>
+                        <th scope="col" class="text-primary h5 font-weight-bold">Name</th>
+                        <th scope="col" class="text-primary h5 font-weight-bold ">Quantity</th>
+                        <th scope="col" class="text-primary h5 font-weight-bold ">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < @Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="text-primary h5">@(i + 1)</td>
+                            <td class="text-primary h5">
+                                <img class=" img-thumbnail  product-image"
+                                     src="@Model[i].ProductPicture"
+                                     alt="Product Picture">
+                            </td>
+                            <td class="text-primary h5">@Model[i].ProductName</td>
+                            <td class="text-primary h5">@Model[i].Quantity</td>
+                            <td class="text-primary h5">@($"{Model[i].ProductPrice.ToString():f2}")</td>
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+
+            <hr class="bg-primary hr-2 ">
+          
+            
+            <form action="/Order/Cart/Complete" method="post" class="d-flex justify-content-between">
+                <button class="btn btn-primary font-weight-bold">Cashout</button>
+                <h2 class="text-primary" id="total-price">Total: @Model.Sum(order => order.ProductPrice * order.Quantity).ToString("F2")</h2>
+            </form>
+            @*<div >
+                <a href="/" class="btn btn-primary font-weight-bold h4 float-left">Checkout</a>
+                <div class="text-right text-primary font-weight-bold h2  dropright">
+
+                    Total: @(Model.Sum(i => i.ProductPrice * i.Quantity))
+                </div>
+            </div>*@
+            
+        }
+        else
+        {
+            <h1 class="text-primary">
+                No products ordered yet!
+            </h1>
+        }
+
+        <hr class="bg-primary hr-2 ">
+
+    </div>

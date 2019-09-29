@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using System.Linq.Expressions;
-
+    using AutoMapper;
     using AutoMapper.QueryableExtensions;
 
     public static class QueryableMappingExtensions
@@ -31,5 +31,17 @@
 
             return source.ProjectTo<TDestination>(parameters);
         }
+
+
+        public static TDestination To<TDestination>(this object source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            return Mapper.Map<TDestination>(source);
+        }
+
     }
 }

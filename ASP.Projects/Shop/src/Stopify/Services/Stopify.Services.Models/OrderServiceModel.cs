@@ -2,19 +2,25 @@
 
 namespace Stopify.Services.Models
 {
+    using AutoMapper;
     using Stopify.Data.Models;
     using Stopify.Services.Mapping;
     using Stopify.Web.InputModels;
+    using Stopify.Web.ViewModels.Order;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Text;
-    public class OrderServiceModel :IMapFrom<ProductOrderInputModel> , IMapTo<Order>
+    public class OrderServiceModel :IMapFrom<ProductOrderInputModel> , IMapTo<Order> , IMapFrom<Order>,
+        IMapTo<OrderCartViewModel> 
     {
+        public string Id { get; set; }
+
         public DateTime IssuedOn { get; set; }
 
         public string ProductId { get; set; }
 
-        //this we got it already
+        
         public ProductServiceModel Product { get; set; }
 
         public int Quantity { get; set; }
@@ -26,7 +32,6 @@ namespace Stopify.Services.Models
         public int StatusId { get; set; }
 
         public OrderStatusServiceModel Status { get; set; }
-
 
     }
 }

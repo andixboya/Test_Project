@@ -5,11 +5,11 @@
     using Stopify.Services.Mapping;
     using Stopify.Web.InputModels;
     using Stopify.Web.ViewModels;
+    using Stopify.Web.ViewModels.Home.Index;
     using System;
 
     public class ProductServiceModel : IMapFrom<Product>,IMapTo<Product> 
-        ,IMapFrom<ProductCreateInputModel> , IMapTo<ProductDetailsViewModel>
-        , IHaveCustomMappings
+        ,IMapFrom<ProductCreateInputModel> , IMapTo<ProductDetailsViewModel> , IMapTo<ProductHomeViewModel>, IHaveCustomMappings
     {
         public string Id { get; set; }
 

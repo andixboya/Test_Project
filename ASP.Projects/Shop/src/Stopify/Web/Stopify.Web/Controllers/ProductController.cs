@@ -5,6 +5,7 @@ namespace Stopify.Web.Controllers
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using Stopify.Services;
+    using Stopify.Services.Mapping;
     using Stopify.Services.Models;
     using Stopify.Web.InputModels;
     using Stopify.Web.ViewModels;
@@ -27,7 +28,7 @@ namespace Stopify.Web.Controllers
             //TODO: make getProdubyById work async!
             var productInfo = this.productService.GetProductById(id);
 
-            var product = Mapper.Map<ProductDetailsViewModel>(productInfo);
+            var product = productInfo.To<ProductDetailsViewModel>();
 
             return this.View(product);
         }
@@ -35,7 +36,7 @@ namespace Stopify.Web.Controllers
 
         public async Task<IActionResult> Order(ProductOrderInputModel inputModel)
         {
-            OrderServiceModel orderServiceModel = Mapper.Map<OrderServiceModel>(inputModel);
+            OrderServiceModel orderServiceModel = inputModel.To< OrderServiceModel>();
 
             //orderServiceModel.IssuerId = this.User.Identity.Name;
             //note: това търси този, който го е създал, а не този, който купува!!!! ????? 
