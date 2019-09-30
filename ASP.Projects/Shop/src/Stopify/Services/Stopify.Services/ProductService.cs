@@ -30,7 +30,7 @@ namespace Stopify.Services
             var productType = this.context.ProductTypes.FirstOrDefault(p => p.Name == productServiceModel.ProductType.Name);
 
             var product = productServiceModel.To<Product>();
-            
+            product.ProductType = productType; // THIS IS FOR PREVENTING THE NEW CREATION OF PRODUCT TYPE!
             #region old mapping    
             //    new Product
             //{

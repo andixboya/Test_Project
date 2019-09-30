@@ -18,13 +18,13 @@ namespace Stopify.Web.Controllers
     {
 
         private readonly IOrderService orderService;
-        
+        private readonly IReceiptService receiptService;
 
-        public OrderController(IOrderService orderService)
+
+        public OrderController(IOrderService orderService, IReceiptService receiptService)
         {
             this.orderService = orderService;
-            
-            
+            this.receiptService = receiptService;
         }
 
         [HttpGet(Name = "Cart")]
@@ -33,18 +33,23 @@ namespace Stopify.Web.Controllers
             string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             List<OrderCartViewModel> orderCartViewModel = await this.orderService.GetAllOrders()
-                .Where(o=> o.IssuerId== userId)
+                .Where(o=> o.IssuerId== userId && o.Status.Name=="Active" )
                 .Select(order=> order.To<OrderCartViewModel>())
                 .ToListAsync();
 
             return this.View(orderCartViewModel);
         }
 
-        [HttpPost(Name = "Cart")]
-        public IActionResult Cart(string name)
-        {
 
-            return this.Ok();
+        [HttpPost]
+        public async Task<IActionResult> CashOut()
+        {
+            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            string receiptId =  await this.receiptService.CreateReceipt(userId);
+
+
+            return this.Redirect($"/Receipt/Details/{receiptId}");
         }
     }
 }

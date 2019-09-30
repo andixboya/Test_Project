@@ -7,12 +7,13 @@ namespace Stopify.Services.Models
     using Stopify.Services.Mapping;
     using Stopify.Web.InputModels;
     using Stopify.Web.ViewModels.Order;
+    using Stopify.Web.ViewModels.Receipt.Details;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Text;
     public class OrderServiceModel :IMapFrom<ProductOrderInputModel> , IMapTo<Order> , IMapFrom<Order>,
-        IMapTo<OrderCartViewModel> 
+        IMapTo<OrderCartViewModel>  , IMapTo<ReceiptDetailsOrderViewModel> 
     {
         public string Id { get; set; }
 
@@ -33,5 +34,6 @@ namespace Stopify.Services.Models
 
         public OrderStatusServiceModel Status { get; set; }
 
+        
     }
 }

@@ -59,8 +59,11 @@ namespace Stopify.Web
 
                 options.User.RequireUniqueEmail = true;
             });
+            
+            //5) for services here!
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IReceiptService, ReceiptService>();
 
 
             #region note: cache
@@ -90,7 +93,7 @@ namespace Stopify.Web
 
             //4) there is a special option for jwt!
 
-            //5) for services here!
+            
 
 
 
@@ -203,14 +206,14 @@ namespace Stopify.Web
             //note: cache-related
             app.UseResponseCaching();
 
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
-                //sample: administration/product/create (примерно!) -> как работи
+                //sample: administration / product / create(примерно!)->как работи
 
                 routes.MapRoute(
                     name: "areas",

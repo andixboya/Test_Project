@@ -33,7 +33,7 @@
                                      alt="Product Picture">
                             </td>
                             <td class="text-primary h5">@Model[i].ProductName</td>
-                            <td class="text-primary h5">@Model[i].Quantity</td>
+                            <td class="text-primary h5">@($"x{Model[i].Quantity}")</td>
                             <td class="text-primary h5">@($"{Model[i].ProductPrice.ToString():f2}")</td>
                         </tr>
 
@@ -45,7 +45,7 @@
             <hr class="bg-primary hr-2 ">
           
             
-            <form action="/Order/Cart/Complete" method="post" class="d-flex justify-content-between">
+            <form action="/Order/CashOut" method="post" class="d-flex justify-content-between">
                 <button class="btn btn-primary font-weight-bold">Cashout</button>
                 <h2 class="text-primary" id="total-price">Total: @Model.Sum(order => order.ProductPrice * order.Quantity).ToString("F2")</h2>
             </form>
