@@ -19,76 +19,15 @@
 <body>
     @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
     {
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-                <a class="navbar-brand font-weight-bold" href="/">Stopify</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Order/Cart">Cart</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Administration/Product/Type/Create">Create Product Type</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Administration/Product/Create">Create Product</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Identity/Account/Logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+        <partial name="/Views/Shared/Headers/AdminHeaders.cshtml" />
     }
     else if (this.User.Identity.IsAuthenticated && this.User.IsInRole("User"))
     {
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-                <a class="navbar-brand font-weight-bold" href="/">Stopify</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Order/Cart">Cart</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Identity/Account/Logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+        <partial name="/Views/Shared/Headers/UserHeaders.cshtml" />
     }
     else
     {
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-                <a class="navbar-brand font-weight-bold" href="/">Stopify</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/">Home</a>
-                        </li>
-
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Identity/Account/Login">Login</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link font-weight-bold" href="/Identity/Account/Register">Register</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+        <partial name="/Views/Shared/headers/AnonymousHeaders.cshtml" />
     }
     <div class="container-fluid">
         <main class="mt-3 mb-3">

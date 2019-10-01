@@ -6,10 +6,13 @@ namespace Stopify.Services.Models
     using Stopify.Data.Models;
     using Stopify.Services.Mapping;
     using Stopify.Web.ViewModels.Receipt.Details;
+    using Stopify.Web.ViewModels.Receipt.Profile;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
-    public class ReceiptServiceModel :IMapFrom<Receipt> , IMapTo<ReceiptDetailsViewModel> 
+    public class ReceiptServiceModel :IMapFrom<Receipt> , IMapTo<ReceiptDetailsViewModel> , IMapTo<ReceiptProfileViewModel>
+        ,IHaveCustomMappings
     {
 
         public ReceiptServiceModel()
@@ -31,6 +34,13 @@ namespace Stopify.Services.Models
             configuration.CreateMap<ReceiptServiceModel, ReceiptDetailsViewModel>()
                             .ForMember(destination => destination.Recipient,
                                         opts => opts.MapFrom(origin => origin.Recipient.UserName));
+
+            configuration.CreateMap<ReceiptServiceModel, ReceiptProfileViewModel>()
+                            .ForMember(destination => destination.Total,
+                                        opts => opts.MapFrom(origin => origin.Orders.Sum(o => o.Quantity * o.Product.Price)))
+                            .ForMember(destination => destination.Products,
+                            opts => opts.MapFrom(origin => origin.Orders.Sum(o=> o.Quantity)));
+
         }
     }
 }

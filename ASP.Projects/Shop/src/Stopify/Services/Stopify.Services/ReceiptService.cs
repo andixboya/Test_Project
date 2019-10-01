@@ -17,7 +17,7 @@ namespace Stopify.Services
         private readonly StopifyDbContext context;
         private readonly IOrderService orderService;
 
-        public ReceiptService( StopifyDbContext context, IOrderService orderService)
+        public ReceiptService(StopifyDbContext context, IOrderService orderService)
         {
             this.context = context;
             this.orderService = orderService;
@@ -42,7 +42,7 @@ namespace Stopify.Services
 
             //when its added, we can use the id , as a redirect to our newly created receipt 
             await this.context.Receipts.AddAsync(receipt);
-            int result =  await this.context.SaveChangesAsync();
+            int result = await this.context.SaveChangesAsync();
 
             return receipt.Id;
 
@@ -55,7 +55,9 @@ namespace Stopify.Services
 
         public IQueryable<ReceiptServiceModel> GetAllByRecipientId(string recipientId)
         {
-            throw new NotImplementedException();
+            return this.context.Receipts
+               .Where(receipt => receipt.RecipientId == recipientId)
+               .To<ReceiptServiceModel>();
         }
     }
 }
