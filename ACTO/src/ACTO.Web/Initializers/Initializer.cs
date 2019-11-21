@@ -21,7 +21,6 @@ namespace ACTO.Web.Initializers
         {
             context.Database.EnsureCreated();
             
-
             if (context.Users.Count() == 0 && context.Roles.Count()==0)
             {
                 context.Roles.AddRangeAsync(new IdentityRole()

@@ -10,13 +10,12 @@
         </button>
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                
                 <li class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-dropeffect="popup">
                         Tickets
                     </button>
-                    <div class="dropdown-menu btn-primary text-success">
 
+                    <div class="dropdown-menu btn-primary text-success">
                         <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Edit ticket</a>  @* //TODO: here add different options for manipulation*@
                         <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Refund ticket</a>
                         <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Search ticket</a>
@@ -25,28 +24,29 @@
 
                     </div>
                 </li>
-                
                 <li class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-dropeffect="popup">
+                    <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-dropeffect="popup">
                         Excursions
                     </button>
                     <div class="dropdown-menu btn-primary text-success">
-                        <a class="dropdown-item btn btn-primary text-warning font-weight-bold" href="#">Organize excursion</a>
-                        <a class="dropdown-item btn btn-primary text-warning font-weight-bold" href="#">Create excursion type</a>
-                        <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">All excursions</a>
-                        <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Edit excursion</a>
+                        <a class="dropdown-item btn btn-primary text-warning font-weight-bold" asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="CreateExcursion">Organize excursion</a>
+                        <a class="dropdown-item btn btn-primary text-warning font-weight-bold"asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="CreateExcursionType">Create excursion type</a>
+                        <a class="dropdown-item btn btn-primary text-warning font-weight-bold" asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="AddLanguage">Add language</a>
+                        @*<a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">All excursions</a>
+                        <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Edit excursion</a>*@
                         <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Remove excursion</a>
                         <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Search excursion</a> @*here multiple excursions*@
-                                    
+
                         @*<div class="dropdown-divider"></div>*@
 
                     </div>
                 </li>
-                
+
                 <li class="nav-item active">
                     <a type="button" class=" bg-primary nav-link font-weight-bold" href="/">Home</a>
                 </li>
-                
+
                 <li class="nav-item active">
                     <a type="button" class=" bg-primary nav-link font-weight-bold" href="/">User Info</a>
                 </li>

@@ -1,4 +1,5 @@
 ﻿using ACTO.Data.Models;
+using ACTO.Data.Models.Excursion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,11 +8,11 @@ using System.Text;
 
 namespace ACTO.Data.EntityConfigurations
 {
-    public class LanguageTypeConfiguration : IEntityTypeConfiguration<LanguageType>
+    public class LanguageTypeConfiguration : IEntityTypeConfiguration<Language>
     {
-        public void Configure(EntityTypeBuilder<LanguageType> builder)
+        public void Configure(EntityTypeBuilder<Language> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(lt => lt.Id);
         }
     }
 }

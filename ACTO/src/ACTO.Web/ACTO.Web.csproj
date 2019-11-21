@@ -19,6 +19,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ACTO.Data\ACTO.Data.csproj" />
+    <ProjectReference Include="..\ACTO.Web.ViewModels\ACTO.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Finance\Views\" />
+    <Folder Include="Areas\Administration\" />
   </ItemGroup>
 
 </Project>

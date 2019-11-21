@@ -1,6 +1,6 @@
 ﻿
 
-namespace ACTO.Data.Models
+namespace ACTO.Data.Models.Excursion
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace ACTO.Data.Models
     public class LanguageExcursion
     {
         public int LanguageId { get; set; }
-        public LanguageType Language { get; set; }
+        public Language Language { get; set; }
 
         public int ExcursionId { get; set; }
 

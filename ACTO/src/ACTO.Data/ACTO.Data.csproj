@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ACTO.Data.Models\ACTO.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ModelConfigurations\" />
+  </ItemGroup>
+
 </Project>

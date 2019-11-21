@@ -3,6 +3,7 @@
 namespace ACTO.Data.EntityConfigurations
 {
     using ACTO.Data.Models;
+    using ACTO.Data.Models.Excursion;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using System;
@@ -12,8 +13,11 @@ namespace ACTO.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Excursion> builder)
         {
-            
-            throw new NotImplementedException();
+            builder.HasKey(e => e.Id);
+
+            builder.HasOne(e => e.ExcursionType)
+                .WithMany(et => et.Excursions)
+                .HasForeignKey(e => e.ExcursionTypeId);
         }
     }
 }

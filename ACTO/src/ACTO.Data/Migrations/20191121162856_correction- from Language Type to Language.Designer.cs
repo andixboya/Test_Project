@@ -4,14 +4,16 @@ using ACTO.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ACTO.Data.Migrations
 {
     [DbContext(typeof(ACTODbContext))]
-    partial class ACTODbContextModelSnapshot : ModelSnapshot
+    [Migration("20191121162856_correction- from Language Type to Language")]
+    partial class correctionfromLanguageTypetoLanguage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

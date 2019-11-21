@@ -4,14 +4,16 @@ using ACTO.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ACTO.Data.Migrations
 {
     [DbContext(typeof(ACTODbContext))]
-    partial class ACTODbContextModelSnapshot : ModelSnapshot
+    [Migration("20191121154656_adding Excursion,ExcursionType, LanguageExcursion and Language type")]
+    partial class addingExcursionExcursionTypeLanguageExcursionandLanguagetype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,22 +148,6 @@ namespace ACTO.Data.Migrations
                     b.ToTable("ExcursionTypes");
                 });
 
-            modelBuilder.Entity("ACTO.Data.Models.Excursion.Language", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LanguageTypes");
-                });
-
             modelBuilder.Entity("ACTO.Data.Models.Excursion.LanguageExcursion", b =>
                 {
                     b.Property<int>("ExcursionId")
@@ -175,6 +161,22 @@ namespace ACTO.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("LanguageExcursions");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Excursion.LanguageType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LanguageTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -325,7 +327,7 @@ namespace ACTO.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ACTO.Data.Models.Excursion.Language", "Language")
+                    b.HasOne("ACTO.Data.Models.Excursion.LanguageType", "Language")
                         .WithMany("Excursions")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)

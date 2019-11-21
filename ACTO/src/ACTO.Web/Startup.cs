@@ -27,8 +27,6 @@ namespace ACTO.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-
             services.AddDbContext<ACTODbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -76,10 +74,10 @@ namespace ACTO.Web
 
             //context.Database.EnsureDeleted();
             context.Database.Migrate();
-            
+
             //adds initial roles ( here i`ll add seller, excursion operator/ cashier)
             var dbInitializer = scope.ServiceProvider.GetRequiredService<Initializer>();
-            dbInitializer.SeedRoles();
+            //dbInitializer.SeedRoles();
             #endregion
             app.UseHsts();
 
@@ -92,15 +90,12 @@ namespace ACTO.Web
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "mvcAreaRoute",
+                   template: "{area:exists}/{controller=Home}/{action=Index}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-                //sample: administration / product / create(примерно!)->как работи
-
-                routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
 
         }
