@@ -7,4 +7,6 @@
 }
 
 <h1>You have successfully logged out of the application.</h1>
-@*<partial name="/Areas/Identity/Pages/Account/Login.cshtml" model="mode")*@
+@*@(await Html.PartialAsync("~/Areas/Identity/Pages/Account/Login.cshtml", Model.loginModel))*@
+@*//TODO: WHY CAN`T I PASS ON A MODEL TO THE PARTIAL!?*@
+@*<partial name="/Areas/Identity/Pages/Account/Login.cshtml" model=@(Model.loginModel) for="@(Model.loginModel)" />;*@

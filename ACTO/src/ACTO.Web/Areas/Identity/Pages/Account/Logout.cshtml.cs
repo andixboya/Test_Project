@@ -18,6 +18,7 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
         public readonly SignInManager<ACTOUser> _signInManager;
         public readonly UserManager<ACTOUser> _userManager;
         private readonly ILogger<LogoutModel> _logger;
+        public LoginModel loginModel;
 
         
 
@@ -33,6 +34,8 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
              await _signInManager.SignOutAsync();
 
              _logger.LogInformation("User logged out.");
+
+            this.loginModel= new LoginModel(this._signInManager,this._userManager);
 
             return  RedirectToPage("Logout","AsyncGetView");
         }

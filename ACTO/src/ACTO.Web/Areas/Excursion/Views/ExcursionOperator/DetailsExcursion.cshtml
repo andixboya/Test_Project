@@ -1,46 +1,45 @@
 ﻿
 @using ACTO.Web.ViewModels.Excursion
-@model CombinedExcursioViewAndInputModel
+@model ExcursionDetailsViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <hr class="hr-2 bg-primary mt-4">
-<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded">Organize Excursion</h1>
+<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded">Details of excursion</h1>
 
 <hr class="hr-2 bg-primary mt-4">
 @* here below, is how we insert files/pictures*@
-<form method="post" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
+<form asp-action="DeleteExcursionPost" asp-area="Excursion" asp-controller="ExcursionOperator" asp-route-id="@Model.Id" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
-
     <div id="first-separator" class="d-flex justify-content-between">
         <div id="arrival-time" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="InputModel.Arrival" class="text-primary h5">Arrival time</label>
+                <label asp-for="Arrival" class="text-primary h5">Arrival time</label>
             </div>
-            <input type="text"
+            <input readonly type="text"
                    class="form-control text-primary text-center"
                    id="arrival-time-input"
                    placeholder="Arrival time..."
-                   asp-for=@Model.InputModel.Arrival>
+                   asp-for=@Model.Arrival>
             @*//TODO: HERE ADD to some format!*@
-            <span asp-validation-for="InputModel.Arrival" class="text-danger"></span>
+            <span asp-validation-for=@Model.Arrival class="text-danger"></span>
         </div>
 
         <div id="departure-time" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="InputModel.Departure" class="text-primary h5">Departure time</label>
+                <label asp-for=@Model.Departure class="text-primary h5">Departure time</label>
             </div>
-            <input type="text"
+            <input readonly type="text"
                    class="form-control text-primary text-center"
                    id="departure-time-input"
                    placeholder="Departure time..."
-                   asp-for=@Model.InputModel.Departure>
+                   asp-for=@Model.Departure>
             @*//TODO: HERE ADD to some format!*@
-            <span asp-validation-for='InputModel.Departure' class="text-danger"></span>
+            <span asp-validation-for=@Model.Departure class="text-danger"></span>
         </div>
     </div>
 
@@ -49,27 +48,27 @@
     <div id="second-separator" class="d-flex justify-content-between">
         <div id="start-point" class="form-group mx-auto w-45">
             <div class="form-group mx-auto w-45">
-                <label asp-for="InputModel.StartingPoint" class="text-primary h5">Start point</label>
+                <label asp-for=@Model.StartingPoint class="text-primary h5">Start point</label>
             </div>
-            <input type="text"
+            <input readonly type="text"
                    class="form-control text-primary text-center"
                    id="start-point-input"
                    placeholder="Start point..."
-                   asp-for="InputModel.StartingPoint">
-            <span asp-validation-for="InputModel.StartingPoint" class="text-danger"></span>
+                   asp-for=@Model.StartingPoint>
+            <span asp-validation-for=@Model.StartingPoint class="text-danger"></span>
         </div>
 
         <div id="end-point" class="form-group mx-auto w-45">
             <div class="form-group mx-auto w-45">
-                <label asp-for="InputModel.EndPoint" class="text-primary h5">End point</label>
+                <label asp-for=@Model.EndPoint class="text-primary h5">End point</label>
             </div>
             @*step="0.01" means stepper +0.01! for numbers only !!!! silly!*@
-            <input type="text"
+            <input readonly type="text"
                    class="form-control text-primary text-center"
                    id="end-point-input"
                    placeholder="End point..."
-                   asp-for="InputModel.EndPoint">
-            <span asp-validation-for="InputModel.EndPoint" class="text-danger"></span>
+                   asp-for=@Model.EndPoint>
+            <span asp-validation-for=@Model.EndPoint class="text-danger"></span>
         </div>
     </div>
 
@@ -78,30 +77,31 @@
     <div id="third-separator" class="d-flex justify-content-between">
         <div id="excursion-price" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="@Model.InputModel.Price" class="text-primary h5">Price</label>
+                <label asp-for=@Model.Price class="text-primary h5">Price</label>
             </div>
-            <input type="number"
+            <input readonly type="number"
                    class="form-control text-primary text-center"
                    id="picture"
                    placeholder="Price..."
                    min="0.00"
-                   asp-for=@Model.InputModel.Price>
+                   asp-for=@Model.Price>
 
-            <span asp-validation-for="@Model.InputModel.Price" class="text-danger"></span>
+            <span asp-validation-for=@Model.Price class="text-danger"></span>
         </div>
 
         <hr class="hr-2 bg-primary mt-4">
         <div id="excursion-type" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="InputModel.ExcursionTypeId" class="text-primary h5">Excursion type</label>
+                <label asp-for=@Model.ExcursionType.Name class="text-primary h5">Excursion type</label>
             </div>
-            <select class="form-control text-primary" id="exrusion-type-input" asp-for="InputModel.ExcursionTypeId">
-                <option selected disabled>--- Select excursion type ---</option>
-                @foreach (var type in Model.ViewModel.ExcursionTypes)
-                {
-                    <option value="@type.Id">@type.Name</option>
-                }
-            </select>
+            <input readonly type="text"
+                   class="form-control text-primary text-center"
+                   id="picture"
+                   placeholder="Price..."
+                   min="0.00"
+                   asp-for=@Model.ExcursionType.Name>
+
+            <span asp-validation-for=@Model.ExcursionType.Name class="text-danger"></span>
         </div>
     </div>
 
@@ -110,36 +110,47 @@
     <div id="fourth-separator" class="d-flex justify-content-between">
         <div id="tourist-capacity" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="InputModel.TouristCapacity" class="text-primary h5">Tourist Capacity</label>
+                <label asp-for=@Model.TouristCapacity class="text-primary h5">Tourist Capacity</label>
             </div>
-            <input type="number"
+            <input readonly type="number"
                    class="form-control text-primary text-center"
                    id="tourist-capacity-input"
                    placeholder="Tourist capacity..."
                    min="0"
-                   asp-for="InputModel.TouristCapacity">
-            <span asp-validation-for="InputModel.TouristCapacity" class="text-danger"></span>
+                   asp-for=@Model.TouristCapacity>
+            <span asp-validation-for=@Model.TouristCapacity class="text-danger"></span>
         </div>
 
         <div id="languages" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="InputModel.LanguageIds" class="text-primary h5">Language Type</label>
+                <label asp-for=@Model.Languages class="text-primary h5">Language Type</label>
             </div>
             tricky part
-            <select class="form-control text-primary" multiple="multiple" id="languages-input" asp-for="InputModel.LanguageIds">
+            <select readonly class="form-control text-primary" multiple="multiple" id="languages-input" asp-for=@Model.Languages>
                 <option selected disabled>--- Select single or multiple languages ---</option>
-                @foreach (var type in Model.ViewModel.Languages)
+                @foreach (var type in Model.Languages)
                 {
-                    <option value="@type.Id">@type.Name</option>
+                    <option readonly value="@type.Id">@type.Name</option>
                 }
             </select>
+
         </div>
     </div>
-    <hr class="hr-2 bg-primary mt-4">
-    <div class="d-flex justify-content-center mt-3">
-        <button class="btn btn-primary font-weight-bold">Create Product</button>
-    </div>
 </form>
+<hr class="hr-2 bg-primary mt-4">
+<div class="d-flex justify-content-center w-100">
+    <div class="d-flex justify-content-center mr-5">
+        <a asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="EditExcursion" asp-route-id=@(Model.Id) class="btn btn-primary font-weight-bold">Edit Excursion</a>
+    </div>
+    <div class="d-flex justify-content-center ml-5">
+        @*made it form, because i needed the post request*@
+        <form method="post" asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="DeleteExcursion" asp-route-id=@(Model.Id)>
+            <button class="btn btn-primary font-weight-bold"> Delete Excursion</button>
+        </form>
+    </div>
+</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
