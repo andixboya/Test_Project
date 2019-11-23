@@ -11,7 +11,7 @@ namespace ACTO.Data.Migrations
 {
     [DbContext(typeof(ACTODbContext))]
     [Migration("20191121154656_adding Excursion,ExcursionType, LanguageExcursion and Language type")]
-    partial class addingExcursionExcursionTypeLanguageExcursionandLanguagetype
+    partial class AddingExcursionExcursionTypeLanguageExcursionandLanguagetype
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -11,7 +11,7 @@
 
 <form method="post" asp-route-returnUrl=@Model.ReturnUrl class="form border-primary-4 p-3 w-25 mx-auto mt-3">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group mx-auto">
+    <div id="username" class="form-group mx-auto">
         <div class="d-flex justify-content-center">
             <label asp-for="Input.Username" class="text-primary h5">Username</label>
         </div>
@@ -23,7 +23,7 @@
         <span asp-validation-for="Input.Username" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div id="password" class="form-group">
         <div class="d-flex justify-content-center">
             <label asp-for="Input.Password" class="text-primary h5">Password</label>
         </div>
@@ -35,13 +35,11 @@
         <span asp-validation-for="Input.Password" class="text-danger"></span>
     </div>
 
-
-
-    <div class="d-flex justify-content-center mt-3">
+    <div id="button" class="d-flex justify-content-center mt-3">
         <button class="btn btn-primary font-weight-bold">Log in</button>
     </div>
 </form>
-
+<hr class="hr-2 bg-primary">
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

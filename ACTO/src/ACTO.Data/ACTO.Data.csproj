@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191123084038_Addition Of Ticket, Liquidation, Refund, Sale, Representative %28With One-To-One%29, Models .cs" />
+    <Compile Remove="Migrations\20191123084038_Addition Of Ticket, Liquidation, Refund, Sale, Representative %28With One-To-One%29, Models .Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
@@ -16,10 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ACTO.Data.Models\ACTO.Data.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ModelConfigurations\" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ACTO.Data.Migrations
 {
-    public partial class addingExcursionExcursionTypeLanguageExcursionandLanguagetype : Migration
+    public partial class AddingExcursionExcursionTypeLanguageExcursionandLanguagetype : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

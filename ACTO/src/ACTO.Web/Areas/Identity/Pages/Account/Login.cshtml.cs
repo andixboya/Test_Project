@@ -27,8 +27,6 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
         //we`ll be needing only the signInManager
         protected readonly SignInManager<ACTOUser> _signInManager;
         protected readonly UserManager<ACTOUser> _userManager;
-        
-       
 
         public LoginModel(SignInManager<ACTOUser> signInManager, UserManager<ACTOUser> userManager)
         {

@@ -4,19 +4,18 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 {
 
     using ACTO.Data;
-    using ACTO.Data.Models.Excursion;
-    using ACTO.Web.InputModels.Excursion;
-    using ACTO.Web.ViewModels.Excursion;
+    using ACTO.Data.Models.Excursions;
+    using ACTO.Web.InputModels.Excursions;
+    using ACTO.Web.ViewModels.Excursions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     [Area("Excursion")]
-
-
     public class ExcursionOperatorController : Controller
     {
         private readonly ACTODbContext context;
@@ -95,7 +94,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 }).ToListAsync()
             };
 
-            var combinedModel = new CombinedExcursioViewAndInputModel()
+            var combinedModel = new ExcursionCreateCombinedModel()
             {
                 ViewModel = excursionCreateViewModel
             };
@@ -104,7 +103,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateExcursion(CombinedExcursioViewAndInputModel model)
+        public async Task<IActionResult> CreateExcursion(ExcursionCreateCombinedModel model)
         {
             //TODO: validate before/after date to be meaningful + some bug with the requirement for date
             model.InputModel.LastUpdated = DateTime.UtcNow;
@@ -144,8 +143,10 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 LastUpdated = inputModel.LastUpdated,
                 LastUpdatedBy = inputModel.LastUpdatedBy,
                 Price = inputModel.Price,
+                ChildPrice=inputModel.ChildPrice,
                 StartingPoint = inputModel.StartingPoint,
                 TouristCapacity = inputModel.TouristCapacity,
+                AvailableSpots=inputModel.TouristCapacity
             };
 
             newExcursion.LanguageExcursions = inputModel
@@ -253,7 +254,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 }).ToListAsync()
             };
 
-            var combinedModel = new CombinedExcursioViewAndInputModel()
+            var combinedModel = new ExcursionCreateCombinedModel()
             {
                 ViewModel = excursionCreateViewModel,
                 InputModel = new ExcursionCreateInputModel()
@@ -275,7 +276,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditExcursion(CombinedExcursioViewAndInputModel model)
+        public async Task<IActionResult> EditExcursion(ExcursionCreateCombinedModel model)
         {
             var modelToEdit = await context.
                 Excursions

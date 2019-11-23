@@ -41,6 +41,9 @@ namespace ACTO.Data.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -87,7 +90,7 @@ namespace ACTO.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("ACTO.Data.Models.Excursion.Excursion", b =>
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.Excursion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,6 +99,12 @@ namespace ACTO.Data.Migrations
 
                     b.Property<DateTime>("Arrival")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("AvailableSpots")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ChildPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("Departure")
                         .HasColumnType("datetime2");
@@ -130,7 +139,7 @@ namespace ACTO.Data.Migrations
                     b.ToTable("Excursions");
                 });
 
-            modelBuilder.Entity("ACTO.Data.Models.Excursion.ExcursionType", b =>
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.ExcursionType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,7 +155,7 @@ namespace ACTO.Data.Migrations
                     b.ToTable("ExcursionTypes");
                 });
 
-            modelBuilder.Entity("ACTO.Data.Models.Excursion.Language", b =>
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.Language", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,7 +171,7 @@ namespace ACTO.Data.Migrations
                     b.ToTable("LanguageTypes");
                 });
 
-            modelBuilder.Entity("ACTO.Data.Models.Excursion.LanguageExcursion", b =>
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.LanguageExcursion", b =>
                 {
                     b.Property<int>("ExcursionId")
                         .HasColumnType("int");
@@ -175,6 +184,190 @@ namespace ACTO.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("LanguageExcursions");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.Representative", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.ToTable("Representatives");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AdultCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChildrenCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExcursionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RepresentativeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SaleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TourLanguageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ExcursionId");
+
+                    b.HasIndex("RepresentativeId");
+
+                    b.HasIndex("SaleId");
+
+                    b.HasIndex("TourLanguageId");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Finance.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Finance.Liquidation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Cash")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CreditCard")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("RepresentativeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RepresentativeId");
+
+                    b.ToTable("Liquidations");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Finance.Refund", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AdultCount")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Cash")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ChildCount")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("CreditCard")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SaleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("Refunds");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Finance.Sale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Cash")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CreditCard")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LiquidationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RepresentativeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LiquidationId");
+
+                    b.HasIndex("RepresentativeId");
+
+                    b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -308,26 +501,97 @@ namespace ACTO.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ACTO.Data.Models.Excursion.Excursion", b =>
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.Excursion", b =>
                 {
-                    b.HasOne("ACTO.Data.Models.Excursion.ExcursionType", "ExcursionType")
+                    b.HasOne("ACTO.Data.Models.Excursions.ExcursionType", "ExcursionType")
                         .WithMany("Excursions")
                         .HasForeignKey("ExcursionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ACTO.Data.Models.Excursion.LanguageExcursion", b =>
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.LanguageExcursion", b =>
                 {
-                    b.HasOne("ACTO.Data.Models.Excursion.Excursion", "Excursion")
+                    b.HasOne("ACTO.Data.Models.Excursions.Excursion", "Excursion")
                         .WithMany("LanguageExcursions")
                         .HasForeignKey("ExcursionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ACTO.Data.Models.Excursion.Language", "Language")
+                    b.HasOne("ACTO.Data.Models.Excursions.Language", "Language")
                         .WithMany("Excursions")
                         .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.Representative", b =>
+                {
+                    b.HasOne("ACTO.Data.Models.ACTOUser", "User")
+                        .WithOne("Representative")
+                        .HasForeignKey("ACTO.Data.Models.Excursions.Representative", "UserId");
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Excursions.Ticket", b =>
+                {
+                    b.HasOne("ACTO.Data.Models.Finance.Customer", "Customer")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ACTO.Data.Models.Excursions.Excursion", "Excursion")
+                        .WithMany("SoldTickets")
+                        .HasForeignKey("ExcursionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ACTO.Data.Models.Excursions.Representative", null)
+                        .WithMany("SoldTickets")
+                        .HasForeignKey("RepresentativeId");
+
+                    b.HasOne("ACTO.Data.Models.Finance.Sale", "Sale")
+                        .WithMany("Tickets")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ACTO.Data.Models.Excursions.Language", "TourLanguage")
+                        .WithMany("Tickets")
+                        .HasForeignKey("TourLanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Finance.Liquidation", b =>
+                {
+                    b.HasOne("ACTO.Data.Models.Excursions.Representative", "Representative")
+                        .WithMany("Liquidations")
+                        .HasForeignKey("RepresentativeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Finance.Refund", b =>
+                {
+                    b.HasOne("ACTO.Data.Models.Finance.Sale", "Sale")
+                        .WithMany("Refunds")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ACTO.Data.Models.Finance.Sale", b =>
+                {
+                    b.HasOne("ACTO.Data.Models.Finance.Liquidation", "Liquidation")
+                        .WithMany("ReportedSales")
+                        .HasForeignKey("LiquidationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ACTO.Data.Models.Excursions.Representative", "Representative")
+                        .WithMany("Sales")
+                        .HasForeignKey("RepresentativeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

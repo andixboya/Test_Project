@@ -1,6 +1,6 @@
 ﻿
-@using ACTO.Web.ViewModels.Excursion
-@model CombinedExcursioViewAndInputModel
+@using ACTO.Web.ViewModels.Excursions
+@model ExcursionCreateCombinedModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -78,7 +78,7 @@
     <div id="third-separator" class="d-flex justify-content-between">
         <div id="excursion-price" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="@Model.InputModel.Price" class="text-primary h5">Price</label>
+                <label asp-for="@Model.InputModel.Price" class="text-primary h5">Price per adult</label>
             </div>
             <input type="number"
                    class="form-control text-primary text-center"
@@ -91,18 +91,36 @@
         </div>
 
         <hr class="hr-2 bg-primary mt-4">
-        <div id="excursion-type" class="form-group mx-auto w-45">
+        <div id="excursion-child-price" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for="InputModel.ExcursionTypeId" class="text-primary h5">Excursion type</label>
+                <label asp-for="@Model.InputModel.ChildPrice" class="text-primary h5">Price per Child</label>
             </div>
-            <select class="form-control text-primary" id="exrusion-type-input" asp-for="InputModel.ExcursionTypeId">
-                <option selected disabled>--- Select excursion type ---</option>
-                @foreach (var type in Model.ViewModel.ExcursionTypes)
-                {
-                    <option value="@type.Id">@type.Name</option>
-                }
-            </select>
+            <input type="number"
+                   class="form-control text-primary text-center"
+                   id="excursion-child-price-input"
+                   placeholder="Price..."
+                   min="0.00"
+                   asp-for=@Model.InputModel.ChildPrice>
+
+            <span asp-validation-for="@Model.InputModel.ChildPrice" class="text-danger"></span>
         </div>
+
+
+
+
+    </div>
+    <hr class="hr-2 bg-primary mt-4">
+    <div id="excursion-type" class="form-group mx-auto w-45">
+        <div class="d-flex justify-content-center">
+            <label asp-for="InputModel.ExcursionTypeId" class="text-primary h5">Excursion type</label>
+        </div>
+        <select class="form-control text-primary" id="exrusion-type-input" asp-for="InputModel.ExcursionTypeId">
+            <option selected disabled>--- Select excursion type ---</option>
+            @foreach (var type in Model.ViewModel.ExcursionTypes)
+            {
+                <option value="@type.Id">@type.Name</option>
+            }
+        </select>
     </div>
 
     <hr class="hr-2 bg-primary mt-4">

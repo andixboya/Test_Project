@@ -4,51 +4,78 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
+<hr class="hr-2 bg-primary">
+<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-25 mx-auto rounded mt-3">@ViewData["Title"]</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Username"></label>
-                <input asp-for="Input.Username" class="form-control" />
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Role">  </label>
-                <span asp-validation-for="Input.Role" class="text-danger"></span>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-
-            
-            <select asp-for=@Model.Input.Role asp-items=@Model.Input.Options></select>
-
-
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+<form method="post" asp-route-returnUrl=@Model.ReturnUrl class="form border-primary-4 p-3 w-25 mx-auto mt-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div id="username" class="form-group mx-auto">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Input.Username" class="text-primary h5">Username</label>
+        </div>
+        <input type="text"
+               class="form-control text-primary text-center"
+               id="username"
+               placeholder="Username..."
+               asp-for="Input.Username">
+        <span asp-validation-for="Input.Username" class="text-danger"></span>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+
+    <div id="email" class="form-group">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Input.Email" class="text-primary h5">Email</label>
+        </div>
+        <input type="email"
+               class="form-control text-primary text-center"
+               id="email-input"
+               placeholder="Email..."
+               asp-for="Input.Email">
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
-</div>
+
+
+    <div id="password" class="form-group">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Input.Password" class="text-primary h5">Password</label>
+        </div>
+        <input type="password"
+               class="form-control text-primary text-center"
+               id="password"
+               placeholder="Password..."
+               asp-for="Input.Password">
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <div id="confirm-password" class="form-group">
+        <div class="d-flex justify-content-center">
+            <label asp-for="Input.ConfirmPassword" class="text-primary h5">Confirm password</label>
+        </div>
+        <input type="password"
+               class="form-control text-primary text-center"
+               id="confirm-password-input"
+               placeholder="Confirm password..."
+               asp-for="Input.ConfirmPassword">
+        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+    </div>
+
+
+    <div id="role" class="form-group mx-auto">
+        <div class="d-flex justify-content-center">
+            <label asp-for=@Model.Input.Role class="text-primary h5">User Role</label>
+        </div>
+        <div class="d-flex justify-content-center">
+            <select id="role-id" asp-for=@Model.Input.Role asp-items=@Model.Input.Options></select>
+        </div>
+    </div>
+
+ 
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary ">Register</button>
+    </div>
+
+</form>
+<hr class="hr-2 bg-primary">
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

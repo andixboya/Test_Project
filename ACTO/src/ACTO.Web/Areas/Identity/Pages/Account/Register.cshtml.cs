@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using ACTO.Data;
 using ACTO.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using ACTO.Data.Models.Excursions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ACTO.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ACTO.Web.Areas.Identity.Pages.Account
 {
@@ -24,11 +18,11 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
 
-        private readonly UserManager<ACTOUser> _userManager;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<ACTOUser> _userManager;
         private readonly ACTODbContext context;
         //private readonly ILogger<RegisterModel> _logger;
 
-        public RegisterModel(UserManager<ACTOUser> userManager, ILogger<RegisterModel> logger, ACTODbContext context)
+        public RegisterModel(Microsoft.AspNetCore.Identity.UserManager<ACTOUser> userManager, ILogger<RegisterModel> logger, ACTODbContext context)
         {
             this._userManager = userManager;
             this.context = context;
@@ -73,10 +67,11 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
         public async Task OnGetAsync()
         {
 
-            this.Input = new InputModel();
-            this.Input.Options = new SelectList(await this.context.Roles.Where(r => r.Name != "Admin").ToListAsync());
+            this.Input = new InputModel
+            {
+                Options = new SelectList(await this.context.Roles.Where(r => r.Name != "Admin").ToListAsync())
+            };
 
-            ReturnUrl = "/Identity/Account/Login";
         }
 
         //here it will be binded automatically (the input model i think)
@@ -84,21 +79,23 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
         {
             returnUrl = "/Identity/Account/Login";
 
-            var users = await _userManager.GetUsersInRoleAsync("User");
-            
+            //how to get the specific types of user via role 
+            //var users = await _userManager.GetUsersInRoleAsync("User");
+
             if (ModelState.IsValid)
             {
-                var isAdmin = !this._userManager.Users.Any();
+                //unnecessary for now 
+                //var isAdmin = !this._userManager.Users.Any();
                 var user = new ACTOUser { UserName = this.Input.Username, Email = this.Input.Email };
 
                 //creates and hashses the password
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                
+
                 if (result.Succeeded)
                 {
                     //assignes the selected role
                     await this._userManager.AddToRoleAsync(user, this.Input.Role);
-
+                    await this.DistributeToAppropriateRole(user);
                     //we won`t be needing the logger for now... 
                     //_logger.LogInformation("User created a new account with password.");
 
@@ -116,5 +113,24 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
             //returns to the page with the loaded erors from the above foreach.
             return Page();
         }
+
+        private async Task DistributeToAppropriateRole(ACTOUser user)
+        {
+            //i can do this with... reflection i think, but not now
+            if (this.Input.Role == "Representative")
+            {
+                var representativeToAdd = new Representative()
+                {
+                    UserId = user.Id
+                };
+                await context.Representatives.AddAsync(representativeToAdd);
+                
+                await context.SaveChangesAsync();
+            }
+
+
+        }
+
     }
+
 }

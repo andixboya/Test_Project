@@ -73,11 +73,11 @@ namespace ACTO.Web
             using var context = scope.ServiceProvider.GetRequiredService<ACTODbContext>();
 
             //context.Database.EnsureDeleted();
-            context.Database.Migrate();
+            //context.Database.Migrate();
 
             //adds initial roles ( here i`ll add seller, excursion operator/ cashier)
             var dbInitializer = scope.ServiceProvider.GetRequiredService<Initializer>();
-            //dbInitializer.SeedRoles();
+            dbInitializer.SeedRoles();
             #endregion
             app.UseHsts();
 
