@@ -13,7 +13,7 @@ namespace ACTO.Web.ViewModels.Excursions
             this.Languages = new List<LanguageViewModel>();
         }
 
-
+        
         public ICollection<ExcursionTypeViewModel> ExcursionTypes { get; set; }
 
         public ICollection<LanguageViewModel> Languages { get; set; }

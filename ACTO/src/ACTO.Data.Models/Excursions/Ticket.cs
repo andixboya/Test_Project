@@ -15,6 +15,9 @@ namespace ACTO.Data.Models.Excursions
         public Customer Customer { get; set; }
         //within the excursion will be the info about it...
         //prices will be taken from the excursion? 
+
+        public int RepresentativeId { get; set; }
+        public Representative Representative { get; set; }
         public int ExcursionId { get; set; }
         public Excursion Excursion { get; set; }
         public string Notes { get; set; }
@@ -25,5 +28,8 @@ namespace ACTO.Data.Models.Excursions
         public int SaleId { get; set; }
         public Sale Sale { get; set; }
         public bool IsDeleted { get; set; }
+
+        //instead of is pending, just check if it has a sale or not!
+        //public bool IsPending { get; set; }
     }
 }

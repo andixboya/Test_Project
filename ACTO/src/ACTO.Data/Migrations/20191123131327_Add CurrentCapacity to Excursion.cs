@@ -9,7 +9,7 @@ namespace ACTO.Data.Migrations
             migrationBuilder.AddColumn<int>(
                 name: "AvailableSpots",
                 table: "Excursions",
-                nullable: false,
+                nullable: true,
                 defaultValue: 0);
         }
 

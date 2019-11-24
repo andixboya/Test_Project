@@ -127,8 +127,6 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
                 
                 await context.SaveChangesAsync();
             }
-
-
         }
 
     }

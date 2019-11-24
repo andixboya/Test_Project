@@ -159,12 +159,6 @@ namespace ACTO.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tickets_Sales_SaleId",
-                        column: x => x.SaleId,
-                        principalTable: "Sales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Tickets_LanguageTypes_TourLanguageId",
                         column: x => x.TourLanguageId,
                         principalTable: "LanguageTypes",

@@ -1,7 +1,7 @@
 ﻿
-namespace ACTO.Web.ViewModels.Excursions
+namespace ACTO.Web.InputModels.Excursions
 {
-    using ACTO.Web.InputModels.Excursions;
+    using ACTO.Web.ViewModels.Excursions;
     using System;
     using System.Collections.Generic;
     using System.Text;

@@ -4,14 +4,16 @@ using ACTO.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ACTO.Data.Migrations
 {
     [DbContext(typeof(ACTODbContext))]
-    partial class ACTODbContextModelSnapshot : ModelSnapshot
+    [Migration("20191124171409_Change TotalPrice Of Sale To Decimal")]
+    partial class ChangeTotalPriceOfSaleToDecimal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,6 +105,9 @@ namespace ACTO.Data.Migrations
                     b.Property<int>("AvailableSpots")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("ChildPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("Departure")
                         .HasColumnType("datetime2");
 
@@ -119,10 +124,7 @@ namespace ACTO.Data.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("PricePerAdult")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PricePerChild")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("StartingPoint")

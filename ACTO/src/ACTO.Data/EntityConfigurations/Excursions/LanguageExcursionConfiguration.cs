@@ -20,7 +20,7 @@ namespace ACTO.Data.EntityConfigurations.Excursions
                 .HasForeignKey(le => le.ExcursionId);
 
             builder.HasOne(le => le.Language)
-                .WithMany(e => e.Excursions)
+                .WithMany(e => e.LanguageExcursions)
                 .HasForeignKey(le => le.LanguageId);
         }
     }

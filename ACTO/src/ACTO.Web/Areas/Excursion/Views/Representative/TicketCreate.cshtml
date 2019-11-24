@@ -1,0 +1,237 @@
+﻿
+@using ACTO.Web.InputModels.Tickets
+
+@model TicketCreateCombinedModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<hr class="hr-2 bg-primary mt-4">
+<h1 class="bg-primary text-white font-weight-bold text-warning text-center p-3 w-60 mx-auto rounded">Create Ticket</h1>
+
+<hr class="hr-2 bg-primary mt-4">
+@* here below, is how we insert files/pictures*@
+<form method="post" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <input hidden readonly type="number" asp-for=Input.ExcursionId value=@Model.ChosenExcursion.Id>
+    <div id="second-separator" class="d-flex justify-content-between">
+        <div id="customer-first-name" class="form-group mx-auto w-45">
+            <div class="form-group mx-auto w-45">
+                <label asp-for="Input.Customer.FirstName" class="text-primary h5">First name</label>
+            </div>
+            <input type="text"
+                   class="form-control text-primary text-center"
+                   id="customer-first-name-id"
+                   placeholder="FIrst name..."
+                   asp-for=Input.Customer.FirstName>
+            <span asp-validation-for=Input.Customer.FirstName class="text-danger"></span>
+        </div>
+
+        <div id="customer-last-name" class="form-group mx-auto w-45">
+            <div class="form-group mx-auto w-45">
+                <label asp-for=Input.Customer.LastName class="text-primary h5">Last name</label>
+            </div>
+            <input type="text"
+                   class="form-control text-primary text-center"
+                   id="customer-last-name"
+                   placeholder="Last name..."
+                   asp-for=Input.Customer.LastName>
+            <span asp-validation-for=Input.Customer.LastName class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <hr class="hr-2 bg-primary mt-4">
+    <div id="first-separator" class="d-flex justify-content-between">
+        <div id="adult-count" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=@Model.Input.AdultCount class="text-primary h5">Adult count</label>
+            </div>
+            <input type="number"
+                   class="form-control text-primary text-center"
+                   id="adult-count-input"
+                   placeholder="Adult count..."
+                   asp-for=@Model.Input.AdultCount>
+            <span asp-validation-for=@Model.Input.AdultCount class="text-danger"></span>
+        </div>
+        <div id="adult-price" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=@Model.ChosenExcursion.PricePerAdult class="text-primary h5">Price per Adult</label>
+            </div>
+            <input readonly type="number"
+                   class="form-control text-primary text-center"
+                   id="adult-price-id"
+                   value=@Model.ChosenExcursion.PricePerAdult
+                   asp-for=@Model.ChosenExcursion.PricePerAdult>
+        </div>
+
+        <div id="children-count" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=@Model.Input.ChildCount class="text-primary h5">Children Count</label>
+            </div>
+            <input type="number"
+                   class="form-control text-primary text-center"
+                   id="children-count-input"
+                   placeholder="Children count..."
+                   asp-for=@Model.Input.ChildCount>
+            @*//TODO: HERE ADD to some format!*@
+            <span asp-validation-for=@Model.Input.ChildCount class="text-danger"></span>
+        </div>
+        <div id="child-price" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=@Model.ChosenExcursion.PricePerChild class="text-primary h5">Price per child</label>
+            </div>
+            <input readonly type="number"
+                   class="form-control text-primary text-center"
+                   id="child-price-id"
+                   value=@Model.ChosenExcursion.PricePerChild
+                   asp-for=@Model.ChosenExcursion.PricePerChild>
+        </div>
+    </div>
+
+    <hr class="hr-2 bg-primary mt-4">
+
+    <div id="third-separator" class="d-flex justify-content-between">
+        <hr class="hr-2 bg-primary mt-4">
+        <div id="total-count" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.TouristCount class="text-primary h5">Total tourist count</label>
+            </div>
+            <input readonly type="number"
+                   class="form-control text-primary text-center"
+                   id="total-count-id"
+                   value="0"
+                   asp-for=Input.TouristCount>
+
+            <span asp-validation-for=Input.TouristCount class="text-danger"></span>
+        </div>
+
+        <div id="total-count" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.TouristCount class="text-primary h5">Total sum</label>
+            </div>
+            <input readonly type="number"
+                   class="form-control text-primary text-center"
+                   id="total-sum-input"
+                   value="0">
+        </div>
+
+    </div>
+    <hr class="hr-2 bg-primary mt-4">
+
+    <div class="d-flex justify-content-between separator">
+        <div id="language-type" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.TourLanguageId class="text-primary h5">Choose Language</label>
+            </div>
+            <select class="form-control text-primary" id="language-type-id" asp-for=Input.TourLanguageId>
+                <option selected disabled>--- Select one language ---</option>
+                @foreach (var type in Model.PossibleLanguages)
+                {
+                    <option value="@type.Id">@type.Name</option>
+                }
+            </select>
+        </div>
+
+        <div id="notes" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.Notes class="text-primary h5">Additional notes</label>
+            </div>
+            <input type="text"
+                   class="form-control text-primary text-center"
+                   id="notes-id"
+                   placeholder="Additional notes..."
+                   asp-for=Input.Notes>
+
+            <span asp-validation-for=Input.Notes class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <hr class="hr-2 bg-primary mt-4">
+    <div id="fourth-separator" class="d-flex justify-content-between">
+        <div id="start-point" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.StartPoint class="text-primary h5">Start point</label>
+            </div>
+            <input readonly type="text"
+                   class="form-control text-primary text-center"
+                   id="start-point-id"
+                   value=@Model.ChosenExcursion.StartPoint
+                   asp-for=@Model.ChosenExcursion.StartPoint>
+        </div>
+        <div id="end-point" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.EndPoint class="text-primary h5">End point</label>
+            </div>
+            <input readonly type="text"
+                   class="form-control text-primary text-center"
+                   id="end-point-id"
+                   value=@Model.ChosenExcursion.EndPoint
+                   asp-for=@Model.ChosenExcursion.EndPoint>
+        </div>
+    </div>
+    <hr class="hr-2 bg-primary mt-4">
+
+    <div id="fifth-separator" class="d-flex justify-content-between">
+        <div id="departure" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.Departure class="text-primary h5">Departure</label>
+            </div>
+            <input readonly type="datetime"
+                   class="form-control text-primary text-center"
+                   id="departure-id"
+                   value=@Model.ChosenExcursion.Departure
+                   asp-for=@Model.ChosenExcursion.Departure>
+        </div>
+        <div id="arrival" class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=Input.Arrival class="text-primary h5">Arrival</label>
+            </div>
+            <input readonly type="datetime"
+                   class="form-control text-primary text-center"
+                   id="arrival-id"
+                   value=@Model.ChosenExcursion.Arrival
+                   asp-for=@Model.ChosenExcursion.Arrival>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <button formmethod="get" asp-area="Excursion" asp-action="TicketCheckOut" asp-controller="Representative" class="btn btn-primary font-weight-bold">Go To Sale</button>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button asp-action="TicketCreateAnother" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Create Another ticket</button>
+    </div>
+
+    @if ((bool)ViewData["AnyTickets"] == true)
+    {
+        <div class="d-flex justify-content-center mt-3">
+            <button asp-action="RemoveAllPending" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Remove All Pending</button>
+        </div>
+    }
+
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@*//TODO: attach this to the above for dateTime visualizer!*@
+<script>
+    window.onload = () => {
+        $('#arrival-time-input').datetimepicker({
+            format: 'd.m.Y H:i',
+            lang: 'en'
+        });
+        $('#departure-time-input').datetimepicker({
+            format: 'd.m.Y H:i',
+            lang: 'en'
+        })
+    };
+</script>

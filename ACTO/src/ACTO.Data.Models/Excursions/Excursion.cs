@@ -16,9 +16,9 @@ namespace ACTO.Data.Models.Excursions
         public ExcursionType ExcursionType { get; set; }
         
         [Range(typeof(decimal),"0.00m", "79228162514264337593543950335M")]
-        public decimal Price { get; set; }
-
-        public decimal ChildPrice { get; set; }
+        public decimal PricePerAdult { get; set; }
+        [Range(typeof(decimal), "0.00m", "79228162514264337593543950335M")]
+        public decimal PricePerChild { get; set; }
 
         [Required]
         public string StartingPoint { get; set; }

@@ -6,32 +6,54 @@
 }
 
 @using ACTO.Web.ViewModels.Tickets
-@model List<TicketPickExcursionViewModel>
+@model TicketPickExcursionViewModel
 
 <hr class="hr-2 bg-primary mt-4">
 <h1 class="bg-primary text-warning font-weight-bold text-center p-3 w-60 mx-auto rounded">All available spots for excursions</h1>
 <hr class="hr-2 bg-primary mt-4">
 
-@if (Model.Count == 0)
+@if (Model.Excursions.Count == 0)
 {
     <h1 class="text-center bg-primary text-white w-50 justify-content-center container-fluid">Currently there are no available excursions</h1>
 }
 else
 {
     <div class=" row container-fluid justify-content-center">
-        <div class="col-1 bg-primary text-warning font-weight-bold border border-dark  text-center">#</div>
+        @*<div class="col-1 bg-primary text-warning font-weight-bold border border-dark  text-center">#</div>*@
         <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Name</div>
-        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Available spots</div>
-    </div>
-    @for (var i = 0; i < Model.Count; i++)
-    {
-        var current = @Model[i];
+        <div class="col-1 bg-primary text-warning font-weight-bold border border-dark text-center">Available spots</div>
+        @*<div class="col-1 bg-primary text-warning font-weight-bold border border-dark text-center">Price per Child</div>
+            <div class="col-1 bg-primary text-warning font-weight-bold border border-dark text-center">Price per Adult</div>*@
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Arrival</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Departure</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Start Point</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">End Point</div>
+        <div class="col-1 bg-primary text-warning font-weight-bold border border-dark text-center">Press below</div>
 
-        <div class="row container-fluid justify-content-center">
-            <div class="col-1 text-primary font-weight-bold border border-dark  text-center"><a asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="DetailsExcursion" asp-route-id=@(current.Id) /> @(i + 1)</div>
-            <div class="col-2 text-primary font-weight-bold border border-dark  text-center"><a asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="DetailsExcursion" asp-route-id=@(current.Id) /> @current.Name</div>
-            <div class="col-2 text-primary font-weight-bold border border-dark  text-center"><a asp-controller="ExcursionOperator" asp-area="Excursion" asp-action="DetailsExcursion" asp-route-id=@(current.Id) /> @current.AvailableSpots</div>
-        </div>
+    </div>
+    @for (var i = 0; i < Model.Excursions.Count; i++)
+    {
+        var current = @Model.Excursions[i];
+        <form method="get" class="row container-fluid justify-content-center" asp-controller="Representative" asp-area="Excursion" asp-action="TicketCreate">
+            @*<input readonly class="col-1 text-primary font-weight-bold border border-dark  text-center" value="@(i + 1)">*@
+            <input readonly type="text" value=@current.Name asp-for=@Model.PickedExcursion.Name class="col-2 text-primary font-weight-bold border border-dark  text-center">
+            <input readonly type="number" value=@current.AvailableSpots asp-for=@Model.PickedExcursion.AvailableSpots class="col-1 text-primary font-weight-bold border border-dark  text-center">
+            <input hidden readonly type="number" value=@current.PricePerChild asp-for=@Model.PickedExcursion.PricePerChild >
+            <input hidden readonly type="number" value=@current.PricePerAdult asp-for=@Model.PickedExcursion.PricePerAdult >
+            <input readonly type="datetime" value=@current.Arrival asp-for=@Model.PickedExcursion.Arrival class="col-2 text-primary font-weight-bold border border-dark  text-center">
+            <input readonly type="datetime" value=@current.Departure asp-for=@Model.PickedExcursion.Departure class="col-2 text-primary font-weight-bold border border-dark  text-center">
+            <input readonly type="text" value=@current.StartPoint asp-for=@Model.PickedExcursion.StartPoint class="col-2 text-primary font-weight-bold border border-dark  text-center">
+            <input readonly type="text" value=@current.EndPoint asp-for=@Model.PickedExcursion.EndPoint class="col-2 text-primary font-weight-bold border border-dark  text-center">
+            <input hidden readonly value=@current.Id asp-for=@Model.PickedExcursion.Id>
+            <button class="col-1 btn btn-primary text-warning font-weight-bold text-center">Pick Excursion</button>
+        </form>
+    }
+
+    @if ((bool)ViewData["AnyTickets"] == true)
+    {
+        <form method="post" class="d-flex justify-content-center mt-3">
+            <button asp-action="RemoveAllPending" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Remove All Pending</button>
+        </form>
     }
 }
 

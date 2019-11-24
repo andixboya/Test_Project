@@ -11,13 +11,13 @@ namespace ACTO.Data.Models.Excursions
 
         public Language()
         {
-            this.Excursions = new HashSet<LanguageExcursion>();
+            this.LanguageExcursions = new HashSet<LanguageExcursion>();
             this.Tickets = new HashSet<Ticket>();
         }
 
         [Required]
         public string Name { get; set; }
-        public ICollection<LanguageExcursion> Excursions { get; set; }
+        public ICollection<LanguageExcursion> LanguageExcursions { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
 
     }

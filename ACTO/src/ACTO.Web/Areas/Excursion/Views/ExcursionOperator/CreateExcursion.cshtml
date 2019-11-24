@@ -1,5 +1,5 @@
 ﻿
-@using ACTO.Web.ViewModels.Excursions
+@using ACTO.Web.InputModels.Excursions
 @model ExcursionCreateCombinedModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -143,12 +143,11 @@
             <div class="d-flex justify-content-center">
                 <label asp-for="InputModel.LanguageIds" class="text-primary h5">Language Type</label>
             </div>
-            tricky part
             <select class="form-control text-primary" multiple="multiple" id="languages-input" asp-for="InputModel.LanguageIds">
                 <option selected disabled>--- Select single or multiple languages ---</option>
                 @foreach (var type in Model.ViewModel.Languages)
                 {
-                    <option value="@type.Id">@type.Name</option>
+                    <option  value="@type.Id">@type.Name</option>
                 }
             </select>
         </div>
@@ -157,6 +156,7 @@
     <div class="d-flex justify-content-center mt-3">
         <button class="btn btn-primary font-weight-bold">Create Product</button>
     </div>
+
 </form>
 
 @section Scripts {

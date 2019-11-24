@@ -1,0 +1,92 @@
+﻿<h1>  CHECKOUT!</h1>
+@using ACTO.Web.InputModels.Sale
+@model SaleCreateCombinedModel
+<hr class="hr-2 bg-primary">
+<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded mx-auto">Check Out</h1>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class=" row container-fluid justify-content-center">
+        <div class="col-3 bg-primary text-warning font-weight-bold border border-dark text-center">Excursion Name</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Adult Count</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Price per child</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Price per adult</div>
+    </div>
+    @for (var i = 0; i < Model.TicketsViews.Count; i++)
+    {
+        var current = @Model.TicketsViews[i];
+
+        <div class="row container-fluid justify-content-center">
+            <div readonly class="col-3 text-primary font-weight-bold border border-dark  text-center"> @current.ExcursionName</div>
+            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.AdultCount</div>
+            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.PricePerChild</div>
+            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.PricePerAdult</div>
+        </div>
+    }
+    <input hidden readonly asp-for=@Model.RepresentativeId value=@Model.RepresentativeId />
+
+    <div class="d-flex justify-content-center">
+    </div>
+    <select  hidden class="form-control text-primary" multiple="multiple" id="languages-input" asp-for=@Model.TicketIds>
+        <option readonly selected>--- Select single or multiple languages ---</option>
+        @foreach (var id in Model.TicketIds)
+        {
+            <option hidden readonly selected value=@id>@id</option>
+        }
+    </select>
+
+    <hr class="hr-2 bg-primary">
+
+    <div id="discount" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=@Model.Discount class="text-primary h5">Discount</label>
+            </div>
+            <input type="number"
+                   class="form-control text-primary text-center"
+                   min=0
+                   max=100
+                   placeholder="Discount..."
+                   id="cash-input"
+                   asp-for=@Model.Discount>
+            <span asp-validation-for=@Model.Discount class="text-danger"></span>
+        </div>
+    </div>
+
+    <hr class="hr-2 bg-primary">
+    <div id="cash" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=@Model.Cash class="text-primary h5">Cash</label>
+            </div>
+            <input type="number"
+                   class="form-control text-primary text-center"
+                   min=0
+                   id="cash-input"
+                   asp-for=@Model.Cash>
+            <span asp-validation-for=@Model.Cash class="text-danger"></span>
+        </div>
+    </div>
+
+    <hr class="hr-2 bg-primary">
+    <div id="credit-card" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=@Model.CreditCard class="text-primary h5">Credit Card</label>
+            </div>
+            <input type="number"
+                   min=0
+                   class="form-control text-primary text-center"
+                   id="credit-card-input"
+                   asp-for=@Model.CreditCard>
+            <span asp-validation-for=@Model.CreditCard class="text-danger"></span>
+        </div>
+    </div>
+
+    <hr class="hr-2 bg-primary">
+    <div class="d-flex justify-content-center mt-3">
+        <button formmethod="post" asp-area="Excursion" asp-controller="Representative" asp-action="TicketCheckOut" class="btn btn-primary font-weight-bold">Pay tickets</button>
+    </div>
+</form>

@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ACTO.Data\ACTO.Data.csproj" />
-    <ProjectReference Include="..\ACTO.Web.ViewModels\ACTO.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\ACTO.Web.InputModels\ACTO.Web.InputModels.csproj" />
   </ItemGroup>
 
 

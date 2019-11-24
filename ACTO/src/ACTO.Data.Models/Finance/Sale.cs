@@ -34,6 +34,6 @@ namespace ACTO.Data.Models.Finance
         //after they are removed... we`ll subtract the sums from the cash/credit cards
         public ICollection<Ticket> Tickets { get; set; }
         //not sure if i`ll be needing the below
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

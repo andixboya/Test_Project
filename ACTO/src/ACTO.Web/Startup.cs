@@ -1,4 +1,5 @@
 ﻿using ACTO.Data;
+using ACTO.Data.Migrations;
 using ACTO.Data.Models;
 using ACTO.Web.Areas.Identity.Pages.Account;
 using ACTO.Web.Initializers;
@@ -66,7 +67,7 @@ namespace ACTO.Web
             //    }
             #endregion
 
-
+            
             #region initial database seeding/migration
             //new c# 8 syntax i think? 
             using var scope = app.ApplicationServices.CreateScope();

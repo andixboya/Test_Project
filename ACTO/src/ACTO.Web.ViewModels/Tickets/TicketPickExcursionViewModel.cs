@@ -7,9 +7,10 @@ namespace ACTO.Web.ViewModels.Tickets
     using System.Text;
     public class TicketPickExcursionViewModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int AvailableSpots { get; set; }
+    
+        public List<TicketExcursionViewModel> Excursions { get; set; }
+
+        public TicketExcursionViewModel PickedExcursion { get; set; }
 
     }
 }

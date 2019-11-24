@@ -2,11 +2,14 @@
 
 namespace ACTO.Web.InputModels.Excursions
 {
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
-    public class ExcursionCreateInputModel
+    using System.Threading.Tasks;
+
+    public class ExcursionCreateInputModel 
     {
 
         public ExcursionCreateInputModel()
@@ -50,6 +53,8 @@ namespace ACTO.Web.InputModels.Excursions
         public string LastUpdatedBy { get; set; }
 
         public DateTime LastUpdated { get; set; }
+
+        public int ExtraSpot { get; set; }
 
         public ICollection<int> LanguageIds { get; set; }
 
