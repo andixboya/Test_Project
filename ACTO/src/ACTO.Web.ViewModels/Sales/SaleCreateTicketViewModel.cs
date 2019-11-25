@@ -3,6 +3,7 @@ namespace ACTO.Web.ViewModels.Sales
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     public class SaleCreateTicketViewModel
@@ -17,6 +18,11 @@ namespace ACTO.Web.ViewModels.Sales
         public decimal PricePerAdult { get; set; }
 
         public decimal PricePerChild { get; set; }
+        public int Discount { get; set; }
+
+        [Display(Name = "Total:")]
+        public decimal TotalSum => AdultCount * PricePerAdult + ChildCount * PricePerChild;
+
 
 
     }

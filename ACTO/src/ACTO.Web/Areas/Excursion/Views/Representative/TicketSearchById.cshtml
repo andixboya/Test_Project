@@ -1,0 +1,9 @@
+﻿@model int
+<h1 class="container text-white bg-primary mt-3 mb-3 text-center">Search by Id</h1>
+<form asp-area="Excursion" asp-controller="Representative" method="get" asp-action="TicketRefundCreate" asp-route-id=@Model   class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3 d-flex justify-content-center">
+    <div >
+        <input  name="id" type="number" />
+        <button class="text-white text-center btn btn-primary"> Search by Id</button>
+    </div>
+    
+</form>

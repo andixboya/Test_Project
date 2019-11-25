@@ -15,16 +15,13 @@ namespace ACTO.Data.Models.Finance
         }
         public decimal Cash { get; set; }
         public decimal CreditCard { get; set; }
-        public int Discount { get; set; }
-        
+
         //if its emtpy, this means its not yet sold
-        public int LiquidationId { get; set; }
-        public Liquidation Liquidation { get; set; }
+
 
         //this is important!
         //wonder how i`ll... refund these...
         //will choose between tickets... and then between the count of adult/children ( within the excursion will be the price)
-        public ICollection<Refund> Refunds { get; set; }
         public int RepresentativeId { get; set; }
         public Representative Representative { get; set; }
 

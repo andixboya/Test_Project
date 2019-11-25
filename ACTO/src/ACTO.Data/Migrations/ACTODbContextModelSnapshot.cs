@@ -224,6 +224,9 @@ namespace ACTO.Data.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
+
                     b.Property<int>("ExcursionId")
                         .HasColumnType("int");
 
@@ -232,6 +235,9 @@ namespace ACTO.Data.Migrations
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PriceAfterDiscount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RepresentativeId")
                         .HasColumnType("int");
@@ -326,12 +332,12 @@ namespace ACTO.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SaleId")
+                    b.Property<int>("TicketId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SaleId");
+                    b.HasIndex("TicketId");
 
                     b.ToTable("Refunds");
                 });
@@ -348,9 +354,6 @@ namespace ACTO.Data.Migrations
 
                     b.Property<decimal>("CreditCard")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Discount")
-                        .HasColumnType("int");
 
                     b.Property<int>("LiquidationId")
                         .HasColumnType("int");
@@ -576,9 +579,9 @@ namespace ACTO.Data.Migrations
 
             modelBuilder.Entity("ACTO.Data.Models.Finance.Refund", b =>
                 {
-                    b.HasOne("ACTO.Data.Models.Finance.Sale", "Sale")
+                    b.HasOne("ACTO.Data.Models.Excursions.Ticket", "Ticket")
                         .WithMany("Refunds")
-                        .HasForeignKey("SaleId")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -1,0 +1,94 @@
+﻿@using ACTO.Web.InputModels.Finance
+@model RefundCreateInputModel
+
+<hr class="hr-2 bg-primary">
+<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded mx-auto text-warning">Create Refund</h1>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form method="post" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" asp-area="Excursion" asp-controller="Representative" asp-action="TicketRefundCreate">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div id="adult-to-refund" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for="AdultToRefund" class="text-primary h5"></label>
+            </div>
+            <input type="number"
+                   value=@Model.MaxAdultCount
+                   max=@Model.MaxAdultCount ,
+                   min=0
+                   class="form-control text-primary text-center"
+                   asp-for=AdultToRefund>
+            <span asp-validation-for=AdultToRefund class="text-danger"></span>
+        </div>
+    </div>
+    <div id="adult-price" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=PricePerAdult class="text-primary h5"></label>
+            </div>
+            <input readonly type="number"
+                   value=@Model.PricePerAdult
+                   class="form-control text-primary text-center"
+                   asp-for=PricePerAdult>
+            <span asp-validation-for=PricePerAdult class="text-danger"></span>
+        </div>
+    </div>
+
+    <hr class="hr-2 bg-primary">
+
+    <div id="children-to-refund" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=ChildrenToRefund class="text-primary h5"></label>
+            </div>
+            <input type="number"
+                   value=@Model.MaxChildrenCount
+                   max=@Model.MaxChildrenCount ,
+                   min=0
+                   class="form-control text-primary text-center"
+                   asp-for=ChildrenToRefund>
+            <span asp-validation-for=ChildrenToRefund class="text-danger"></span>
+        </div>
+    </div>
+    <div id="children-price" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=PricePerChild class="text-primary h5"></label>
+            </div>
+            <input readonly type="number"
+                   value=@Model.PricePerChild
+                   class="form-control text-primary text-center"
+                   asp-for=PricePerChild>
+            <span asp-validation-for=PricePerChild class="text-danger"></span>
+        </div>
+    </div>
+
+    <hr class="hr-2 bg-primary">
+
+    <div id="price-to-refund" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-45">
+            <div class="d-flex justify-content-center">
+                <label asp-for=SumToRefund class="text-primary h5"></label>
+            </div>
+            <input readonly type="number"
+                   class="form-control text-primary text-center"
+                   asp-for=SumToRefund>
+            <span asp-validation-for=SumToRefund class="text-danger"></span>
+        </div>
+    </div>
+
+    <input hidden readonly asp-for=MaxAdultCount value=@Model.MaxAdultCount />
+    <input hidden readonly asp-for=MaxChildrenCount value=@Model.MaxChildrenCount />
+    <input hidden readonly asp-for=TicketId value=@Model.TicketId />
+    <hr class="hr-2 bg-primary">
+
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-primary font-weight-bold">Refund</button>
+    </div>
+</form>
+
+<script src="~/js/site.js"></script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -79,14 +79,14 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateExcursion()
         {
-            var excursionCreateViewModel = new ExcursionCreateViewModel()
+            var inputModel = new ExcursionCreateInputModel()
             {
                 ExcursionTypes = await context.ExcursionTypes.Select(e => new ExcursionTypeViewModel()
                 {
                     Id = e.Id,
                     Name = e.Name
                 })
-                .ToListAsync(),
+                 .ToListAsync(),
                 Languages = await context.LanguageTypes.Select(l => new LanguageViewModel()
                 {
                     Id = l.Id,
@@ -94,76 +94,64 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 }).ToListAsync()
             };
 
-            var combinedModel = new ExcursionCreateCombinedModel()
-            {
-                ViewModel = excursionCreateViewModel
-            };
-
-            return this.View(combinedModel);
+            return this.View(inputModel);
         }
 
-        [HttpPost]  
-        public async Task<IActionResult> CreateExcursion([FromForm(Name ="inputModel")] ExcursionCreateInputModel inpuModel)
+        [HttpPost]
+        public async Task<IActionResult> CreateExcursion(ExcursionCreateInputModel model)
         {
-
-            
-            ;
             //TODO: validate before/after date to be meaningful + some bug with the requirement for date
-            //model.InputModel.LastUpdated = DateTime.UtcNow;
-            //model.InputModel.LastUpdatedBy = HttpContext.User.Identity.Name;
+            model.LastUpdated = DateTime.UtcNow;
+            model.LastUpdatedBy = HttpContext.User.Identity.Name;
 
-            //var inputModel = model.InputModel;
+            if (!ModelState.IsValid)
+            {
+                model.ExcursionTypes = await context.ExcursionTypes.Select(e => new ExcursionTypeViewModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name
+                })
+                 .ToListAsync();
 
+                model.Languages = await context.LanguageTypes.Select(l => new LanguageViewModel()
+                {
+                    Id = l.Id,
+                    Name = l.Name
+                }).ToListAsync();
 
-            //if (!ModelState.IsValid)
-            //{
-            //    model.ViewModel = new ExcursionCreateViewModel()
-            //    {
-            //        ExcursionTypes = await context.ExcursionTypes.Select(e => new ExcursionTypeViewModel()
-            //        {
-            //            Id = e.Id,
-            //            Name = e.Name
-            //        })
-            //     .ToListAsync(),
-            //        Languages = await context.LanguageTypes.Select(l => new LanguageViewModel()
-            //        {
-            //            Id = l.Id,
-            //            Name = l.Name
-            //        }).ToListAsync()
-            //    };
-            //    //TODO:
-            //    //forgot how this... return to form with data was done... 
-            //    return this.View(model);
-            //}
-            //var validLanguageIds = new HashSet<int>(await context.LanguageTypes.Select(l => l.Id).ToListAsync());
+                //TODO:
+                //forgot how this... return to form with data was done... 
+                return this.View(model);
+            }
+            var validLanguageIds = new HashSet<int>(await context.LanguageTypes.Select(l => l.Id).ToListAsync());
 
-            //var newExcursion = new Excursion()
-            //{
-            //    Arrival = inputModel.Arrival,
-            //    Departure = inputModel.Departure,
-            //    EndPoint = inputModel.EndPoint,
-            //    ExcursionTypeId = inputModel.ExcursionTypeId,
-            //    LastUpdated = inputModel.LastUpdated,
-            //    LastUpdatedBy = inputModel.LastUpdatedBy,
-            //    PricePerAdult = inputModel.Price,
-            //    PricePerChild=inputModel.ChildPrice,
-            //    StartingPoint = inputModel.StartingPoint,
-            //    TouristCapacity = inputModel.TouristCapacity,
-            //    AvailableSpots=inputModel.TouristCapacity
-            //};
+            var newExcursion = new Excursion()
+            {
+                Arrival = model.Arrival,
+                Departure = model.Departure,
+                EndPoint = model.EndPoint,
+                ExcursionTypeId = model.ExcursionTypeId,
+                LastUpdated = model.LastUpdated,
+                LastUpdatedBy = model.LastUpdatedBy,
+                PricePerAdult = model.Price,
+                PricePerChild = model.ChildPrice,
+                StartingPoint = model.StartingPoint,
+                TouristCapacity = model.TouristCapacity,
+                AvailableSpots = model.TouristCapacity
+            };
 
-            //newExcursion.LanguageExcursions = inputModel
-            //    .LanguageIds.Where(l => validLanguageIds.Contains(l))
-            //    .Distinct()
-            //    .Select(id => new LanguageExcursion()
-            //    {
-            //        Excursion = newExcursion,
-            //        LanguageId = id
-            //    })
-            //    .ToList();
+            newExcursion.LanguageExcursions = model
+                .LanguageIds.Where(l => validLanguageIds.Contains(l))
+                    .Distinct()
+                    .Select(id => new LanguageExcursion()
+                    {
+                        Excursion = newExcursion,
+                        LanguageId = id
+                    })
+                    .ToList();
 
-            //await context.Excursions.AddAsync(newExcursion);
-            //await context.SaveChangesAsync();
+            await context.Excursions.AddAsync(newExcursion);
+            await context.SaveChangesAsync();
 
             return Redirect("/Excursion/ExcursionOperator/ViewAllExcursions");
         }
@@ -228,12 +216,13 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             return Redirect("/Excursion/ExcursionOperator/ViewAllExcursions");
         }
         [HttpGet]
-        public async Task<IActionResult> EditExcursion(int Id)
+        public async Task<IActionResult> EditExcursion(int id)
         {
             var excursion = await context.Excursions
                 .Include(l => l.LanguageExcursions)
                 .Include(l => l.ExcursionType)
-                .FirstOrDefaultAsync(e => e.Id == Id);
+                .FirstOrDefaultAsync(e => e.Id == id);
+
             if (excursion is null)
             {
                 //TODO: return with a message, no such excursion found
@@ -241,57 +230,48 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             }
 
 
-
-            var excursionCreateViewModel = new ExcursionCreateViewModel()
+            var inputModel = new ExcursionCreateInputModel()
             {
+                Id = excursion.Id,
+                Arrival = excursion.Arrival,
+                Departure = excursion.Departure,
+                EndPoint = excursion.EndPoint,
+                LastUpdated = excursion.LastUpdated,
+                LastUpdatedBy = excursion.LastUpdatedBy,
+                Price = excursion.PricePerAdult,
+                StartingPoint = excursion.StartingPoint,
+                TouristCapacity = excursion.TouristCapacity,
+                Languages = await context.LanguageTypes.Select(l => new LanguageViewModel()
+                {
+                    Id = l.Id,
+                    Name = l.Name
+                }).ToListAsync(),
                 ExcursionTypes = await context.ExcursionTypes.Select(e => new ExcursionTypeViewModel()
                 {
                     Id = e.Id,
                     Name = e.Name
                 })
-              .ToListAsync(),
-                Languages = await context.LanguageTypes.Select(l => new LanguageViewModel()
-                {
-                    Id = l.Id,
-                    Name = l.Name
-                }).ToListAsync()
-            };
-
-            var combinedModel = new ExcursionCreateCombinedModel()
-            {
-                ViewModel = excursionCreateViewModel,
-                InputModel = new ExcursionCreateInputModel()
-                {
-                    Id = excursion.Id,
-                    Arrival = excursion.Arrival,
-                    Departure = excursion.Departure,
-                    EndPoint = excursion.EndPoint,
-                    LastUpdated = excursion.LastUpdated,
-                    LastUpdatedBy = excursion.LastUpdatedBy,
-                    Price = excursion.PricePerAdult,
-                    StartingPoint = excursion.StartingPoint,
-                    TouristCapacity = excursion.TouristCapacity
-                }
+              .ToListAsync()
             };
 
 
-            return this.View(combinedModel);
+            return this.View(inputModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditExcursion(ExcursionCreateCombinedModel model)
+        public async Task<IActionResult> EditExcursion(ExcursionCreateInputModel model)
         {
             var modelToEdit = await context.
                 Excursions
-                .Include(x=> x.LanguageExcursions)
-                .FirstOrDefaultAsync(x=> x.Id==model.InputModel.Id);    
+                .Include(x => x.LanguageExcursions)
+                .FirstOrDefaultAsync(x => x.Id == model.Id);
 
             context.LanguageExcursions.RemoveRange(modelToEdit.LanguageExcursions);
-            var excursionTypeToBreak= await context.ExcursionTypes.FindAsync(modelToEdit.ExcursionTypeId);
+            var excursionTypeToBreak = await context.ExcursionTypes.FindAsync(modelToEdit.ExcursionTypeId);
             excursionTypeToBreak.Excursions.Remove(modelToEdit);
             context.Update(excursionTypeToBreak);
 
-            modelToEdit.LanguageExcursions = model.InputModel.LanguageIds.Select(l => new LanguageExcursion
+            modelToEdit.LanguageExcursions = model.LanguageIds.Select(l => new LanguageExcursion
             {
                 Excursion = modelToEdit,
                 LanguageId = l
@@ -299,19 +279,18 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 .ToList();
             modelToEdit.LastUpdated = DateTime.UtcNow;
             modelToEdit.LastUpdatedBy = HttpContext.User.Identity.Name;
-            modelToEdit.PricePerAdult = model.InputModel.Price;
-            modelToEdit.StartingPoint = model.InputModel.StartingPoint;
-            modelToEdit.TouristCapacity = model.InputModel.TouristCapacity;
-            modelToEdit.Arrival = model.InputModel.Arrival;
-            modelToEdit.Departure = model.InputModel.Departure;
-            modelToEdit.EndPoint = model.InputModel.EndPoint;
-            modelToEdit.ExcursionTypeId = model.InputModel.ExcursionTypeId;
+            modelToEdit.PricePerAdult = model.Price;
+            modelToEdit.StartingPoint = model.StartingPoint;
+            modelToEdit.TouristCapacity = model.TouristCapacity;
+            modelToEdit.Arrival = model.Arrival;
+            modelToEdit.Departure = model.Departure;
+            modelToEdit.EndPoint = model.EndPoint;
+            modelToEdit.ExcursionTypeId = model.ExcursionTypeId;
 
             context.Update(modelToEdit);
             await context.SaveChangesAsync();
 
             return this.Redirect($"/Excursion/ExcursionOperator/DetailsExcursion?id={modelToEdit.Id}");
-
         }
 
         public async Task<IActionResult> ViewAllExcursions()

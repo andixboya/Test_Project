@@ -2,6 +2,7 @@
 
 namespace ACTO.Web.InputModels.Excursions
 {
+    using ACTO.Web.ViewModels.Excursions;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using System;
     using System.Collections.Generic;
@@ -9,12 +10,13 @@ namespace ACTO.Web.InputModels.Excursions
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ExcursionCreateInputModel 
+    public class ExcursionCreateInputModel
     {
-
         public ExcursionCreateInputModel()
         {
             this.LanguageIds = new List<int>();
+            this.ExcursionTypes = new List<ExcursionTypeViewModel>();
+            this.Languages = new List<LanguageViewModel>();
         }
 
         public int Id { get; set; }
@@ -57,6 +59,11 @@ namespace ACTO.Web.InputModels.Excursions
         public int ExtraSpot { get; set; }
 
         public ICollection<int> LanguageIds { get; set; }
+
+
+        public ICollection<ExcursionTypeViewModel> ExcursionTypes { get; set; }
+
+        public ICollection<LanguageViewModel> Languages { get; set; }
 
     }
 }

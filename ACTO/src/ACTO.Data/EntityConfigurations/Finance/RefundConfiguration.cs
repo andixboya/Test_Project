@@ -14,9 +14,9 @@ namespace ACTO.Data.EntityConfigurations.Finance
         {
             builder.HasKey(r => r.Id);
 
-            builder.HasOne(r => r.Sale)
-                .WithMany(s => s.Refunds)
-                .HasForeignKey(r => r.SaleId);
+            builder.HasOne(r => r.Ticket)
+                .WithMany(t => t.Refunds)
+                .HasForeignKey(t => t.TicketId);
 
         }
     }

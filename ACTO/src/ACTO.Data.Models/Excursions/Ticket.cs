@@ -4,11 +4,16 @@ namespace ACTO.Data.Models.Excursions
 {
     using ACTO.Data.Models.Finance;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class Ticket : BaseModel<int>
     {
         //additional information about excursion reports.
         //TODO: potentially, i can make a sale instead of ticket, but ... i think this will be ok? 
+        public Ticket()
+        {
+            this.Refunds = new List<Refund>();
+        }
         public int AdultCount { get; set; }
         public int ChildrenCount { get; set; }
         public int CustomerId { get; set; }
@@ -21,6 +26,8 @@ namespace ACTO.Data.Models.Excursions
         public int ExcursionId { get; set; }
         public Excursion Excursion { get; set; }
         public string Notes { get; set; }
+
+        public int Discount { get; set; }
         public int TouristCount => this.ChildrenCount + this.AdultCount;
         public int TourLanguageId { get; set; }
         public Language TourLanguage { get; set; }
@@ -28,6 +35,9 @@ namespace ACTO.Data.Models.Excursions
         public int SaleId { get; set; }
         public Sale Sale { get; set; }
         public bool IsDeleted { get; set; }
+        public decimal PriceAfterDiscount { get; set; }
+
+        public List<Refund> Refunds { get; set; }
 
         //instead of is pending, just check if it has a sale or not!
         //public bool IsPending { get; set; }

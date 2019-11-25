@@ -1,92 +1,121 @@
 ﻿<h1>  CHECKOUT!</h1>
-@using ACTO.Web.InputModels.Sale
-@model SaleCreateCombinedModel
+@using ACTO.Web.InputModels.Finance
+@model SaleCreateInputModel
 <hr class="hr-2 bg-primary">
-<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded mx-auto">Check Out</h1>
+<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded mx-auto text-warning">Check Out</h1>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 <form class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
-
+    @if (Model.IsInvalid == true)
+    {
+        <h1 class="text-danger text-center">Sum of cash and credit is different than total sum </h1>
+    }
     <div class=" row container-fluid justify-content-center">
-        <div class="col-3 bg-primary text-warning font-weight-bold border border-dark text-center">Excursion Name</div>
-        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Adult Count</div>
-        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Price per child</div>
-        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Price per adult</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Excursion name:</div>
+        <div class="col-1 bg-primary text-warning font-weight-bold border border-dark text-center">Ad.</div>
+        <div class="col-1 bg-primary text-warning font-weight-bold border border-dark text-center"> Ch.</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Price per adult:</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Price per child:</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Discount:</div>
+        <div class="col-2 bg-primary text-warning font-weight-bold border border-dark text-center">Total sum:</div>
     </div>
     @for (var i = 0; i < Model.TicketsViews.Count; i++)
     {
         var current = @Model.TicketsViews[i];
 
         <div class="row container-fluid justify-content-center">
-            <div readonly class="col-3 text-primary font-weight-bold border border-dark  text-center"> @current.ExcursionName</div>
-            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.AdultCount</div>
-            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.PricePerChild</div>
+            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.ExcursionName</div>
+            <div readonly class="col-1 text-primary font-weight-bold border border-dark  text-center"> @current.AdultCount</div>
+            <div readonly class="col-1 text-primary font-weight-bold border border-dark  text-center"> @current.ChildCount</div>
+
             <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.PricePerAdult</div>
+            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.PricePerChild</div>
+            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.Discount</div>
+            <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.TotalSum</div>
         </div>
     }
     <input hidden readonly asp-for=@Model.RepresentativeId value=@Model.RepresentativeId />
 
-    <div class="d-flex justify-content-center">
-    </div>
-    <select  hidden class="form-control text-primary" multiple="multiple" id="languages-input" asp-for=@Model.TicketIds>
+
+    @*//this is for the tickets*@
+    <select hidden class="form-control text-primary" multiple="multiple" id="ticket-ids" asp-for=@Model.TicketIds>
         <option readonly selected>--- Select single or multiple languages ---</option>
         @foreach (var id in Model.TicketIds)
         {
-            <option hidden readonly selected value=@id>@id</option>
+            <option hidden readonly selected value=@id></option>
         }
     </select>
 
     <hr class="hr-2 bg-primary">
 
-    <div id="discount" class="d-flex justify-content-center">
-        <div class="form-group mx-auto w-45">
+
+    <div id="total-sum" class="d-flex justify-content-center">
+        <div class="form-group mx-auto w-32">
             <div class="d-flex justify-content-center">
-                <label asp-for=@Model.Discount class="text-primary h5">Discount</label>
+                <label asp-for=@Model.TotalSumAfterDiscount class="text-primary h5"></label>
             </div>
-            <input type="number"
+            <input readonly type="number"
                    class="form-control text-primary text-center"
-                   min=0
-                   max=100
-                   placeholder="Discount..."
-                   id="cash-input"
-                   asp-for=@Model.Discount>
-            <span asp-validation-for=@Model.Discount class="text-danger"></span>
+                   asp-for=@Model.TotalSumAfterDiscount>
+            <span asp-validation-for=@Model.TotalSumAfterDiscount class="text-danger"></span>
         </div>
     </div>
 
     <hr class="hr-2 bg-primary">
-    <div id="cash" class="d-flex justify-content-center">
-        <div class="form-group mx-auto w-45">
-            <div class="d-flex justify-content-center">
-                <label asp-for=@Model.Cash class="text-primary h5">Cash</label>
+
+    <div id="second-separator" class="d-flex justify-content-between">
+
+        <div id="cash" class="d-flex justify-content-center">
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for=@Model.Cash class="text-primary h5">Cash</label>
+                </div>
+                <input type="number"
+                       step=".01"
+                       class="form-control text-primary text-center"
+                       min=0.0
+                       asp-for=@Model.Cash>
+                <span asp-validation-for=@Model.Cash class="text-danger"></span>
             </div>
-            <input type="number"
-                   class="form-control text-primary text-center"
-                   min=0
-                   id="cash-input"
-                   asp-for=@Model.Cash>
-            <span asp-validation-for=@Model.Cash class="text-danger"></span>
+        </div>
+
+
+
+
+        <div id="credit-card" class="d-flex justify-content-center">
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for=@Model.CreditCard class="text-primary h5">Credit Card</label>
+                </div>
+                <input type="number" 
+                       min=0
+                       step=".01"
+                       class="form-control text-primary text-center"
+                       asp-for=@Model.CreditCard>
+                <span asp-validation-for=@Model.CreditCard class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="total-accumulated" class="d-flex justify-content-center">
+            <div class="form-group mx-auto w-32">
+                <div class="d-flex justify-content-center">
+                    <label asp-for=@Model.TotalAccumulated class="text-primary h5"></label>
+                </div>
+                <input readonly type="number"
+                       class="form-control text-primary text-center"
+                       asp-for=@Model.TotalAccumulated>
+                <span asp-validation-for=@Model.TotalAccumulated class="text-danger"></span>
+            </div>
         </div>
     </div>
 
     <hr class="hr-2 bg-primary">
-    <div id="credit-card" class="d-flex justify-content-center">
-        <div class="form-group mx-auto w-45">
-            <div class="d-flex justify-content-center">
-                <label asp-for=@Model.CreditCard class="text-primary h5">Credit Card</label>
-            </div>
-            <input type="number"
-                   min=0
-                   class="form-control text-primary text-center"
-                   id="credit-card-input"
-                   asp-for=@Model.CreditCard>
-            <span asp-validation-for=@Model.CreditCard class="text-danger"></span>
-        </div>
-    </div>
 
-    <hr class="hr-2 bg-primary">
+
     <div class="d-flex justify-content-center mt-3">
         <button formmethod="post" asp-area="Excursion" asp-controller="Representative" asp-action="TicketCheckOut" class="btn btn-primary font-weight-bold">Pay tickets</button>
     </div>
 </form>
+
+<script src="~/js/site.js"></script>

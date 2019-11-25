@@ -14,6 +14,5 @@ namespace ACTO.Data.Models.Finance
         public int RepresentativeId { get; set; }
         public Representative Representative { get; set; }
         public decimal TotalSum => this.Cash + this.CreditCard;
-        public ICollection<Sale> ReportedSales { get; set; }
     }
 }

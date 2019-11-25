@@ -1,7 +1,7 @@
 ﻿
-@using ACTO.Web.InputModels.Tickets
+@using ACTO.Web.InputModels.Excursions
 
-@model TicketCreateCombinedModel
+@model TicketCreateInputModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -17,30 +17,30 @@
 <form method="post" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3">
     <div asp-validation-summary="ModelOnly"></div>
 
-    <input hidden readonly type="number" asp-for=Input.ExcursionId value=@Model.ChosenExcursion.Id>
+    <input hidden readonly type="number" asp-for=ExcursionId value=@Model.ChosenExcursion.Id>
     <div id="second-separator" class="d-flex justify-content-between">
         <div id="customer-first-name" class="form-group mx-auto w-45">
             <div class="form-group mx-auto w-45">
-                <label asp-for="Input.Customer.FirstName" class="text-primary h5">First name</label>
+                <label asp-for=Customer.FirstName class="text-primary h5">First name</label>
             </div>
             <input type="text"
                    class="form-control text-primary text-center"
                    id="customer-first-name-id"
                    placeholder="FIrst name..."
-                   asp-for=Input.Customer.FirstName>
-            <span asp-validation-for=Input.Customer.FirstName class="text-danger"></span>
+                   asp-for=@Model.Customer.FirstName>
+            <span asp-validation-for=@Model.Customer.FirstName class="text-danger"></span>
         </div>
 
         <div id="customer-last-name" class="form-group mx-auto w-45">
             <div class="form-group mx-auto w-45">
-                <label asp-for=Input.Customer.LastName class="text-primary h5">Last name</label>
+                <label asp-for=@Model.Customer.LastName class="text-primary h5">Last name</label>
             </div>
             <input type="text"
                    class="form-control text-primary text-center"
                    id="customer-last-name"
                    placeholder="Last name..."
-                   asp-for=Input.Customer.LastName>
-            <span asp-validation-for=Input.Customer.LastName class="text-danger"></span>
+                   asp-for=@Model.Customer.LastName>
+            <span asp-validation-for=@Model.Customer.LastName class="text-danger"></span>
         </div>
     </div>
 
@@ -49,14 +49,13 @@
     <div id="first-separator" class="d-flex justify-content-between">
         <div id="adult-count" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=@Model.Input.AdultCount class="text-primary h5">Adult count</label>
+                <label asp-for=@Model.AdultCount class="text-primary h5">Adult count</label>
             </div>
             <input type="number"
                    class="form-control text-primary text-center"
-                   id="adult-count-input"
                    placeholder="Adult count..."
-                   asp-for=@Model.Input.AdultCount>
-            <span asp-validation-for=@Model.Input.AdultCount class="text-danger"></span>
+                   asp-for=@Model.AdultCount>
+            <span asp-validation-for=@Model.AdultCount class="text-danger"></span>
         </div>
         <div id="adult-price" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
@@ -64,22 +63,19 @@
             </div>
             <input readonly type="number"
                    class="form-control text-primary text-center"
-                   id="adult-price-id"
                    value=@Model.ChosenExcursion.PricePerAdult
                    asp-for=@Model.ChosenExcursion.PricePerAdult>
         </div>
 
         <div id="children-count" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=@Model.Input.ChildCount class="text-primary h5">Children Count</label>
+                <label asp-for=@Model.ChildCount class="text-primary h5">Children Count</label>
             </div>
             <input type="number"
                    class="form-control text-primary text-center"
-                   id="children-count-input"
                    placeholder="Children count..."
-                   asp-for=@Model.Input.ChildCount>
-            @*//TODO: HERE ADD to some format!*@
-            <span asp-validation-for=@Model.Input.ChildCount class="text-danger"></span>
+                   asp-for=@Model.ChildCount>
+            <span asp-validation-for=@Model.ChildCount class="text-danger"></span>
         </div>
         <div id="child-price" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
@@ -87,7 +83,6 @@
             </div>
             <input readonly type="number"
                    class="form-control text-primary text-center"
-                   id="child-price-id"
                    value=@Model.ChosenExcursion.PricePerChild
                    asp-for=@Model.ChosenExcursion.PricePerChild>
         </div>
@@ -95,29 +90,44 @@
 
     <hr class="hr-2 bg-primary mt-4">
 
-    <div id="third-separator" class="d-flex justify-content-between">
+    <div class="d-flex justify-content-center mt-3">
+        <div id="discount" class="form-group mx-auto w-45">
+            <div>
+                <label asp-for=Discount class="container-fluid text-center text-primary h5"></label>
+                <input type="number"
+                       class="form-control text-primary text-center"
+                       min=0
+                       max=100
+                       asp-for=Discount>
+
+                <span asp-validation-for=Discount class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <hr class="hr-2 bg-primary mt-4">
+    <div class="separator d-flex justify-content-between">
         <hr class="hr-2 bg-primary mt-4">
         <div id="total-count" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.TouristCount class="text-primary h5">Total tourist count</label>
+                <label asp-for=TouristCount class="text-primary h5"></label>
             </div>
             <input readonly type="number"
                    class="form-control text-primary text-center"
-                   id="total-count-id"
-                   value="0"
-                   asp-for=Input.TouristCount>
+                   asp-for=TouristCount>
 
-            <span asp-validation-for=Input.TouristCount class="text-danger"></span>
+            <span asp-validation-for=TouristCount class="text-danger"></span>
         </div>
 
-        <div id="total-count" class="form-group mx-auto w-45">
+        <div id="sum-after-discoun" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.TouristCount class="text-primary h5">Total sum</label>
+                <label asp-for=SumAfterDiscount class="text-primary h5"></label>
             </div>
             <input readonly type="number"
                    class="form-control text-primary text-center"
-                   id="total-sum-input"
-                   value="0">
+                   asp-for=SumAfterDiscount>
+
+            <span asp-validation-for=SumAfterDiscount class="text-danger"></span>
         </div>
 
     </div>
@@ -126,9 +136,9 @@
     <div class="d-flex justify-content-between separator">
         <div id="language-type" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.TourLanguageId class="text-primary h5">Choose Language</label>
+                <label asp-for=TourLanguageId class="text-primary h5">Choose Language</label>
             </div>
-            <select class="form-control text-primary" id="language-type-id" asp-for=Input.TourLanguageId>
+            <select class="form-control text-primary" id="language-type-id" asp-for=TourLanguageId>
                 <option selected disabled>--- Select one language ---</option>
                 @foreach (var type in Model.PossibleLanguages)
                 {
@@ -139,15 +149,15 @@
 
         <div id="notes" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.Notes class="text-primary h5">Additional notes</label>
+                <label asp-for=Notes class="text-primary h5">Additional notes</label>
             </div>
             <input type="text"
                    class="form-control text-primary text-center"
                    id="notes-id"
                    placeholder="Additional notes..."
-                   asp-for=Input.Notes>
+                   asp-for=Notes>
 
-            <span asp-validation-for=Input.Notes class="text-danger"></span>
+            <span asp-validation-for=Notes class="text-danger"></span>
         </div>
     </div>
 
@@ -156,7 +166,7 @@
     <div id="fourth-separator" class="d-flex justify-content-between">
         <div id="start-point" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.StartPoint class="text-primary h5">Start point</label>
+                <label asp-for=StartPoint class="text-primary h5">Start point</label>
             </div>
             <input readonly type="text"
                    class="form-control text-primary text-center"
@@ -166,7 +176,7 @@
         </div>
         <div id="end-point" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.EndPoint class="text-primary h5">End point</label>
+                <label asp-for=EndPoint class="text-primary h5">End point</label>
             </div>
             <input readonly type="text"
                    class="form-control text-primary text-center"
@@ -180,7 +190,7 @@
     <div id="fifth-separator" class="d-flex justify-content-between">
         <div id="departure" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.Departure class="text-primary h5">Departure</label>
+                <label asp-for=Departure class="text-primary h5">Departure</label>
             </div>
             <input readonly type="datetime"
                    class="form-control text-primary text-center"
@@ -190,7 +200,7 @@
         </div>
         <div id="arrival" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=Input.Arrival class="text-primary h5">Arrival</label>
+                <label asp-for=Arrival class="text-primary h5">Arrival</label>
             </div>
             <input readonly type="datetime"
                    class="form-control text-primary text-center"
@@ -204,13 +214,13 @@
         <button formmethod="get" asp-area="Excursion" asp-action="TicketCheckOut" asp-controller="Representative" class="btn btn-primary font-weight-bold">Go To Sale</button>
     </div>
     <div class="d-flex justify-content-center mt-3">
-        <button asp-action="TicketCreateAnother" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Create Another ticket</button>
+        <button formmethod="post" asp-action="TicketCreateAnother" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Create Another ticket</button>
     </div>
 
-    @if ((bool)ViewData["AnyTickets"] == true)
+    @if (Model.AnyTickets == true)
     {
         <div class="d-flex justify-content-center mt-3">
-            <button asp-action="RemoveAllPending" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Remove All Pending</button>
+            <button formmethod="post" asp-action="RemoveAllPending" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Remove All Pending</button>
         </div>
     }
 
@@ -223,6 +233,8 @@
 }
 
 @*//TODO: attach this to the above for dateTime visualizer!*@
+
+<script src="~/js/site.js"></script>
 <script>
     window.onload = () => {
         $('#arrival-time-input').datetimepicker({
@@ -233,5 +245,6 @@
             format: 'd.m.Y H:i',
             lang: 'en'
         })
+
     };
 </script>

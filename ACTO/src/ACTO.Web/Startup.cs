@@ -1,5 +1,4 @@
 ﻿using ACTO.Data;
-using ACTO.Data.Migrations;
 using ACTO.Data.Models;
 using ACTO.Web.Areas.Identity.Pages.Account;
 using ACTO.Web.Initializers;

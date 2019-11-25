@@ -16,10 +16,6 @@ namespace ACTO.Data.EntityConfigurations.Finance
 
             //unnecessary, because we`ll check for sales waitiing to be cached in by null of this!
 
-            //builder.HasOne(s => s.Liquidation)
-            //    .WithMany(l => l.ReportedSales)
-            //    .HasForeignKey(s => s.LiquidationId);
-
             builder.HasOne(s => s.Representative)
                 .WithMany(r => r.Sales)
                 .HasForeignKey(s => s.RepresentativeId);

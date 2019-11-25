@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACTO.Data.Models.Excursions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,7 +16,7 @@ namespace ACTO.Data.Models.Finance
         //the below 2 will be necessary too!        
         public int ChildCount { get; set; }
         public int AdultCount { get; set; }
-        public int SaleId { get; set; }
-        public Sale Sale { get; set; }
+        public int TicketId { get; set; }
+        public Ticket Ticket { get; set; }
     }
 }
