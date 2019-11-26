@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ACTO.Data.Migrations
 {
     [DbContext(typeof(ACTODbContext))]
-    [Migration("20191125152211_Restart Migration")]
-    partial class RestartMigration
+    [Migration("20191126154155_Resetting_Connection_To_Ticket_Sale_Liquidation_Representative")]
+    partial class Resetting_Connection_To_Ticket_Sale_Liquidation_Representative
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -241,9 +241,6 @@ namespace ACTO.Data.Migrations
                     b.Property<decimal>("PriceAfterDiscount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("RepresentativeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SaleId")
                         .HasColumnType("int");
 
@@ -255,8 +252,6 @@ namespace ACTO.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("ExcursionId");
-
-                    b.HasIndex("RepresentativeId");
 
                     b.HasIndex("SaleId");
 
@@ -301,6 +296,12 @@ namespace ACTO.Data.Migrations
 
                     b.Property<decimal>("CreditCard")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("ReadyByCashier")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ReadyByRepresentative")
+                        .HasColumnType("bit");
 
                     b.Property<int>("RepresentativeId")
                         .HasColumnType("int");
@@ -357,10 +358,10 @@ namespace ACTO.Data.Migrations
                     b.Property<decimal>("CreditCard")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("LiquidationId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsFinalized")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("RepresentativeId")
+                    b.Property<int>("LiqudationId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
@@ -368,9 +369,7 @@ namespace ACTO.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LiquidationId");
-
-                    b.HasIndex("RepresentativeId");
+                    b.HasIndex("LiqudationId");
 
                     b.ToTable("Sales");
                 });
@@ -551,12 +550,6 @@ namespace ACTO.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ACTO.Data.Models.Excursions.Representative", "Representative")
-                        .WithMany("SoldTickets")
-                        .HasForeignKey("RepresentativeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ACTO.Data.Models.Finance.Sale", "Sale")
                         .WithMany("Tickets")
                         .HasForeignKey("SaleId")
@@ -591,14 +584,8 @@ namespace ACTO.Data.Migrations
             modelBuilder.Entity("ACTO.Data.Models.Finance.Sale", b =>
                 {
                     b.HasOne("ACTO.Data.Models.Finance.Liquidation", "Liquidation")
-                        .WithMany("ReportedSales")
-                        .HasForeignKey("LiquidationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ACTO.Data.Models.Excursions.Representative", "Representative")
                         .WithMany("Sales")
-                        .HasForeignKey("RepresentativeId")
+                        .HasForeignKey("LiqudationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

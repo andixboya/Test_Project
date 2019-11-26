@@ -27,11 +27,9 @@ namespace ACTO.Data.EntityConfigurations.Excursions
                 .WithMany(t => t.Tickets)
                 .HasForeignKey(t => t.TourLanguageId);
 
-            builder.HasOne(t => t.Representative)
-                .WithMany(r => r.SoldTickets)
-                .HasForeignKey(t => t.RepresentativeId);
-
-
+            builder.HasOne(t => t.Sale)
+                .WithMany(s => s.Tickets)
+                .HasForeignKey(t => t.SaleId);
         }
     }
 }

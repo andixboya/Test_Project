@@ -13,13 +13,11 @@ namespace ACTO.Web.InputModels.Finance
         public SaleCreateInputModel()
         {
             this.TicketsViews = new List<SaleCreateTicketViewModel>();
-            this.TicketIds = new List<int>();
         }
+        public int SaleId { get; set; }
         public List<SaleCreateTicketViewModel> TicketsViews { get; set; }
         public decimal Cash { get; set; }
         public decimal CreditCard { get; set; }
-        public int RepresentativeId { get; set; }
-        public List<int> TicketIds { get; set; }
 
         [Display(Name = "Total Sum:")]
         public decimal TotalSumAfterDiscount { get; set; }

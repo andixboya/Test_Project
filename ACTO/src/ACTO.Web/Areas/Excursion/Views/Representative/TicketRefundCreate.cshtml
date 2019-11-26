@@ -83,6 +83,8 @@
     <input hidden readonly asp-for=TicketId value=@Model.TicketId />
     <hr class="hr-2 bg-primary">
 
+    <input readonly hidden type="number" asp-for=@Model.Discount value=@Model.Discount />
+
     <div class="d-flex justify-content-center mt-3">
         <button class="btn btn-primary font-weight-bold">Refund</button>
     </div>

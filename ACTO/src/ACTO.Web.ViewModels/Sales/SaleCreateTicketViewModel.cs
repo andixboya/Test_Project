@@ -8,6 +8,7 @@ namespace ACTO.Web.ViewModels.Sales
 
     public class SaleCreateTicketViewModel
     {
+        
         public int TicketId { get; set; }
         public string ExcursionName { get; set; }
 
@@ -21,7 +22,7 @@ namespace ACTO.Web.ViewModels.Sales
         public int Discount { get; set; }
 
         [Display(Name = "Total:")]
-        public decimal TotalSum => AdultCount * PricePerAdult + ChildCount * PricePerChild;
+        public decimal TotalSum => (AdultCount * PricePerAdult + ChildCount * PricePerChild) * (100.00m-Discount)/100.00m;
 
 
 

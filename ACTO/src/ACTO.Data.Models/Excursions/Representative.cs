@@ -11,12 +11,15 @@ namespace ACTO.Data.Models.Excursions
 
         //this should be redundant? 
         //public int UserId { get; set; }
+
+        public Representative()
+        {
+            this.Liquidations = new List<Liquidation>();
+        }
         
         public string UserId { get; set; }
         public ACTOUser User { get; set; }
-        public ICollection<Ticket> SoldTickets { get; set; }
-
-        public ICollection<Sale> Sales { get; set; }
+        
         public ICollection<Liquidation> Liquidations { get; set; }
 
         public bool IsDeleted { get; set; }

@@ -23,6 +23,9 @@ namespace ACTO.Web.Areas.Finance.Controllers
         //1 (report) after that.... just  reports, perhaps, which is just listing of... liquidations  (which has sales, which has tickets)
         //
         
+        //TODO: also fix the limiter for each excursion, because that is important
+        //TODO:throw error if a ticket is refunded to the max ( 0 , 0)  , same for excursion (just block them out)
+        //TODO: that `s about all of it...
 
 
         //rest is services!!!!

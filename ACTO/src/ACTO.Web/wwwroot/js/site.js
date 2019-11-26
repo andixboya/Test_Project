@@ -63,10 +63,11 @@ $('#ChildrenToRefund').on('input', function () {
     let childCountToRefund = $('#ChildrenToRefund').val();
     let adultCountToRefund = $('#AdultToRefund').val();
 
-    let pricePerChild = $('#PricePerAdult').val();
+    let pricePerChild = $('#PricePerChild').val();
     let pricePerAdult = $('#PricePerAdult').val();
-
-    let newTotalSumToRefund = Number(childCountToRefund) * Number(pricePerChild) + Number(adultCountToRefund) * Number(pricePerAdult);
+    let discount = $('#Discount').val();
+    var sumBeforeDiscount = Number(childCountToRefund) * Number(pricePerChild) + Number(adultCountToRefund) * Number(pricePerAdult);
+    let newTotalSumToRefund = sumBeforeDiscount * (100 - Number(discount)) / 100.00;
     $('#SumToRefund').val(newTotalSumToRefund.toFixed(2));
 
 })
@@ -74,11 +75,13 @@ $('#AdultToRefund').on('input', function () {
 
     let childCountToRefund = $('#ChildrenToRefund').val();
     let adultCountToRefund = $('#AdultToRefund').val();
+    let discount = $('#Discount').val();
 
-    let pricePerChild = $('#PricePerAdult').val();
+    let pricePerChild = $('#PricePerChild').val();
     let pricePerAdult = $('#PricePerAdult').val();
+    var sumBeforeDiscount = Number(childCountToRefund) * Number(pricePerChild) + Number(adultCountToRefund) * Number(pricePerAdult);
 
-    let newTotalSumToRefund = Number(childCountToRefund) * Number(pricePerChild) + Number(adultCountToRefund) * Number(pricePerAdult);
+    let newTotalSumToRefund = sumBeforeDiscount * (100 - Number(discount)) / 100.00;
     $('#SumToRefund').val(newTotalSumToRefund.toFixed(2));
 
 })  

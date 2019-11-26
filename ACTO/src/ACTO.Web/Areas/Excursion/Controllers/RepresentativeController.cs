@@ -26,14 +26,14 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             this.context = db;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> TicketPickExcursion(int id)
+        [HttpPost]//works!
+        public IActionResult TicketPickExcursion(int id)
         {
             return this.View();
         }
 
 
-        [HttpGet]
+        [HttpGet] //works
         public async Task<IActionResult> TicketPickExcursion()
         {
             var excursionPickViewModel = new TicketPickExcursionViewModel()
@@ -53,18 +53,22 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 .ToListAsync(),
             };
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var rep = await context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
 
-            this.ViewData["AnyTickets"] = await context.Tickets.Where(t => t.Representative.UserId == userId).AnyAsync(t => t.SaleId == 0);
+            this.ViewData["AnyTickets"] = await context
+                .Sales
+                .AnyAsync(s => s.IsFinalized == false &&
+                s.Liquidation.RepresentativeId == rep.Id);
 
 
             return View(excursionPickViewModel);
         }
 
+        //this is working
         [HttpGet]
         public async Task<IActionResult> TicketCreate(TicketPickExcursionViewModel model)
         {
             var excursion = model.PickedExcursion;
-
             if (excursion is null)
             {
                 //TODO: proper exception !
@@ -79,20 +83,23 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var rep = await context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
 
             var input = new TicketCreateInputModel()
             {
                 ChosenExcursion = excursion,
                 PossibleLanguages = spokenLanguages,
                 ExcursionId = excursion.Id,
-                AnyTickets = await context.Tickets.Where(t => t.Representative.UserId == userId).AnyAsync(t => t.SaleId == 0)
+                AnyTickets = await context.
+                Sales.
+                AnyAsync(s => s.IsFinalized == false &&
+                s.Liquidation.RepresentativeId == rep.Id)
             };
 
             return this.View(input);
         }
 
-        //TODO: this will probably be redundant?
-        [HttpPost]
+        [HttpPost] //works too (decoupled it from ticket checkout) 
         public async Task<IActionResult> TicketCreate(TicketCreateInputModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -116,6 +123,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 FirstName = model.Customer.FirstName,
                 LastName = model.Customer.LastName,
             };
+
             await context.Customers.AddAsync(customer);
 
             var ticketToAdd = new Ticket()
@@ -126,26 +134,59 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 Notes = model.Notes,
                 TourLanguageId = model.TourLanguageId,
                 Customer = customer,
-                RepresentativeId = repId,
                 Discount = model.Discount,
                 PriceAfterDiscount = model.SumAfterDiscount
-
             };
+
+
+            var sale = await context.
+                Sales
+                .Include(s => s.Tickets)
+                .FirstOrDefaultAsync(s => s.IsFinalized == false && s.Liquidation.RepresentativeId == repId);
+
+            //if no such sale is available we have to initialize it and  both liquidation if its not there!
+            if (sale is null)
+            {
+                sale = new Sale();
+
+                var liquidation = await context
+                    .Liquidations
+                    .FirstOrDefaultAsync(l => l.ReadyByRepresentative == false
+                    && l.RepresentativeId == repId);
+
+
+                if (liquidation is null)
+                {
+                    liquidation = new Liquidation()
+                    {
+                        RepresentativeId = repId
+                    };
+
+                    await context.Liquidations.AddAsync(liquidation);
+
+                }
+
+                liquidation.Sales.Add(sale);
+                sale.Liquidation = liquidation;
+
+                await context.Sales.AddAsync(sale);
+            }
+
+            sale.Tickets.Add(ticketToAdd);
+            ticketToAdd.Sale = sale;
+
             await context.Tickets.AddAsync(ticketToAdd);
-
-
             await context.SaveChangesAsync();
 
             return this.Redirect("/Excursion/Representative/TicketCheckOut");
         }
 
-
-        [HttpPost]
+        [HttpPost] //works!
         public async Task<IActionResult> TicketCreateAnother(TicketCreateInputModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var representativeId = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
-            var repId = representativeId.Id;
+            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+            var repId = rep.Id;
             if (repId == 0)
             {
                 //TODO: proper error message
@@ -164,6 +205,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 FirstName = model.Customer.FirstName,
                 LastName = model.Customer.LastName,
             };
+
             await context.Customers.AddAsync(customer);
 
             var ticketToAdd = new Ticket()
@@ -174,84 +216,72 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 Notes = model.Notes,
                 TourLanguageId = model.TourLanguageId,
                 Customer = customer,
-                RepresentativeId = repId,
                 Discount = model.Discount,
                 PriceAfterDiscount = model.SumAfterDiscount
             };
+
+
+            var sale = await context.Sales.Include(s => s.Tickets).FirstOrDefaultAsync(s => s.IsFinalized == false &&
+                s.Liquidation.RepresentativeId == repId);
+
+            //if no such sale is available we have to initialize it and  both liquidation if its not there!
+            if (sale is null)
+            {
+                sale = new Sale();
+
+                var liquidation = await context.Liquidations.FirstOrDefaultAsync(l => l.ReadyByRepresentative == false && l.RepresentativeId == repId);
+
+                if (liquidation is null)
+                {
+                    liquidation = new Liquidation()
+                    {
+                        RepresentativeId = repId
+                    };
+
+                    await context.Liquidations.AddAsync(liquidation);
+
+                }
+
+                liquidation.Sales.Add(sale);
+                sale.Liquidation = liquidation;
+
+                await context.Sales.AddAsync(sale);
+            }
+
+            sale.Tickets.Add(ticketToAdd);
+            ticketToAdd.Sale = sale;
+
             await context.Tickets.AddAsync(ticketToAdd);
 
-
             await context.SaveChangesAsync();
 
             //it will still buy the tickets, but redirect to the pick Excursion button
             return Redirect("/Excursion/Representative/TicketPickExcursion");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RemoveAllPending(TicketCreateInputModel model)
-        {
-            //buy ticket , which is copy from above, and then redirect to TicketPickExcursion
-
-            //it will still buy the tickets, but redirect to the pick Excursion button
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var tickets = await context.Tickets.Where(t => t.Representative.UserId == userId).ToListAsync();
-
-            context.Tickets.RemoveRange(tickets);
-            await context.SaveChangesAsync();
-
-            return Redirect("/Excursion/Representative/TicketPickExcursion");
-        }
+        //works!
         [HttpGet]
         public async Task<IActionResult> TicketCheckOut(TicketCreateInputModel model)
         {
-            //again create the ticket here, afterwards gather your info about the sale...
-            //the below is creation of ticket
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var representativeId = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
-            var repId = representativeId.Id;
-            if (repId == 0)
-            {
-                //TODO: proper error message
-                return this.Redirect("/Home/Index");
-            }
+            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+            //these 3 are indeed necessary!
+            var sale = await context
+                .Sales
+                .Include(s => s.Tickets)
+                .ThenInclude(t => t.Excursion)
+                .ThenInclude(e => e.ExcursionType)
+                .FirstOrDefaultAsync(s => s.IsFinalized == false &&
+                s.Liquidation.RepresentativeId == rep.Id);
 
-            if (model is null)
-            {
-                //TODO: add proper error message!
-                return this.Redirect("/Home/Index");
-            }
 
-            //i won`t be making any special checkup for customers (not worth it i think?) 
-            var customer = new Customer()
+            var inputModel = new SaleCreateInputModel()
             {
-                FirstName = model.Customer.FirstName,
-                LastName = model.Customer.LastName,
+                SaleId = sale.Id
             };
-            await context.Customers.AddAsync(customer);
 
-            var ticketToAdd = new Ticket()
-            {
-                AdultCount = model.AdultCount,
-                ChildrenCount = model.ChildCount,
-                ExcursionId = model.ExcursionId,
-                Notes = model.Notes,
-                TourLanguageId = model.TourLanguageId,
-                Customer = customer,
-                RepresentativeId = repId,
-                Discount = model.Discount,
-                PriceAfterDiscount = model.SumAfterDiscount,
-
-            };
-            await context.Tickets.AddAsync(ticketToAdd);
-
-
-            await context.SaveChangesAsync();
-
-            //the transition into CheckOut
-            var inputModel = new SaleCreateInputModel();
-
-
-            inputModel.TicketsViews = await context.Tickets.Where(t => t.Representative.UserId == userId && t.SaleId == 0).Select(t => new SaleCreateTicketViewModel
+            inputModel.TicketsViews = sale.Tickets.Select(t => new SaleCreateTicketViewModel
             {
                 TicketId = t.Id,
                 AdultCount = t.AdultCount,
@@ -260,27 +290,37 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 PricePerAdult = t.Excursion.PricePerAdult,
                 PricePerChild = t.Excursion.PricePerChild,
                 Discount = t.Discount
-            })
-                .ToListAsync();
-            inputModel.TicketsViews.ForEach(v =>
-            {
-                inputModel.TicketIds.Add(v.TicketId);
-            });
-            inputModel.TotalSumAfterDiscount = inputModel.TicketsViews.Any() ? inputModel.TicketsViews.Sum(t => t.TotalSum) : 0;
 
-            inputModel.RepresentativeId = repId;
+            })
+                .ToList();
+
+            inputModel.TotalSumAfterDiscount = inputModel.TicketsViews.Any() ? inputModel.TicketsViews.Sum(t => t.TotalSum) : 0;
 
             return View(inputModel);
         }
 
+
+        //this works too
         [HttpPost]
         public async Task<IActionResult> TicketCheckOut(SaleCreateInputModel model)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+
             model.IsInvalid = model.TotalAccumulated != model.TotalSumAfterDiscount;
             if (model.IsInvalid)
             {
+                var secondSale = await context
+              .Sales
+              .Include(s => s.Tickets)
+              .ThenInclude(t => t.Excursion)
+              .ThenInclude(e => e.ExcursionType)
+              .FirstOrDefaultAsync(s => s.IsFinalized == false &&
+                s.Liquidation.RepresentativeId == rep.Id);
+
+
                 model.IsInvalid = true;
-                model.TicketsViews = await context.Tickets.Where(t => t.Representative.Id == model.RepresentativeId).Select(t => new SaleCreateTicketViewModel
+                model.TicketsViews = secondSale.Tickets.Select(t => new SaleCreateTicketViewModel
                 {
                     TicketId = t.Id,
                     AdultCount = t.AdultCount,
@@ -291,46 +331,47 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                     Discount = t.Discount,
 
                 })
-              .ToListAsync();
-                model.TicketsViews.ForEach(v =>
-                {
-                    model.TicketIds.Add(v.TicketId);
-                });
+              .ToList();
 
                 return this.View(model);
             }
 
-            var sale = new Sale()
-            {
-                Cash = model.Cash,
-                CreditCard = model.CreditCard,
-                RepresentativeId = model.RepresentativeId,
-                Tickets = await context.Tickets.Where(t => model.TicketIds.Contains(t.Id))
-                .ToListAsync()
-                ,
-                TotalPrice = model.TotalSumAfterDiscount,
-            };
+            var sale = await context.Sales.FirstOrDefaultAsync(s => s.Id == model.SaleId);
 
-            foreach (var t in sale.Tickets)
-            {
-                t.Sale = sale;
-            }
-
-            await context.Sales.AddAsync(sale);
-            //now the question is, if  it will make the connections itself or it won`t ? 
+            sale.Cash = model.Cash;
+            sale.CreditCard = model.CreditCard;
+            sale.TotalPrice = model.TotalSumAfterDiscount;
+            sale.IsFinalized = true;
+            context.Update(sale);
             await context.SaveChangesAsync();
-
 
             return View("/Areas/Finance/Views/Sales/ReceiptForm.cshtml");
         }
 
-        //refund ticket 
 
-        public async Task<IActionResult> TicketSearchById()
+        [HttpPost]
+        public async Task<IActionResult> RemoveAllPending([FromForm(Name = "SaleId")] int saleId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+
+            var sale = await context.Sales.Include(s => s.Tickets).FirstOrDefaultAsync(s => s.IsFinalized == false &&
+                s.Liquidation.RepresentativeId == rep.Id);
+
+            context.Tickets.RemoveRange(sale.Tickets);
+            context.Sales.Remove(sale);
+            await context.SaveChangesAsync();
+
+            return Redirect("/Excursion/Representative/TicketPickExcursion");
+        }
+
+        //ok
+        public IActionResult TicketSearchById()
         {
             return View();
         }
 
+        //this is working 
         [HttpGet]
         public async Task<IActionResult> TicketRefundCreate(int id)
         {
@@ -342,6 +383,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                     x.Id,
                     x.AdultCount,
                     x.ChildrenCount,
+                    x.Discount,
                     Excursion = new
                     {
                         x.Excursion.PricePerAdult,
@@ -367,9 +409,9 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 PricePerAdult = ticket.Excursion.PricePerAdult,
                 PricePerChild = ticket.Excursion.PricePerChild,
                 TicketId = ticket.Id,
-
+                Discount = ticket.Discount
             };
-            model.SumToRefund = model.MaxAdultCount * model.PricePerAdult + model.MaxChildrenCount * model.PricePerChild;
+            model.SumToRefund = (model.MaxAdultCount * model.PricePerAdult + model.MaxChildrenCount * model.PricePerChild) * (100 - ticket.Discount) / 100.00m;
             //view of the ticket ( with count of adult, chidlren  (max out-ed)) and below price to return
 
             return View(model);
@@ -425,7 +467,11 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
             var ticket = await context.Tickets.Include(t => t.Sale).FirstOrDefaultAsync(t => t.Id == model.TicketId);
 
-            var cashToRefund = model.AdultToRefund * model.PricePerAdult + model.ChildrenToRefund * model.PricePerChild;
+            //here i forgot the discount!
+            var cashToRefund =
+                (model.AdultToRefund * model.PricePerAdult + model.ChildrenToRefund * model.PricePerChild)
+                * (100m - ticket.Discount) / 100.00m;
+
 
             ticket.Sale.Cash -= cashToRefund;
             ticket.AdultCount -= model.AdultToRefund;
@@ -441,7 +487,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 Cash = cashToRefund,
                 Date = DateTime.UtcNow,
                 TicketId = model.TicketId
-
             };
             ticket.Refunds.Add(refund);
 
@@ -450,12 +495,8 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             await context.Refunds.AddAsync(refund);
             await context.SaveChangesAsync();
 
-
-
             return View("/Areas/Excursion/Views/Representative/TicketRefundView.cshtml");
         }
-
-
 
 
         //TODO:

@@ -7,6 +7,7 @@
 
 <form class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
+    <input hidden readonly type="number" asp-for=@Model.SaleId  value=@Model.SaleId/>
     @if (Model.IsInvalid == true)
     {
         <h1 class="text-danger text-center">Sum of cash and credit is different than total sum </h1>
@@ -35,18 +36,6 @@
             <div readonly class="col-2 text-primary font-weight-bold border border-dark  text-center"> @current.TotalSum</div>
         </div>
     }
-    <input hidden readonly asp-for=@Model.RepresentativeId value=@Model.RepresentativeId />
-
-
-    @*//this is for the tickets*@
-    <select hidden class="form-control text-primary" multiple="multiple" id="ticket-ids" asp-for=@Model.TicketIds>
-        <option readonly selected>--- Select single or multiple languages ---</option>
-        @foreach (var id in Model.TicketIds)
-        {
-            <option hidden readonly selected value=@id></option>
-        }
-    </select>
-
     <hr class="hr-2 bg-primary">
 
 

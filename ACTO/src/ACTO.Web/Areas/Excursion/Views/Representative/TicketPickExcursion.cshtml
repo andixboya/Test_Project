@@ -38,8 +38,8 @@ else
             @*<input readonly class="col-1 text-primary font-weight-bold border border-dark  text-center" value="@(i + 1)">*@
             <input readonly type="text" value=@current.Name asp-for=@Model.PickedExcursion.Name class="col-2 text-primary font-weight-bold border border-dark  text-center">
             <input readonly type="number" value=@current.AvailableSpots asp-for=@Model.PickedExcursion.AvailableSpots class="col-1 text-primary font-weight-bold border border-dark  text-center">
-            <input hidden readonly type="number" value=@current.PricePerChild asp-for=@Model.PickedExcursion.PricePerChild >
-            <input hidden readonly type="number" value=@current.PricePerAdult asp-for=@Model.PickedExcursion.PricePerAdult >
+            <input hidden readonly type="number" value=@current.PricePerChild asp-for=@Model.PickedExcursion.PricePerChild>
+            <input hidden readonly type="number" value=@current.PricePerAdult asp-for=@Model.PickedExcursion.PricePerAdult>
             <input readonly type="datetime" value=@current.Arrival asp-for=@Model.PickedExcursion.Arrival class="col-2 text-primary font-weight-bold border border-dark  text-center">
             <input readonly type="datetime" value=@current.Departure asp-for=@Model.PickedExcursion.Departure class="col-2 text-primary font-weight-bold border border-dark  text-center">
             <input readonly type="text" value=@current.StartPoint asp-for=@Model.PickedExcursion.StartPoint class="col-2 text-primary font-weight-bold border border-dark  text-center">
@@ -53,6 +53,7 @@ else
     {
         <form method="post" class="d-flex justify-content-center mt-3">
             <button asp-action="RemoveAllPending" asp-area="Excursion" asp-controller="Representative" class="btn btn-primary font-weight-bold">Remove All Pending</button>
+            <input readonly hidden type="number" asp-for=@Model.SaleId value=@Model.SaleId />
         </form>
     }
 }

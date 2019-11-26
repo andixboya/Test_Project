@@ -15,6 +15,8 @@ namespace ACTO.Web.InputModels.Excursions
         {
             this.PossibleLanguages = new List<LanguageViewModel>();
         }
+        
+        public int SaleId { get; set; }
         public int AdultCount { get; set; }
         public int ChildCount { get; set; }
         public CustomerViewModel Customer { get; set; }

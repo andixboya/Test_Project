@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ACTO.Data.Migrations
 {
-    public partial class RestartMigration : Migration
+    public partial class Resetting_Connection_To_Ticket_Sale_Liquidation_Representative : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -253,7 +253,9 @@ namespace ACTO.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Cash = table.Column<decimal>(nullable: false),
                     CreditCard = table.Column<decimal>(nullable: false),
-                    RepresentativeId = table.Column<int>(nullable: false)
+                    RepresentativeId = table.Column<int>(nullable: false),
+                    ReadyByCashier = table.Column<bool>(nullable: false),
+                    ReadyByRepresentative = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -298,23 +300,17 @@ namespace ACTO.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Cash = table.Column<decimal>(nullable: false),
                     CreditCard = table.Column<decimal>(nullable: false),
-                    LiquidationId = table.Column<int>(nullable: false),
-                    RepresentativeId = table.Column<int>(nullable: false),
-                    TotalPrice = table.Column<decimal>(nullable: false)
+                    LiqudationId = table.Column<int>(nullable: false),
+                    TotalPrice = table.Column<decimal>(nullable: false),
+                    IsFinalized = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sales", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sales_Liquidations_LiquidationId",
-                        column: x => x.LiquidationId,
+                        name: "FK_Sales_Liquidations_LiqudationId",
+                        column: x => x.LiqudationId,
                         principalTable: "Liquidations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Sales_Representatives_RepresentativeId",
-                        column: x => x.RepresentativeId,
-                        principalTable: "Representatives",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -328,7 +324,6 @@ namespace ACTO.Data.Migrations
                     AdultCount = table.Column<int>(nullable: false),
                     ChildrenCount = table.Column<int>(nullable: false),
                     CustomerId = table.Column<int>(nullable: false),
-                    RepresentativeId = table.Column<int>(nullable: false),
                     ExcursionId = table.Column<int>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
                     Discount = table.Column<int>(nullable: false),
@@ -350,12 +345,6 @@ namespace ACTO.Data.Migrations
                         name: "FK_Tickets_Excursions_ExcursionId",
                         column: x => x.ExcursionId,
                         principalTable: "Excursions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Representatives_RepresentativeId",
-                        column: x => x.RepresentativeId,
-                        principalTable: "Representatives",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -463,14 +452,9 @@ namespace ACTO.Data.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_LiquidationId",
+                name: "IX_Sales_LiqudationId",
                 table: "Sales",
-                column: "LiquidationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sales_RepresentativeId",
-                table: "Sales",
-                column: "RepresentativeId");
+                column: "LiqudationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_CustomerId",
@@ -481,11 +465,6 @@ namespace ACTO.Data.Migrations
                 name: "IX_Tickets_ExcursionId",
                 table: "Tickets",
                 column: "ExcursionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tickets_RepresentativeId",
-                table: "Tickets",
-                column: "RepresentativeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_SaleId",

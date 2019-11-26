@@ -16,6 +16,8 @@
         [Display(Name = "Ch.")]
         public int ChildrenToRefund { get; set; }
 
+        public int Discount { get; set; }
+
 
         [Display(Name = "Price per adult")]
         public decimal PricePerAdult { get; set; }
