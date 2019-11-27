@@ -51,7 +51,6 @@ namespace ACTO.Data
         public DbSet<Language> LanguageTypes { get; set; }
         public DbSet<Liquidation> Liquidations { get; set; }
         public DbSet<Refund> Refunds { get; set; }
-        public DbSet<Representative> Representatives { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 

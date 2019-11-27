@@ -95,7 +95,6 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
                 {
                     //assignes the selected role
                     await this._userManager.AddToRoleAsync(user, this.Input.Role);
-                    await this.DistributeToAppropriateRole(user);
                     //we won`t be needing the logger for now... 
                     //_logger.LogInformation("User created a new account with password.");
 
@@ -114,20 +113,7 @@ namespace ACTO.Web.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private async Task DistributeToAppropriateRole(ACTOUser user)
-        {
-            //i can do this with... reflection i think, but not now
-            if (this.Input.Role == "Representative")
-            {
-                var representativeToAdd = new Representative()
-                {
-                    UserId = user.Id
-                };
-                await context.Representatives.AddAsync(representativeToAdd);
-                
-                await context.SaveChangesAsync();
-            }
-        }
+
 
     }
 

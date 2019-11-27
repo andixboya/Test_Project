@@ -58,12 +58,11 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 .ToListAsync(),
             };
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rep = await context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
 
             this.ViewData["AnyTickets"] = await context
                 .Sales
                 .AnyAsync(s => s.IsFinalized == false &&
-                s.Liquidation.RepresentativeId == rep.Id);
+                s.Liquidation.RepresentativeId == userId);
 
 
             return View(excursionPickViewModel);
@@ -88,7 +87,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rep = await context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+            //var rep = await context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
 
             var input = new TicketCreateInputModel()
             {
@@ -98,7 +97,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 AnyTickets = await context.
                 Sales.
                 AnyAsync(s => s.IsFinalized == false &&
-                s.Liquidation.RepresentativeId == rep.Id)
+                s.Liquidation.RepresentativeId == userId)
             };
 
             return this.View(input);
@@ -108,9 +107,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         public async Task<IActionResult> TicketCreate(TicketCreateInputModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var representativeId = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
-            var repId = representativeId.Id;
-            if (repId == 0)
+            if (string.IsNullOrEmpty(userId))
             {
                 //TODO: proper error message
                 return this.Redirect("/Home/Index");
@@ -147,7 +144,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             var sale = await context.
                 Sales
                 .Include(s => s.Tickets)
-                .FirstOrDefaultAsync(s => s.IsFinalized == false && s.Liquidation.RepresentativeId == repId);
+                .FirstOrDefaultAsync(s => s.IsFinalized == false && s.Liquidation.RepresentativeId == userId);
 
             //if no such sale is available we have to initialize it and  both liquidation if its not there!
             if (sale is null)
@@ -157,14 +154,14 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 var liquidation = await context
                     .Liquidations
                     .FirstOrDefaultAsync(l => l.ReadyByRepresentative == false
-                    && l.RepresentativeId == repId);
+                    && l.RepresentativeId == userId);
 
 
                 if (liquidation is null)
                 {
                     liquidation = new Liquidation()
                     {
-                        RepresentativeId = repId
+                        RepresentativeId = userId
                     };
 
                     await context.Liquidations.AddAsync(liquidation);
@@ -190,9 +187,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         public async Task<IActionResult> TicketCreateAnother(TicketCreateInputModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
-            var repId = rep.Id;
-            if (repId == 0)
+            if (string.IsNullOrEmpty(userId))
             {
                 //TODO: proper error message
                 return this.Redirect("/Home/Index");
@@ -227,20 +222,20 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
 
             var sale = await context.Sales.Include(s => s.Tickets).FirstOrDefaultAsync(s => s.IsFinalized == false &&
-                s.Liquidation.RepresentativeId == repId);
+                s.Liquidation.RepresentativeId == userId);
 
             //if no such sale is available we have to initialize it and  both liquidation if its not there!
             if (sale is null)
             {
                 sale = new Sale();
 
-                var liquidation = await context.Liquidations.FirstOrDefaultAsync(l => l.ReadyByRepresentative == false && l.RepresentativeId == repId);
+                var liquidation = await context.Liquidations.FirstOrDefaultAsync(l => l.ReadyByRepresentative == false && l.RepresentativeId == userId);
 
                 if (liquidation is null)
                 {
                     liquidation = new Liquidation()
                     {
-                        RepresentativeId = repId
+                        RepresentativeId = userId
                     };
 
                     await context.Liquidations.AddAsync(liquidation);
@@ -269,7 +264,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         public async Task<IActionResult> TicketCheckOut(TicketCreateInputModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+            var rep = await this.context.Users.FirstOrDefaultAsync(u => u.Id == userId);
             //these 3 are indeed necessary!
             var sale = await context
                 .Sales
@@ -309,7 +304,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         public async Task<IActionResult> TicketCheckOut(SaleCreateInputModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+            var rep = await this.context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
 
             //we`ll use it for visualization or to return the model if it is invalid
@@ -346,7 +341,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             sale.CreditCard = model.CreditCard;
             sale.TotalPrice = model.TotalSumAfterDiscount;
             sale.IsFinalized = true;
-            context.Update(sale);
             await context.SaveChangesAsync();
 
             //todo: implement this... but its not a priority!
@@ -363,7 +357,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         public async Task<IActionResult> RemoveAllPending([FromForm(Name = "SaleId")] int saleId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+            var rep = await this.context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             var sale = await context.Sales.Include(s => s.Tickets).FirstOrDefaultAsync(s => s.IsFinalized == false &&
                 s.Liquidation.RepresentativeId == rep.Id);
@@ -375,13 +369,13 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             return Redirect("/Excursion/Representative/TicketPickExcursion");
         }
 
-        
+
         public IActionResult TicketSearchById()
         {
             return View();
         }
 
-        
+
         [HttpGet]
         public async Task<IActionResult> TicketRefundCreate(int id)
         {
@@ -499,7 +493,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             };
             ticket.Refunds.Add(refund);
 
-            context.Update(ticket);
 
             await context.Refunds.AddAsync(refund);
             await context.SaveChangesAsync();
@@ -512,7 +505,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         public async Task<IActionResult> LiquidationPendingViewAll()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var rep = await context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
+            var rep = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
             var liquidationIds = await context
                 .Liquidations
@@ -555,6 +548,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
                 })
                 .FirstOrDefaultAsync(model => model.LiquidationId == id);
+
             if (!liquidation.Tickets.Any())
             {
                 liquidation.TotalOwned = 0;
@@ -566,8 +560,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
                 liquidation.TotalOwned = liquidation.Tickets.Sum(t => t.PriceAfterDiscount) - refundSum;
             }
-
-
 
             return this.View(liquidation);
         }
@@ -614,7 +606,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             liquidationToChange.CreditCard = model.CreditCard;
             liquidationToChange.ReadyByRepresentative = true;
 
-            context.Update(liquidationToChange);
             await context.SaveChangesAsync();
 
             return Redirect("/Home/Index");

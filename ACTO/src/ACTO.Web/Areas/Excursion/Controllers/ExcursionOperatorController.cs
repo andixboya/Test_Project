@@ -7,13 +7,11 @@ namespace ACTO.Web.Areas.Excursion.Controllers
     using ACTO.Data.Models.Excursions;
     using ACTO.Web.InputModels.Excursions;
     using ACTO.Web.ViewModels.Excursions;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     [Area("Excursion")]
     public class ExcursionOperatorController : Controller
@@ -56,7 +54,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             return this.View();
         }
 
-
         public async Task<IActionResult> AddLanguage(LanguageAddInputModel model)
         {
             if (!ModelState.IsValid)
@@ -74,7 +71,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
             return this.Redirect("/Home/Index");
         }
-
 
         [HttpGet]
         public async Task<IActionResult> CreateExcursion()
@@ -209,7 +205,11 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteExcursion(int id)
         {
-            var excursionToDelete = await context.Excursions.FindAsync(id);
+            var excursionToDelete = await context.Excursions.Include(e => e.LanguageExcursions).Include(e => e.SoldTickets).ThenInclude(t => t.Refunds).FirstOrDefaultAsync(e => e.Id == id);
+
+            context.LanguageExcursions.RemoveRange(excursionToDelete.LanguageExcursions);
+            context.Refunds.RemoveRange(excursionToDelete.SoldTickets.SelectMany(x => x.Refunds));
+            context.Tickets.RemoveRange(excursionToDelete.SoldTickets);
 
             context.Excursions.Remove(excursionToDelete);
             await context.SaveChangesAsync();
@@ -253,8 +253,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 })
               .ToListAsync()
             };
-
-
             return this.View(inputModel);
         }
 
@@ -269,14 +267,15 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             context.LanguageExcursions.RemoveRange(modelToEdit.LanguageExcursions);
             var excursionTypeToBreak = await context.ExcursionTypes.FindAsync(modelToEdit.ExcursionTypeId);
             excursionTypeToBreak.Excursions.Remove(modelToEdit);
-            context.Update(excursionTypeToBreak);
 
             modelToEdit.LanguageExcursions = model.LanguageIds.Select(l => new LanguageExcursion
             {
+
                 Excursion = modelToEdit,
                 LanguageId = l
             })
                 .ToList();
+
             modelToEdit.LastUpdated = DateTime.UtcNow;
             modelToEdit.LastUpdatedBy = HttpContext.User.Identity.Name;
             modelToEdit.PricePerAdult = model.Price;
@@ -287,7 +286,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             modelToEdit.EndPoint = model.EndPoint;
             modelToEdit.ExcursionTypeId = model.ExcursionTypeId;
 
-            context.Update(modelToEdit);
+
             await context.SaveChangesAsync();
 
             return this.Redirect($"/Excursion/ExcursionOperator/DetailsExcursion?id={modelToEdit.Id}");
@@ -307,8 +306,5 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
             return this.View(excursions);
         }
-
-
-
     }
 }

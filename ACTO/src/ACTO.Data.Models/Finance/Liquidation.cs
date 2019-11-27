@@ -14,8 +14,9 @@ namespace ACTO.Data.Models.Finance
         }
         public decimal Cash { get; set; }
         public decimal CreditCard { get; set; }
-        public int RepresentativeId { get; set; }
-        public Representative Representative { get; set; }
+        
+        public string RepresentativeId { get; set; }
+        public ACTOUser Representative { get; set; }
         public List<Sale> Sales { get; set; }
 
         //this does not concern the representative....
