@@ -20,9 +20,5 @@ namespace ACTO.Web.ViewModels.Tickets
         public DateTime Departure { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime Arrival { get; set; }
-
-
-
-
     }
 }

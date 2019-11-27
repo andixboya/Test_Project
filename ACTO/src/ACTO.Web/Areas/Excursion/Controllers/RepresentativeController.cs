@@ -17,6 +17,11 @@ namespace ACTO.Web.Areas.Excursion.Controllers
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using ACTO.Web.InputModels;
+    using ACTO.Web.ViewModels.Liquidations;
+    using ACTO.Web.ViewModels.Customers;
+    using ACTO.Web.ViewModels.Refund;
+
     [Area("Excursion")]
     public class RepresentativeController : Controller
     {
@@ -263,7 +268,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         [HttpGet]
         public async Task<IActionResult> TicketCheckOut(TicketCreateInputModel model)
         {
-
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
             //these 3 are indeed necessary!
@@ -307,10 +311,9 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var rep = await this.context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
 
-            model.IsInvalid = model.TotalAccumulated != model.TotalSumAfterDiscount;
-            if (model.IsInvalid)
-            {
-                var secondSale = await context
+
+            //we`ll use it for visualization or to return the model if it is invalid
+            var sale = await context
               .Sales
               .Include(s => s.Tickets)
               .ThenInclude(t => t.Excursion)
@@ -319,8 +322,11 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 s.Liquidation.RepresentativeId == rep.Id);
 
 
+            model.IsInvalid = model.TotalAccumulated != model.TotalSumAfterDiscount;
+            if (model.IsInvalid)
+            {
                 model.IsInvalid = true;
-                model.TicketsViews = secondSale.Tickets.Select(t => new SaleCreateTicketViewModel
+                model.TicketsViews = sale.Tickets.Select(t => new SaleCreateTicketViewModel
                 {
                     TicketId = t.Id,
                     AdultCount = t.AdultCount,
@@ -336,8 +342,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 return this.View(model);
             }
 
-            var sale = await context.Sales.FirstOrDefaultAsync(s => s.Id == model.SaleId);
-
             sale.Cash = model.Cash;
             sale.CreditCard = model.CreditCard;
             sale.TotalPrice = model.TotalSumAfterDiscount;
@@ -345,7 +349,13 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             context.Update(sale);
             await context.SaveChangesAsync();
 
-            return View("/Areas/Finance/Views/Sales/ReceiptForm.cshtml");
+            //todo: implement this... but its not a priority!
+            SaleReceiptFormView modelView = new SaleReceiptFormView()
+            {
+
+            };
+
+            return View("/Areas/Finance/Views/Sales/ReceiptForm.cshtml", modelView);
         }
 
 
@@ -365,13 +375,13 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             return Redirect("/Excursion/Representative/TicketPickExcursion");
         }
 
-        //ok
+        
         public IActionResult TicketSearchById()
         {
             return View();
         }
 
-        //this is working 
+        
         [HttpGet]
         public async Task<IActionResult> TicketRefundCreate(int id)
         {
@@ -411,6 +421,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 TicketId = ticket.Id,
                 Discount = ticket.Discount
             };
+
             model.SumToRefund = (model.MaxAdultCount * model.PricePerAdult + model.MaxChildrenCount * model.PricePerChild) * (100 - ticket.Discount) / 100.00m;
             //view of the ticket ( with count of adult, chidlren  (max out-ed)) and below price to return
 
@@ -478,8 +489,6 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             ticket.ChildrenCount -= model.ChildrenToRefund;
             ticket.Sale.TotalPrice -= cashToRefund;
 
-
-
             var refund = new Refund()
             {
                 AdultCount = model.AdultToRefund,
@@ -495,25 +504,120 @@ namespace ACTO.Web.Areas.Excursion.Controllers
             await context.Refunds.AddAsync(refund);
             await context.SaveChangesAsync();
 
-            return View("/Areas/Excursion/Views/Representative/TicketRefundView.cshtml");
+            return View("/Areas/Excursion/Views/Representative/Tickets/TicketRefundView.cshtml");
         }
 
 
-        //TODO:
-        //mark for liquidation ( bool == ReadyForLiquidation )
-        //1 button, which sets them all for ready 
+        [HttpGet]
+        public async Task<IActionResult> LiquidationPendingViewAll()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var rep = await context.Representatives.FirstOrDefaultAsync(r => r.UserId == userId);
 
-        //1 get , which lists them all, so he can have a look
+            var liquidationIds = await context
+                .Liquidations
+                .Where(l => l.RepresentativeId == rep.Id
+                && l.ReadyByRepresentative == false)
+                .Select(l => l.Id)
+                .ToListAsync();
 
-        //1 post, which will change their statuses
+            return View(liquidationIds);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LiquidationApprove(int id)
+        {
+            var liquidation = await context
+                .Liquidations
+                .Select(l => new LiquidationApproveViewModel()
+                {
+                    LiquidationId = l.Id,
+                    Tickets = l.Sales.SelectMany(s => s.Tickets)
+                    .Select(t => new TicketViewModel()
+                    {
+                        AdultCount = t.AdultCount,
+                        ChildCount = t.ChildrenCount,
+                        Discount = t.Discount,
+                        ExcursionName = t.Excursion.ExcursionType.Name,
+                        PricePerAdult = t.Excursion.PricePerAdult,
+                        PricePerChild = t.Excursion.PricePerChild,
+
+                        Refunds = t.Refunds.Select(r => new RefundViewModel()
+                        {
+                            AdultCount = r.AdultCount,
+                            Cash = r.Cash,
+                            ChildCount = r.ChildCount,
+                            CreditCard = r.CreditCard
+                        })
+                        .ToList()
+
+                    }).ToList()
+
+                })
+                .FirstOrDefaultAsync(model => model.LiquidationId == id);
+            if (!liquidation.Tickets.Any())
+            {
+                liquidation.TotalOwned = 0;
+            }
+            else
+            {
+                var refunds = liquidation.Tickets.SelectMany(t => t.Refunds).ToList();
+                var refundSum = refunds.Any() ? refunds.Sum(r => r.Amount) : 0;
+
+                liquidation.TotalOwned = liquidation.Tickets.Sum(t => t.PriceAfterDiscount) - refundSum;
+            }
 
 
-        //refund ticket post
 
-        //        {
-        //          subtract the count from each ticket and then subtract the sum from the sale
-        //         we`ll add checkup if any ticket has count, and that`s it ? 
-        //          }
+            return this.View(liquidation);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> LiquidationApprove(LiquidationApproveViewModel model)
+        {
+            if (model.TotalAccumulated != model.TotalOwned)
+            {
+                model = await context
+                .Liquidations
+                .Select(l => new LiquidationApproveViewModel()
+                {
+                    LiquidationId = l.Id,
+                    Tickets = l.Sales.SelectMany(s => s.Tickets)
+                    .Select(t => new TicketViewModel()
+                    {
+                        AdultCount = t.AdultCount,
+                        ChildCount = t.ChildrenCount,
+                        Discount = t.Discount,
+                        ExcursionName = t.Excursion.ExcursionType.Name,
+                        PricePerAdult = t.Excursion.PricePerAdult,
+                        PricePerChild = t.Excursion.PricePerChild,
+
+                        Refunds = t.Refunds.Select(r => new RefundViewModel()
+                        {
+                            AdultCount = r.AdultCount,
+                            Cash = r.Cash,
+                            ChildCount = r.ChildCount,
+                            CreditCard = r.CreditCard
+                        })
+                        .ToList()
+
+                    }).ToList(),
+                    IsInvalid = true
+                })
+                .FirstOrDefaultAsync(model => model.LiquidationId == model.LiquidationId);
+
+                return this.View(model);
+            }
+
+            var liquidationToChange = await context.Liquidations.FindAsync(model.LiquidationId);
+            liquidationToChange.Cash = model.Cash;
+            liquidationToChange.CreditCard = model.CreditCard;
+            liquidationToChange.ReadyByRepresentative = true;
+
+            context.Update(liquidationToChange);
+            await context.SaveChangesAsync();
+
+            return Redirect("/Home/Index");
+        }
     }
 }

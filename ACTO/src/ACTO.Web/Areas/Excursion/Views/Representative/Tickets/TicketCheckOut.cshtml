@@ -7,7 +7,7 @@
 
 <form class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
-    <input hidden readonly type="number" asp-for=@Model.SaleId  value=@Model.SaleId/>
+    <input hidden readonly type="number" asp-for=@Model.SaleId value=@Model.SaleId />
     @if (Model.IsInvalid == true)
     {
         <h1 class="text-danger text-center">Sum of cash and credit is different than total sum </h1>
@@ -68,24 +68,6 @@
                 <span asp-validation-for=@Model.Cash class="text-danger"></span>
             </div>
         </div>
-
-
-
-
-        <div id="credit-card" class="d-flex justify-content-center">
-            <div class="form-group mx-auto w-45">
-                <div class="d-flex justify-content-center">
-                    <label asp-for=@Model.CreditCard class="text-primary h5">Credit Card</label>
-                </div>
-                <input type="number" 
-                       min=0
-                       step=".01"
-                       class="form-control text-primary text-center"
-                       asp-for=@Model.CreditCard>
-                <span asp-validation-for=@Model.CreditCard class="text-danger"></span>
-            </div>
-        </div>
-
         <div id="total-accumulated" class="d-flex justify-content-center">
             <div class="form-group mx-auto w-32">
                 <div class="d-flex justify-content-center">
@@ -97,6 +79,21 @@
                 <span asp-validation-for=@Model.TotalAccumulated class="text-danger"></span>
             </div>
         </div>
+        <div id="credit-card" class="d-flex justify-content-center">
+            <div class="form-group mx-auto w-45">
+                <div class="d-flex justify-content-center">
+                    <label asp-for=@Model.CreditCard class="text-primary h5">Credit Card</label>
+                </div>
+                <input type="number"
+                       min=0
+                       step=".01"
+                       class="form-control text-primary text-center"
+                       asp-for=@Model.CreditCard>
+                <span asp-validation-for=@Model.CreditCard class="text-danger"></span>
+            </div>
+        </div>
+
+
     </div>
 
     <hr class="hr-2 bg-primary">

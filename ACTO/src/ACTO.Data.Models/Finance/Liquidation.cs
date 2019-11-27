@@ -22,8 +22,6 @@ namespace ACTO.Data.Models.Finance
         public bool ReadyByCashier { get; set; }
         //according to this, you`ll search for a new liquidation...
         public bool ReadyByRepresentative { get; set; }
-
-
         public decimal TotalSum => this.Cash + this.CreditCard;
     }
 }

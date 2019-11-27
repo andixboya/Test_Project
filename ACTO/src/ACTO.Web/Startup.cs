@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OdeToCode.AddFeatureFolders;
 using System.Globalization;
 using System.Linq;
 
@@ -40,9 +42,20 @@ namespace ACTO.Web
 
             //for seeder 
             services.AddTransient<Initializer>();
-            
 
+
+
+            
             services.AddMvc(opt => opt.EnableEndpointRouting = false);
+
+            #region addition of custom view-routing! (this is not route searching)
+            services.Configure<RazorViewEngineOptions>(o =>
+            {
+                o.AreaViewLocationFormats.Add("/Areas/{2}/Views/{1}/Liquidation/{0}" + RazorViewEngine.ViewExtension);
+                o.AreaViewLocationFormats.Add("/Areas/{2}/Views/{1}/Tickets/{0}" + RazorViewEngine.ViewExtension);
+            });
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +79,7 @@ namespace ACTO.Web
             //    }
             #endregion
 
-            
+
             #region initial database seeding/migration
             //new c# 8 syntax i think? 
             using var scope = app.ApplicationServices.CreateScope();
@@ -79,6 +92,11 @@ namespace ACTO.Web
             var dbInitializer = scope.ServiceProvider.GetRequiredService<Initializer>();
             dbInitializer.SeedRoles();
             #endregion
+
+
+            //adding custom view search
+
+
             app.UseHsts();
 
             app.UseHttpsRedirection();
