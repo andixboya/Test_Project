@@ -75,34 +75,49 @@
     <hr class="hr-2 bg-primary mt-4">
 
     <div id="third-separator" class="d-flex justify-content-between">
-        <div id="excursion-price" class="form-group mx-auto w-45">
+        <div id="excursion-price-per-adult" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=@Model.Price class="text-primary h5">Price</label>
+                <label asp-for=@Model.PricePerAdult class="text-primary h5"></label>
             </div>
             <input readonly type="number"
                    class="form-control text-primary text-center"
                    id="picture"
-                   placeholder="Price..."
+                   placeholder="Price per adult"
                    min="0.00"
-                   asp-for=@Model.Price>
+                   asp-for=@Model.PricePerAdult>
 
-            <span asp-validation-for=@Model.Price class="text-danger"></span>
+            <span asp-validation-for=@Model.PricePerChild class="text-danger"></span>
         </div>
 
-        <hr class="hr-2 bg-primary mt-4">
-        <div id="excursion-type" class="form-group mx-auto w-45">
+        <div id="excursion-price-per-child" class="form-group mx-auto w-45">
             <div class="d-flex justify-content-center">
-                <label asp-for=@Model.ExcursionType.Name class="text-primary h5">Excursion type</label>
+                <label asp-for=@Model.PricePerChild class="text-primary h5"></label>
             </div>
-            <input readonly type="text"
+            <input readonly type="number"
                    class="form-control text-primary text-center"
                    id="picture"
-                   placeholder="Price..."
+                   placeholder="Price per child"
                    min="0.00"
-                   asp-for=@Model.ExcursionType.Name>
+                   asp-for=@Model.PricePerChild>
 
-            <span asp-validation-for=@Model.ExcursionType.Name class="text-danger"></span>
+            <span asp-validation-for=@Model.PricePerChild class="text-danger"></span>
         </div>
+    </div>
+
+    <hr class="hr-2 bg-primary mt-4">
+
+    <div id="excursion-type" class="form-group mx-auto w-45">
+        <div class="d-flex justify-content-center">
+            <label asp-for=@Model.ExcursionType.Name class="text-primary h5">Excursion type</label>
+        </div>
+        <input readonly type="text"
+               class="form-control text-primary text-center"
+               id="picture"
+               placeholder="Price..."
+               min="0.00"
+               asp-for=@Model.ExcursionType.Name>
+
+        <span asp-validation-for=@Model.ExcursionType.Name class="text-danger"></span>
     </div>
 
     <hr class="hr-2 bg-primary mt-4">

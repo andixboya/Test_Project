@@ -34,13 +34,9 @@ namespace ACTO.Data.Models.Excursions
 
         [Range(0,5000)]
         public int TouristCapacity { get; set; }
-
         public int AvailableSpots { get; set; }
-
         public string LastUpdatedBy { get; set; }
-
         public DateTime LastUpdated { get; set; }
-
         public ICollection<LanguageExcursion> LanguageExcursions { get; set; }
 
         public ICollection<Ticket> SoldTickets { get; set; }

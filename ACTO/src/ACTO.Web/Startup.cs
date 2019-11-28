@@ -1,7 +1,11 @@
 ﻿using ACTO.Data;
 using ACTO.Data.Models;
+using ACTO.Services;
+using ACTO.Services.Models;
 using ACTO.Web.Areas.Identity.Pages.Account;
 using ACTO.Web.Initializers;
+using ACTO.Web.InputModels.Excursions;
+using ACTO.Web.ViewModels.Sales;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -12,8 +16,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OdeToCode.AddFeatureFolders;
+using Stopify.Services.Mapping;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 
 namespace ACTO.Web
 {
@@ -43,9 +49,6 @@ namespace ACTO.Web
             //for seeder 
             services.AddTransient<Initializer>();
 
-
-
-
             services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
             #region addition of custom view-routing! (this is not route searching)
@@ -56,6 +59,12 @@ namespace ACTO.Web
             });
             #endregion
 
+
+            #region creation of services
+            services.AddScoped<IExcursionServices, ExcursionServices>();
+            services.AddScoped<ILanguageServices, LanguageServices>();
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +73,16 @@ namespace ACTO.Web
             //for time setting! 
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+
+            #region addition of automapper configs
+
+            //3 classes, from each place ,where the models will be extracted.
+            AutoMapperConfig.RegisterMappings(
+                typeof(ExcursionCreateInputModel).GetTypeInfo().Assembly,
+                typeof(SaleCreateTicketViewModel).GetTypeInfo().Assembly,
+                typeof(ExcursionTypeServiceModel).GetTypeInfo().Assembly);
+            #endregion
+
 
             #region by default added
             //if (env.IsDevelopment())

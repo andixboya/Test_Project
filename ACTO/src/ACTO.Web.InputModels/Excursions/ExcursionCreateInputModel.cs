@@ -58,12 +58,12 @@ namespace ACTO.Web.InputModels.Excursions
 
         public int ExtraSpot { get; set; }
 
-        public ICollection<int> LanguageIds { get; set; }
+        public List<int> LanguageIds { get; set; }
 
 
-        public ICollection<ExcursionTypeViewModel> ExcursionTypes { get; set; }
+        public List<ExcursionTypeViewModel> ExcursionTypes { get; set; }
 
-        public ICollection<LanguageViewModel> Languages { get; set; }
+        public List<LanguageViewModel> Languages { get; set; }
 
     }
 }

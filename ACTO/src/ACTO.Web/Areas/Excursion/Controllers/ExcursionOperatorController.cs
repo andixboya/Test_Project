@@ -5,21 +5,29 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
     using ACTO.Data;
     using ACTO.Data.Models.Excursions;
+    using ACTO.Services;
+    using ACTO.Services.Models;
     using ACTO.Web.InputModels.Excursions;
     using ACTO.Web.ViewModels.Excursions;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Stopify.Services.Mapping;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     [Area("Excursion")]
     public class ExcursionOperatorController : Controller
     {
         private readonly ACTODbContext context;
-        public ExcursionOperatorController(ACTODbContext db)
+        private readonly IExcursionServices excursionServices;
+        private readonly ILanguageServices languageServices;
+        public ExcursionOperatorController(ACTODbContext db, IExcursionServices excursionServices, ILanguageServices languageServices)
         {
             this.context = db;
+            this.excursionServices = excursionServices;
+            this.languageServices = languageServices;
         }
 
         //[Authorize(Roles ="Admin,ExcursionOperator")]
@@ -38,12 +46,8 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 //we`ll return the input values i think
                 this.RedirectToAction("CreateExcursionType", "ExcursionOperator", model);
             }
-            var excursionTypeToAdd = new ExcursionType()
-            {
-                Name = model.Name
-            };
-            await context.ExcursionTypes.AddAsync(excursionTypeToAdd);
-            await context.SaveChangesAsync();
+            var excursionServiceModel = model.To<ExcursionTypeServiceModel>();
+            bool isSuccessful = await this.excursionServices.ExcursionTypeCreate(excursionServiceModel);
 
             return Redirect("/Home/Index");
         }
@@ -61,13 +65,8 @@ namespace ACTO.Web.Areas.Excursion.Controllers
                 return this.RedirectToAction("AddLanguage", "ExcursionOperator", model);
             }
 
-            var languageToAdd = new Language()
-            {
-                Name = model.Name
-            };
-
-            await context.LanguageTypes.AddAsync(languageToAdd);
-            await context.SaveChangesAsync();
+            var languageServiceModel = model.To<LanguageServiceModel>();
+            bool IsValid = await languageServices.LanguageCreate(languageServiceModel);
 
             return this.Redirect("/Home/Index");
         }
@@ -77,17 +76,8 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         {
             var inputModel = new ExcursionCreateInputModel()
             {
-                ExcursionTypes = await context.ExcursionTypes.Select(e => new ExcursionTypeViewModel()
-                {
-                    Id = e.Id,
-                    Name = e.Name
-                })
-                 .ToListAsync(),
-                Languages = await context.LanguageTypes.Select(l => new LanguageViewModel()
-                {
-                    Id = l.Id,
-                    Name = l.Name
-                }).ToListAsync()
+                ExcursionTypes = await excursionServices.ExcursionTypesGetAll().To<ExcursionTypeViewModel>().ToListAsync(),
+                Languages = await languageServices.GetAll().To<LanguageViewModel>().ToListAsync()
             };
 
             return this.View(inputModel);
@@ -102,104 +92,32 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.ExcursionTypes = await context.ExcursionTypes.Select(e => new ExcursionTypeViewModel()
-                {
-                    Id = e.Id,
-                    Name = e.Name
-                })
-                 .ToListAsync();
+                model.ExcursionTypes = await excursionServices.ExcursionTypesGetAll().To<ExcursionTypeViewModel>().ToListAsync();
+                model.Languages = await languageServices.GetAll().To<LanguageViewModel>().ToListAsync();
 
-                model.Languages = await context.LanguageTypes.Select(l => new LanguageViewModel()
-                {
-                    Id = l.Id,
-                    Name = l.Name
-                }).ToListAsync();
-
-                //TODO:
-                //forgot how this... return to form with data was done... 
                 return this.View(model);
             }
-            var validLanguageIds = new HashSet<int>(await context.LanguageTypes.Select(l => l.Id).ToListAsync());
 
-            var newExcursion = new Excursion()
-            {
-                Arrival = model.Arrival,
-                Departure = model.Departure,
-                EndPoint = model.EndPoint,
-                ExcursionTypeId = model.ExcursionTypeId,
-                LastUpdated = model.LastUpdated,
-                LastUpdatedBy = model.LastUpdatedBy,
-                PricePerAdult = model.Price,
-                PricePerChild = model.ChildPrice,
-                StartingPoint = model.StartingPoint,
-                TouristCapacity = model.TouristCapacity,
-                AvailableSpots = model.TouristCapacity
-            };
-
-            newExcursion.LanguageExcursions = model
-                .LanguageIds.Where(l => validLanguageIds.Contains(l))
-                    .Distinct()
-                    .Select(id => new LanguageExcursion()
-                    {
-                        Excursion = newExcursion,
-                        LanguageId = id
-                    })
-                    .ToList();
-
-            await context.Excursions.AddAsync(newExcursion);
-            await context.SaveChangesAsync();
+            var serviceModel = model.To<ExcursionServiceModel>();
+            bool isValid = await excursionServices.ExcursionCreate(serviceModel);
 
             return Redirect("/Excursion/ExcursionOperator/ViewAllExcursions");
         }
 
         [HttpGet]
-        public async Task<IActionResult> DetailsExcursion(int Id)
+        public async Task<IActionResult> DetailsExcursion([FromQuery(Name = "Id")] int id)
         {
-            //todo, refactor the models below without include!
-            var excursion = await context.Excursions
-                .Include(l => l.LanguageExcursions)
-                .Include(l => l.ExcursionType)
-                .FirstOrDefaultAsync(e => e.Id == Id);
-            if (excursion is null)
+            var username = User.Identity.Name;
+            var serviceModel = await excursionServices.ExcursionGetDetails(id,username);
+
+            if (serviceModel is null)
             {
                 //TODO: return with a message, no such excursion found
                 return this.Redirect("/Home/Index");
             }
-            var languageIds = excursion.LanguageExcursions.Select(l => l.LanguageId).ToList();
 
-            var languages = await context
-                .LanguageTypes
-                .Where(l => languageIds.Contains(l.Id))
-                .ToListAsync();
-
-            var viewModel = new ExcursionDetailsViewModel()
-            {
-                Id = excursion.Id,
-                Arrival = excursion.Arrival,
-                Departure = excursion.Departure,
-                EndPoint = excursion.EndPoint,
-                ExcursionType = new ExcursionTypeViewModel()
-                {
-                    Id = excursion.ExcursionType.Id,
-                    Name = excursion.ExcursionType.Name
-                },
-                Languages = languages.Select(l => new LanguageViewModel
-                {
-                    Id = l.Id,
-                    Name = l.Name
-                }).ToList(),
-
-                LastUpdated = excursion.LastUpdated,
-                LastUpdatedBy = excursion.LastUpdatedBy
-                ,
-                Price = excursion.PricePerAdult
-                ,
-                StartingPoint = excursion.StartingPoint,
-                TouristCapacity = excursion.TouristCapacity
-            };
-
-            //pass on the model
-            return this.View(viewModel);
+         
+            return this.View(serviceModel);
         }
 
         [HttpPost]
