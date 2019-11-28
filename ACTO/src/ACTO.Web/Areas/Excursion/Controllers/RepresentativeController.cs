@@ -5,22 +5,19 @@ namespace ACTO.Web.Areas.Excursion.Controllers
     using ACTO.Data;
     using ACTO.Data.Models.Excursions;
     using ACTO.Data.Models.Finance;
+    using ACTO.Web.InputModels.Excursions;
     using ACTO.Web.InputModels.Finance;
     using ACTO.Web.ViewModels.Excursions;
-    using ACTO.Web.InputModels.Excursions;
+    using ACTO.Web.ViewModels.Liquidations;
+    using ACTO.Web.ViewModels.Refund;
     using ACTO.Web.ViewModels.Sales;
     using ACTO.Web.ViewModels.Tickets;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using ACTO.Web.InputModels;
-    using ACTO.Web.ViewModels.Liquidations;
-    using ACTO.Web.ViewModels.Customers;
-    using ACTO.Web.ViewModels.Refund;
 
     [Area("Excursion")]
     public class RepresentativeController : Controller
@@ -522,7 +519,7 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         {
             var liquidation = await context
                 .Liquidations
-                .Select(l => new LiquidationApproveViewModel()
+                .Select(l => new LiquidationApproveByRepViewModel()
                 {
                     LiquidationId = l.Id,
                     Tickets = l.Sales.SelectMany(s => s.Tickets)
@@ -565,13 +562,13 @@ namespace ACTO.Web.Areas.Excursion.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LiquidationApprove(LiquidationApproveViewModel model)
+        public async Task<IActionResult> LiquidationApprove(LiquidationApproveByRepViewModel model)
         {
             if (model.TotalAccumulated != model.TotalOwned)
             {
                 model = await context
                 .Liquidations
-                .Select(l => new LiquidationApproveViewModel()
+                .Select(l => new LiquidationApproveByRepViewModel()
                 {
                     LiquidationId = l.Id,
                     Tickets = l.Sales.SelectMany(s => s.Tickets)

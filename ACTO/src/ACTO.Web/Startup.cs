@@ -45,7 +45,7 @@ namespace ACTO.Web
 
 
 
-            
+
             services.AddMvc(opt => opt.EnableEndpointRouting = false);
 
             #region addition of custom view-routing! (this is not route searching)
@@ -119,3 +119,4 @@ namespace ACTO.Web
         }
     }
 }
+

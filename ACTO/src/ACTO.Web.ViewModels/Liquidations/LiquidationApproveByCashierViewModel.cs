@@ -1,14 +1,12 @@
-﻿
+﻿using ACTO.Web.ViewModels.Tickets;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace ACTO.Web.ViewModels.Liquidations
 {
-    using ACTO.Web.ViewModels.Tickets;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    public class LiquidationApproveViewModel
+    public class LiquidationApproveByCashierViewModel
     {
         public int LiquidationId { get; set; }
         public List<TicketViewModel> Tickets { get; set; }
@@ -24,6 +22,5 @@ namespace ACTO.Web.ViewModels.Liquidations
 
         [Display(Name = "Total accumulated:")]
         public decimal TotalAccumulated => this.Cash + this.CreditCard;
-        public bool IsInvalid { get; set; }
     }
 }

@@ -1,46 +1,39 @@
-﻿
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-    <h1>CASHIER</h1>    
+<h1>CASHIER</h1>
 <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-            <a type="button" class=" bg-primary nav-link font-weight-bold text-white" href="/">ACTO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
+        <a type="button" class=" bg-primary nav-link font-weight-bold text-white" href="/">ACTO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
 
-                    <li class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-dropeffect="popup">
-                            Sales
-                        </button>
-                        <div class="dropdown-menu btn-primary text-success">
-                            <a class="dropdown-item btn btn-primary text-warning font-weight-bold" href="#">Sales report</a>
-                            <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Edit sale</a>
-                            <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Refund sale</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Separated link</a>
-                        </div>
-                    </li>
+                <li class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-dropeffect="popup">
+                        Liquidations
+                    </button>
+                    <div class="dropdown-menu btn-primary text-success">
+                        <a class="dropdown-item btn btn-primary text-warning font-weight-bold" asp-area="Finance" asp-controller="Cashier" asp-action="LiquidationPendingAll">Pending Liquidations</a>
+                        <a class="dropdown-item btn-primary text-warning font-weight-bold" href="#">Confirmed Liquidations</a>
+                    </div>
+                </li>
 
-                    <li class="nav-item active">
-                        <a type="button" class=" bg-primary nav-link font-weight-bold" href="/">Liquidations</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a type="button" class=" bg-primary nav-link font-weight-bold" href="/">Home</a>
-                    </li>
+                <li class="nav-item active">
+                    <a type="button" class=" bg-primary nav-link font-weight-bold" href="/">Home</a>
+                </li>
 
-                    <li class="nav-item active">
-                        <a type="button" class=" bg-primary nav-link font-weight-bold" href="/">User Info</a>
-                    </li>
+                <li class="nav-item active">
+                    <a type="button" class=" bg-primary nav-link font-weight-bold" href="/">User Info</a>
+                </li>
 
-                    <li class="nav-item active">
-                        <a type="button" class=" bg-primary nav-link font-weight-bold" href="/Identity/Account/Logout">Logout</a>
-                    </li>
+                <li class="nav-item active">
+                    <a type="button" class=" bg-primary nav-link font-weight-bold" asp-area="Identity" asp-controller="Account" asp-action="Logout">Logout</a>
+                </li>
 
-                </ul>
-            </div>
-        </nav>
-    </header>
+            </ul>
+        </div>
+    </nav>
+</header>

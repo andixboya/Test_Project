@@ -1,5 +1,5 @@
 ﻿@using ACTO.Web.ViewModels.Liquidations
-@model LiquidationApproveByRepViewModel
+@model LiquidationApproveByCashierViewModel
 <hr class="hr-2 bg-primary">
 <h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded mx-auto text-warning">Approve Liquidation</h1>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -7,10 +7,6 @@
 <form class="form border-primary-4 rounded p-3 w-100 mx-auto mt-3" enctype="multipart/form-data">
 
 
-    @if (Model.IsInvalid == true)
-    {
-        <h1 class="text-danger text-center">Sum of cash and credit is different than total sum </h1>
-    }
     <div asp-validation-summary="ModelOnly"></div>
     <input hidden readonly type="number" asp-for=@Model.LiquidationId value=@Model.LiquidationId />
     <div class=" row container-fluid justify-content-center">
@@ -78,7 +74,7 @@
                 <div class="d-flex justify-content-center">
                     <label asp-for=@Model.Cash class="text-primary h5">Cash</label>
                 </div>
-                <input type="number"
+                <input readonly type="number"
                        step=".01"
                        class="form-control text-primary text-center"
                        min=0.0
@@ -105,7 +101,7 @@
                 <div class="d-flex justify-content-center">
                     <label asp-for=@Model.CreditCard class="text-primary h5">Credit Card</label>
                 </div>
-                <input type="number"
+                <input readonly type="number"
                        min=0
                        step=".01"
                        class="form-control text-primary text-center"
@@ -119,10 +115,12 @@
 
     <hr class="hr-2 bg-primary">
 
-    <div class="d-flex justify-content-center mt-3">
-        <button formmethod="post" asp-area="Excursion" asp-controller="Representative" asp-action="LiquidationApprove" class="btn btn-primary font-weight-bold">Approve Liquidation</button>
+    <div class="d-flex justify-content-center mt-3 ml-3">
+        <button formmethod="post" asp-area="Finance" asp-controller="Cashier" asp-action="LiquidationConfirm" class="btn btn-primary font-weight-bold">Approve Liquidation</button>
     </div>
-    
+    <div class="d-flex justify-content-center mt-3 ml-3 mr-3">
+        <button formmethod="post" asp-area="Finance" asp-controller="Cashier" asp-action="LiquidationDenie" class="btn btn-primary font-weight-bold">Denie Liquidation</button>
+    </div>
 </form>
 
 <script src="~/js/site.js"></script>
