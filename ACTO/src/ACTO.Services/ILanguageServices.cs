@@ -3,6 +3,8 @@
 namespace ACTO.Services
 {
     using ACTO.Services.Models;
+    using ACTO.Web.InputModels.Excursions;
+    using ACTO.Web.ViewModels.Excursions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,8 +13,8 @@ namespace ACTO.Services
 
     public interface ILanguageServices
     {
-        Task<bool> LanguageCreate(LanguageServiceModel model);
+        Task<bool> LanguageCreate(LanguageAddInputModel model);
 
-        IQueryable<LanguageServiceModel> GetAll();
+        IQueryable<LanguageViewModel> GetAll();
     }
 }

@@ -6,7 +6,7 @@ namespace ACTO.Web.InputModels.Excursions
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Text;
-    public class ExcursionTypeCreateInputModel
+    public class ExcursionTypeCreateInputModel 
     {
 
         [Required]
