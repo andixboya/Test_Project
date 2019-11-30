@@ -1,18 +1,13 @@
 ﻿
 
-namespace ACTO.Services
+namespace ACTO.Services.Excursion
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using ACTO.Data;
     using ACTO.Data.Models.Excursions;
-    using ACTO.Services.Models;
     using ACTO.Web.InputModels.Excursions;
     using ACTO.Web.ViewModels.Excursions;
-    using Stopify.Services.Mapping;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class LanguageServices : ILanguageServices
     {
@@ -31,6 +26,15 @@ namespace ACTO.Services
                     Id = lt.Id,
                     Name = lt.Name
                 });
+        }
+
+        public IQueryable<LanguageViewModel> GetAllByExcursionId(int id)
+        {
+            return context.LanguageTypes.Where(l => l.LanguageExcursions.Any(le => le.ExcursionId == id)).Select(x => new LanguageViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            });
         }
 
         public async Task<bool> LanguageCreate(LanguageAddInputModel model)

@@ -1,25 +1,21 @@
 ﻿using ACTO.Data;
 using ACTO.Data.Models;
-using ACTO.Services;
-using ACTO.Services.Models;
-using ACTO.Web.Areas.Identity.Pages.Account;
+using ACTO.Services.Excursion;
 using ACTO.Web.Initializers;
 using ACTO.Web.InputModels.Excursions;
 using ACTO.Web.ViewModels.Sales;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using OdeToCode.AddFeatureFolders;
-using Stopify.Services.Mapping;
+using ACTO.Services.Mapping;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
+using ACTO.Services.Others;
+using ACTO.Services.Finance;
 
 namespace ACTO.Web
 {
@@ -61,8 +57,12 @@ namespace ACTO.Web
 
 
             #region creation of services
-            services.AddScoped<IExcursionServices, ExcursionServices>();
             services.AddScoped<ILanguageServices, LanguageServices>();
+            services.AddScoped<IExcursionServices, ExcursionServices>();
+            services.AddScoped<ITicketServices, TicketServices>();
+            services.AddScoped<ICustomerServices, CustomerServices>();
+            services.AddScoped<ISaleServices, SaleServices>();
+            services.AddScoped<ILiquidationServices, LiquidationServices>();
             #endregion
 
         }
@@ -79,8 +79,7 @@ namespace ACTO.Web
             //3 classes, from each place ,where the models will be extracted.
             AutoMapperConfig.RegisterMappings(
                 typeof(ExcursionCreateInputModel).GetTypeInfo().Assembly,
-                typeof(SaleCreateTicketViewModel).GetTypeInfo().Assembly,
-                typeof(ExcursionTypeServiceModel).GetTypeInfo().Assembly);
+                typeof(SaleCreateTicketViewModel).GetTypeInfo().Assembly);
             #endregion
 
 
@@ -114,8 +113,6 @@ namespace ACTO.Web
 
 
             //adding custom view search
-
-
             app.UseHsts();
 
             app.UseHttpsRedirection();

@@ -4,20 +4,15 @@ namespace ACTO.Web.Areas.Excursion.Controllers
 {
 
     using ACTO.Data;
-    using ACTO.Data.Models.Excursions;
-    using ACTO.Services;
-    using ACTO.Services.Models;
+    using ACTO.Services.Excursion;
     using ACTO.Web.InputModels.Excursions;
-    using ACTO.Web.ViewModels.Excursions;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using Stopify.Services.Mapping;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     [Area("Excursion")]
+    [Authorize(Roles ="Admin,ExcursionOperator")]
     public class ExcursionOperatorController : Controller
     {
         private readonly ACTODbContext context;

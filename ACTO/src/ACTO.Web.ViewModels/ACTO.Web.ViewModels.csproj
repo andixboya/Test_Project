@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ACTO.Services.Mapping\ACTO.Services.Mapping.csproj" />
+  </ItemGroup>
+
 </Project>

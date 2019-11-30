@@ -1,19 +1,16 @@
 ﻿
 
-namespace ACTO.Services
+namespace ACTO.Services.Excursion
 {
     using ACTO.Data;
     using ACTO.Data.Models.Excursions;
-    using ACTO.Services.Models;
     using ACTO.Web.InputModels.Excursions;
     using ACTO.Web.ViewModels.Excursions;
-    using AutoMapper.QueryableExtensions;
+    using ACTO.Web.ViewModels.Tickets;
     using Microsoft.EntityFrameworkCore;
-    using Stopify.Services.Mapping;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     public class ExcursionServices : IExcursionServices
@@ -145,7 +142,7 @@ namespace ACTO.Services
                 .FirstOrDefaultAsync(x => x.Id == model.Id);
 
             context.LanguageExcursions.RemoveRange(modelToEdit.LanguageExcursions);
-            
+
             //WHY ON EARTH DID THIS THING SCREWED EVERYTHING UP? ( I HAVE REFERENCES!!)
             modelToEdit.LanguageExcursions.Clear();
 
@@ -230,5 +227,32 @@ namespace ACTO.Services
             return (inputModel);
         }
 
+        public async Task<TicketPickExcursionViewModel> GetExcursionsForTicketCreateView()
+        {
+
+            var excursionPickViewModel = new TicketPickExcursionViewModel()
+            {
+                Excursions = await context.Excursions.Select(e => new TicketExcursionViewModel
+                {
+                    AvailableSpots = e.AvailableSpots,
+                    PricePerChild = e.PricePerChild,
+                    Id = e.Id,
+                    Name = e.ExcursionType.Name,
+                    PricePerAdult = e.PricePerAdult,
+                    Departure = e.Departure,
+                    Arrival = e.Arrival,
+                    StartPoint = e.StartingPoint,
+                    EndPoint = e.EndPoint
+                })
+                .ToListAsync(),
+            };
+
+            return excursionPickViewModel;
+        }
+
+        public async Task<List<LanguageViewModel>> GetLanguages(int excursionId)
+        {
+            return await languageServices.GetAllByExcursionId(excursionId).ToListAsync();
+        }
     }
 }

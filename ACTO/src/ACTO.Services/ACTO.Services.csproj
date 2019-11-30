@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ACTO.Services.Models\ACTO.Services.Models.csproj" />
+    <ProjectReference Include="..\ACTO.Data\ACTO.Data.csproj" />
+    <ProjectReference Include="..\ACTO.Web.InputModels\ACTO.Web.InputModels.csproj" />
   </ItemGroup>
 
 </Project>

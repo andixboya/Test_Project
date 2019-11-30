@@ -1,4 +1,4 @@
-﻿namespace Stopify.Services.Mapping
+﻿namespace ACTO.Services.Mapping
 {
     using System;
     using System.Collections.Generic;

@@ -1,10 +1,10 @@
 ﻿
 
-namespace ACTO.Services
+namespace ACTO.Services.Excursion
 {
-    using ACTO.Services.Models;
     using ACTO.Web.InputModels.Excursions;
     using ACTO.Web.ViewModels.Excursions;
+    using ACTO.Web.ViewModels.Tickets;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -31,5 +31,9 @@ namespace ACTO.Services
         Task<bool> ContainsExcursion(int id);
 
         Task<ExcursionCreateInputModel> ExcursionGetById(int id);
+
+        Task<TicketPickExcursionViewModel> GetExcursionsForTicketCreateView();
+
+        Task<List<LanguageViewModel>> GetLanguages(int excursionId);
     }
 }
